@@ -1,0 +1,50 @@
+{
+  "configuration": {
+    "type": "object",
+    "title": "XMake configuration",
+    "properties": {
+      "xmake.executable": {
+        "type": "string",
+        "default": "xmake",
+        "description": "The xmake executable name / path"
+      },
+      "xmake.logLevel": {
+        "type": "string",
+        "default": "normal",
+        "description": "The Log Level: normal/verbose/minimal",
+        "enum": ["verbose", "normal", "minimal"]
+      },
+      "xmake.buildLevel": {
+        "type": "string",
+        "default": "normal",
+        "description": "The Build Output Level: normal/verbose/warning/debug",
+        "enum": ["verbose", "normal", "warning", "debug"]
+      },
+      "xmake.buildDirectory": {
+        "type": "string",
+        "default": "${workspaceRoot}/build",
+        "description": "The Build Output Directory"
+      },
+      "xmake.installDirectory": {
+        "type": "string",
+        "default": "",
+        "description": "The Install Output Directory"
+      },
+      "xmake.packageDirectory": {
+        "type": "string",
+        "default": "",
+        "description": "The Package Output Directory"
+      },
+      "xmake.workingDirectory": {
+        "type": "string",
+        "default": "${workspaceRoot}",
+        "description": "The Project Working Directory with the root xmake.lua"
+      },
+      "xmake.androidNDKDirectory": {
+        "type": "string",
+        "default": "",
+        "description": "The Android NDK Directory"
+      }
+    }
+  }
+}

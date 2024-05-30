@@ -1,10 +1,23 @@
 #include <GL/glut.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <screen.h>
-#include <utils.h>
 #include <keyboard.h>
 #include <mouse.h>
+#include <screen.h>
+#include <texture.h>
+#include <utils.h>
+
+// Inicializa o que precisa ser usado no jogo
+void init()
+{
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+}
+
+// Função de limpeza
+void Cleanup()
+{
+    // Libera a textura
+    glDeleteTextures(1, &textureID);
+}
 
 void alteraTamanhoJanela(GLsizei w, GLsizei h)
 {
@@ -22,15 +35,16 @@ void alteraTamanhoJanela(GLsizei w, GLsizei h)
     // Inicializa o sistema de coordenadas
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluOrtho2D(0.0, larguraJanela, 0.0, alturaJanela);
+    gluOrtho2D(0.0, larguraJanela,  0.0, alturaJanela);
 }
 
 int main(int argc, char **argv)
 {
+    // Inicializa o GLUT
     glutInit(&argc, argv);
 
     // Define o modo de operação da GLUT
-    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 
     // Cria a janela passando como argumento o título da mesma
     glutCreateWindow("Aedes Attack");
@@ -52,6 +66,12 @@ int main(int argc, char **argv)
 
     // Registra a função callback para tratamento dos botões do mouse
     glutMouseFunc(mouse);
+
+    // Inicia o que precisa no jogo
+    init();
+
+    // Limpa as texturas ao dar exit no jogo
+    atexit(Cleanup);
 
     // Inicia o processamento e aguarda interações do usuário
     glutMainLoop();

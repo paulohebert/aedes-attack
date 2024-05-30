@@ -1,8 +1,8 @@
-add_requires("freeglut")
+add_requires("freeglut", "stb")
 
 target("aedes_attack")
     set_kind("binary")
     add_files("src/*.cpp")
     add_includedirs("include")
     set_targetdir("$(projectdir)/bin")
-    add_packages("freeglut")
+    add_packages("freeglut", "stb")
