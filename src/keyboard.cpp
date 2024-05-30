@@ -5,13 +5,13 @@ void teclado(unsigned char tecla, int x, int y)
 {
     switch (tecla)
     {
-    case 13: // Tecla ENTER
+    /*case 13: // Tecla ENTER
         if (telaAtual == 0)
         {
             telaAtual = 1;                // Muda para a segunda tela
             glutDisplayFunc(segundaTela); // Registra a função da segunda tela
         }
-        break;
+        break;*/
 
     case 'w':
     case 'W':
