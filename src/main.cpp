@@ -61,6 +61,10 @@ int main(int argc, char **argv)
 
     // Registra a função callback de redesenho da janela de visualização
     glutDisplayFunc(telaInicial);
+    
+    // Inicia a contagem regressiva
+    if (telaAtual && !pause)
+        glutTimerFunc(1000, (*atualizaTempo), 0);
 
     // Registra a função callback de redimensionamento da janela de visualização
     glutReshapeFunc(alteraTamanhoJanela);

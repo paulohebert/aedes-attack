@@ -10,9 +10,11 @@ void teclado(unsigned char tecla, int x, int y)
     {
     case 13: // Tecla ENTER que trata o pause do jogo
         if (telaAtual && !pause)
-        {
-            telaAtual = 1;                // Atualiza  o valor da variável para segunda tela
+        {     
             glutDisplayFunc(telaPause); // Efetiva a troca de tela
+        }
+        else if (telaAtual && pause) {            
+            glutDisplayFunc(segundaTela);
         }
         break;
 

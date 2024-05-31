@@ -8,25 +8,19 @@ void mouse(int button, int estado, int x, int y)
     // Desenha o primeiro retângulo
 
     if (button == GLUT_LEFT_BUTTON && estado == GLUT_DOWN && !telaAtual)
-        {
-            telaAtual = 1;                // Altera a variável que controla a tela
+        {            
             glutDisplayFunc(segundaTela); // Efetiva a troca de tela
         }
-        if (button == GLUT_LEFT_BUTTON && estado == GLUT_DOWN)
+    if (button == GLUT_LEFT_BUTTON && estado == GLUT_DOWN && pause)
         {
             if (x >= 860 && x <= 1060 && y >= 430  && y <= 530 ) // verifica se "continuar" foi selecionado
                 glutDisplayFunc(segundaTela);
         }
-        if (button == GLUT_LEFT_BUTTON && estado == GLUT_DOWN)
+    if (button == GLUT_LEFT_BUTTON && estado == GLUT_DOWN && (pause || telaOver))
         {
-            if (x >= 860 && x <= 1060 && y <= 650 && y >= 550) // verifica se "sair" foi selecionado
+            if (x >= 860 && x <= 1060 && y <= 650 && y >= 550) // verifica se "sair" foi selecionado tanto na tela de pause, como na tela fim
                 exit(0);
         }
-
-
-    if (button == GLUT_RIGHT_BUTTON && estado == GLUT_DOWN)
-        {
-            
-        }
+    
     glutPostRedisplay();
 }

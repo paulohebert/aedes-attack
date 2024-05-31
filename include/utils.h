@@ -1,6 +1,10 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-void escreveTextoBitmap(float, float, void*, const char *);
+extern int tempoRestante;
+
+void escreveTextoBitmap(float x, float y, void *font, const char *string);
+
+void atualizaTempo(int valor);
 
 #endif

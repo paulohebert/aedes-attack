@@ -5,6 +5,8 @@
 
 extern GLfloat translateX, translateY;
 
+extern int pause;
+
 void teclado(unsigned char, int, int);
 
 void teclasEspeciais(int, int, int);

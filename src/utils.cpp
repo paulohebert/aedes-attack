@@ -1,11 +1,28 @@
 #include <GL/glut.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <utils.h>
+#include <texture.h>
+#include <keyboard.h>
 
-void escreveTextoBitmap(float x, float y, void *font, const char *string)
+int tempoRestante=90;
+
+// Função para desenhar texto na tela
+
+void escreveTextoBitmap(float x, float y, void *fonte, const char *string)
 {
+    const char *c;
     glRasterPos2f(x, y);
-    while (*string)
-    {
-        glutBitmapCharacter(font, *string);
-        string++;
+    for (c = string; *c != '\0'; c++)
+        glutBitmapCharacter(fonte, *c);
+}
+
+    // Callback para a contagem regressiva
+void atualizaTempo(int value)
+{
+    if (tempoRestante > 0) {
+        tempoRestante--;
+        glutPostRedisplay();
+        glutTimerFunc(1000, atualizaTempo, 0);
     }
 }

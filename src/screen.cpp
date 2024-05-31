@@ -5,11 +5,13 @@
 #include <texture.h>
 #include <keyboard.h>
 
+
 // Variáveis globais para armazenar as dimensões da janela
 int larguraJanela, alturaJanela;
 
 GLuint textureID;
 int comprimentoTexto;
+int telaOver;
 
 // Variável global para controlar a tela atual
 int telaAtual = 0; // 0 para tela inicial, 1 para segunda tela
@@ -73,28 +75,27 @@ void telaInicial()
 
     glDeleteTextures(1, &textureID);
 
-    // Coordenadas para centralizar o retângulo
+    // Coordenadas para centralizar o primeiro retângulo
     largura = 200.0f;
     altura = 120.0f;
     retX = (larguraJanela - largura) / 2;
-    retY = (alturaJanela - altura) / 2;
-
+    retY = ((alturaJanela - altura) / 2);
+    // Desenha o primeiro retângulo
     glColor3f(1.0f, 1.0f, 1.0f);
     glBegin(GL_QUADS);
-    glVertex2f(larguraJanela * 0.3, alturaJanela * 0.45);
-    glVertex2f(larguraJanela * 0.7, alturaJanela * 0.45);
-    glVertex2f(larguraJanela * 0.7, alturaJanela * 0.55);
-    glVertex2f(larguraJanela * 0.3, alturaJanela * 0.55);
+    glVertex2f(retX, retY);
+    glVertex2f(retX + largura, retY);
+    glVertex2f(retX + largura, retY + altura);
+    glVertex2f(retX, retY + altura);
     glEnd();
 
     // Calcula a posição central para o texto
-
     comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)"INICIAR");
     float iniciarX = (larguraJanela - comprimentoTexto) / 2;
     float iniciarY = alturaJanela / 2;
 
     // Desenha o texto centralizado
-    glColor3f(0.0f, 0.0f, 0.0f);
+    glColor3f(0.0f, 1.0f, 0.0f);
     escreveTextoBitmap(x, y, GLUT_BITMAP_HELVETICA_18, "INICIAR");
 
     // Atualiza a tela
@@ -103,7 +104,9 @@ void telaInicial()
 
 void segundaTela()
 {
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    telaAtual = 1;
+    pause = 0;
+    glClearColor(0.2f, 0.7f, 0.2f, 0.2f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     // Configura o sistema de coordenadas para o sistema de coordenadas do mundo
@@ -114,21 +117,136 @@ void segundaTela()
     // Volta para a matriz de modelagem
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+    
+    // Inicia a aplicação de texturas
+    glEnable(GL_TEXTURE_2D);
 
-    // Calcula a posição central para o texto
-    comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)"Bem-vindo a segunda tela!");
+    // Desenha o plano de fundo
+    glBindTexture(GL_TEXTURE_2D, textures[BACKGROUND_MAIN]);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex2f(0.0f, 0.0f);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex2f(larguraJanela, 0.0f);
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex2f(larguraJanela, alturaJanela);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex2f(0.0f, alturaJanela);
+    glEnd();
+    
+    // Desenha a plataforma 0
+    glBindTexture(GL_TEXTURE_2D, textures[PLATFORM]);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex2f(larguraJanela * -0.3, alturaJanela * 0.001);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex2f(larguraJanela * -0.3 + 3000, alturaJanela * 0.001);
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex2f(larguraJanela * -0.3 + 3000, alturaJanela * 0.001 + 50);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex2f(larguraJanela * -0.3, alturaJanela * 0.001 + 50);
+    glEnd();
+
+    // Desenha a plataforma 1
+    glBindTexture(GL_TEXTURE_2D, textures[PLATFORM]);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex2f(larguraJanela * 0.1, alturaJanela * 0.2);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex2f(larguraJanela * 0.1 + 300, alturaJanela * 0.2);
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex2f(larguraJanela * 0.1 + 300, alturaJanela * 0.2 + 50);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex2f(larguraJanela * 0.1, alturaJanela * 0.2 + 50);
+    glEnd();
+
+    // Desenha a plataforma 2
+    glBindTexture(GL_TEXTURE_2D, textures[PLATFORM]);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex2f(larguraJanela * 0.3, alturaJanela * 0.4);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex2f(larguraJanela * 0.3 + 450, alturaJanela * 0.4);
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex2f(larguraJanela * 0.3 + 450, alturaJanela * 0.4 + 50);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex2f(larguraJanela * 0.3, alturaJanela * 0.4 + 50);
+    glEnd();
+
+    // Desenha a plataforma 3
+    glBindTexture(GL_TEXTURE_2D, textures[PLATFORM]);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex2f(larguraJanela * 0.6, alturaJanela * 0.6);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex2f(larguraJanela * 0.6 + 300, alturaJanela * 0.6);
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex2f(larguraJanela * 0.6 + 300, alturaJanela * 0.6 + 50);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex2f(larguraJanela * 0.6, alturaJanela * 0.6 + 50);
+    glEnd();
+
+    // Desenha a plataforma 4
+    glBindTexture(GL_TEXTURE_2D, textures[PLATFORM]);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex2f(larguraJanela * 0.08, alturaJanela * 0.6);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex2f(larguraJanela * 0.08 + 300, alturaJanela * 0.6);
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex2f(larguraJanela * 0.08 + 300, alturaJanela * 0.6 + 50);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex2f(larguraJanela * 0.08, alturaJanela * 0.6 + 50);
+    glEnd();
+
+    // Desenha a plataforma 5
+    glBindTexture(GL_TEXTURE_2D, textures[PLATFORM]);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex2f(larguraJanela * 0.8, alturaJanela * 0.3);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex2f(larguraJanela * 0.8 + 300, alturaJanela * 0.3);
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex2f(larguraJanela * 0.8 + 300, alturaJanela * 0.3 + 50);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex2f(larguraJanela * 0.8, alturaJanela * 0.3 + 50);
+    glEnd();
+ 
+    glPushMatrix();
+    glTranslatef(translateX, translateY, 0.0);
+
+    // Desenha a Mosquito
+    glBindTexture(GL_TEXTURE_2D, textures[MOSQUITO_ENEMY]);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 0.5f);
+    glVertex2f(larguraJanela * 0.2, alturaJanela * 0.5);
+    glTexCoord2f(0.5f, 0.5f);
+    glVertex2f(larguraJanela * 0.2 + 100, alturaJanela * 0.5);
+    glTexCoord2f(0.5f, 0.0f);
+    glVertex2f(larguraJanela * 0.2 + 100, alturaJanela * 0.5 + 100);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex2f(larguraJanela * 0.2, alturaJanela * 0.5 + 100);
+    glEnd();
+
+    glPopMatrix();
+
+    glDisable(GL_TEXTURE_2D);
+
+    // Desenha a contagem regressiva
+    char buffer[50];
+    snprintf(buffer, sizeof(buffer), "Tempo restante: %02d:%02d", tempoRestante / 60, tempoRestante % 60);
+    int comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)buffer);
     x = (larguraJanela - comprimentoTexto) / 2;
-    y = alturaJanela / 2;
-    // Desenha o texto centralizado
-    glColor3f(1.0f, 1.0f, 1.0f);
-    escreveTextoBitmap(x, y, GLUT_BITMAP_HELVETICA_18, "Bem-vindo a segunda tela!");
-
+    y = alturaJanela - 50;
+    glColor3f(0.0f, 0.0f, 0.0f);
+    escreveTextoBitmap(x, y, GLUT_BITMAP_HELVETICA_18, buffer);
 
     glutSwapBuffers();
 }
 
 void telaPause()
 {
+    pause = 1;
     glClearColor(0.2f, 0.2f, 0.6f, 0.2f);
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -184,6 +302,8 @@ void telaPause()
 
 void telaFim ()
 {
+    telaOver = 1;
+    pause = 0;
     glClearColor(0.8f, 0.2f, 0.2f, 0.2f);
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -206,7 +326,7 @@ void telaFim ()
     // Desenha o texto centralizado
     escreveTextoBitmap(x, y-20, GLUT_BITMAP_HELVETICA_12, "Selecione uma das caixas");
 
-    // Coordenadas para centralizar o primeiro retângulo
+    // Coordenadas para centralizar horizontalmente o primeiro retângulo
     largura = 200.0f;
     altura = 100.0f;
     retX = (larguraJanela - largura) / 2;
@@ -220,7 +340,7 @@ void telaFim ()
     glVertex2f(retX, retY + altura);
     glEnd();
 
-    // Coordenadas para centralizar o segundo retângulo
+    // Coordenadas para centralizar horizontalmente o segundo retângulo
     largura = 200.0f;
     altura = 100.0f;
     retX = (larguraJanela - largura) / 2;
@@ -233,78 +353,7 @@ void telaFim ()
     glVertex2f(retX + largura, retY + altura);
     glVertex2f(retX, retY + altura);
     glEnd();
-
-
-    glEnable(GL_TEXTURE_2D);
-
-    // Desenha o plano de fundo
-    glBindTexture(GL_TEXTURE_2D, textures[BACKGROUND_MAIN]);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex2f(0.0f, 0.0f);
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex2f(larguraJanela, 0.0f);
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex2f(larguraJanela, alturaJanela);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex2f(0.0f, alturaJanela);
-    glEnd();
-
-    // Desenha a plataforma
-    glBindTexture(GL_TEXTURE_2D, textures[PLATFORM]);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex2f(larguraJanela * 0.5, alturaJanela * 0.7);
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex2f(larguraJanela * 0.5 + 300, alturaJanela * 0.7);
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex2f(larguraJanela * 0.5 + 300, alturaJanela * 0.7 + 100);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex2f(larguraJanela * 0.5, alturaJanela * 0.7 + 100);
-    glEnd();
-
-    // Desenha a plataforma
-    glBindTexture(GL_TEXTURE_2D, textures[PLATFORM]);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex2f(larguraJanela * 0.1, alturaJanela * 0.4);
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex2f(larguraJanela * 0.1 + 300, alturaJanela * 0.4);
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex2f(larguraJanela * 0.1 + 300, alturaJanela * 0.4 + 100);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex2f(larguraJanela * 0.1, alturaJanela * 0.4 + 100);
-    glEnd();
-
-    glPushMatrix();
-    glTranslatef(translateX, translateY, 0.0);
-
-    // Desenha a Mosquito
-    glBindTexture(GL_TEXTURE_2D, textures[MOSQUITO_ENEMY]);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 0.5f);
-    glVertex2f(larguraJanela * 0.2, alturaJanela * 0.5);
-    glTexCoord2f(0.5f, 0.5f);
-    glVertex2f(larguraJanela * 0.2 + 100, alturaJanela * 0.5);
-    glTexCoord2f(0.5f, 0.0f);
-    glVertex2f(larguraJanela * 0.2 + 100, alturaJanela * 0.5 + 100);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex2f(larguraJanela * 0.2, alturaJanela * 0.5 + 100);
-    glEnd();
-
-    glPopMatrix();
-
-    glDisable(GL_TEXTURE_2D);
-
-    // Calcula a posi��o central para o texto
-    int comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)"Bem-vindo a segunda tela!");
-    float x = (larguraJanela - comprimentoTexto) / 2;
-    float y = alturaJanela / 2;
-
-    // Desenha o texto centralizado
-    glColor3f(0.0f, 0.0f, 0.0f);
-    escreveTextoBitmap(x, y, GLUT_BITMAP_HELVETICA_18, "Bem-vindo a segunda tela!");
-
+    
     // Atualiza a tela
     glutSwapBuffers();
 }
