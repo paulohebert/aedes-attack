@@ -53,7 +53,7 @@ int main(int argc, char **argv)
     glutFullScreen();
 
     // Registra a função callback de redesenho da janela de visualização
-    glutDisplayFunc(telaInicial);
+    glutDisplayFunc(telaPause);
 
     // Registra a função callback de redimensionamento da janela de visualização
     glutReshapeFunc(alteraTamanhoJanela);

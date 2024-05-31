@@ -9,4 +9,8 @@ void telaInicial();
 
 void segundaTela();
 
+void telaPause ();
+
+void telaFim ();
+
 #endif

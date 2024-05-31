@@ -5,11 +5,15 @@
 #include <texture.h>
 
 // Variáveis globais para armazenar as dimensões da janela
-int larguraJanela;
-int alturaJanela;
+int larguraJanela, alturaJanela;
+
+int comprimentoTexto;
 
 // Variável global para controlar a tela atual
 int telaAtual = 0; // 0 para tela inicial, 1 para segunda tela
+
+float x1, y1;
+float largura, altura, retX, retY;
 
 void telaInicial()
 {
@@ -79,10 +83,10 @@ void telaInicial()
     glDeleteTextures(1, &textureID);
 
     // Coordenadas para centralizar o retângulo
-    float largura = 200.0f;
-    float altura = 120.0f;
-    float retX = (larguraJanela - largura) / 2;
-    float retY = (alturaJanela - altura) / 2;
+    largura = 200.0f;
+    altura = 120.0f;
+    retX = (larguraJanela - largura) / 2;
+    retY = (alturaJanela - altura) / 2;
 
 
     glColor3f(1.0f, 1.0f, 1.0f);
@@ -93,9 +97,8 @@ void telaInicial()
     glVertex2f(retX, retY + altura);
     glEnd();
 
-
     // Calcula a posição central para o texto
-    int comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)"INICIAR");
+    comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)"INICIAR");
     float iniciarX = (larguraJanela - comprimentoTexto) / 2;
     float iniciarY = alturaJanela / 2;
 
@@ -116,20 +119,20 @@ void segundaTela()
     glLoadIdentity();
 
     // Calcula a posição central para o texto
-    int comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)"Bem-vindo a segunda tela!");
-    float x = (larguraJanela - comprimentoTexto) / 2;
-    float y = alturaJanela / 2;
+    comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)"Bem-vindo a segunda tela!");
+    x1 = (larguraJanela - comprimentoTexto) / 2;
+    y1 = alturaJanela / 2;
     // Desenha o texto centralizado
     glColor3f(1.0f, 1.0f, 1.0f);
-    escreveTextoBitmap(x, y, GLUT_BITMAP_HELVETICA_18, "Bem-vindo a segunda tela!");
+    escreveTextoBitmap(x1, y1, GLUT_BITMAP_HELVETICA_18, "Bem-vindo a segunda tela!");
 
-    
+
     glutSwapBuffers();
 }
 
 void telaPause()
 {
-    glClearColor(0.6f, 0.2f, 0.2f, 0.2f);
+    glClearColor(0.2f, 0.2f, 0.6f, 0.2f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     // Matriz de modelagem
@@ -137,13 +140,102 @@ void telaPause()
     glLoadIdentity();
 
     // Calcula a posição central para o texto
-    int comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)"JOGO PAUSADO");
-    float x = (larguraJanela - comprimentoTexto) / 2;
-    float y = alturaJanela * 0.9f;
+    comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)"JOGO PAUSADO");
+    x1 = (larguraJanela - comprimentoTexto) / 2;
+    y1 = alturaJanela * 0.9f;
     // Desenha o texto centralizado
     glColor3f(1.0f, 1.0f, 1.0f);
-    escreveTextoBitmap(x, y, GLUT_BITMAP_HELVETICA_18, "JOGO PAUSADO");
-
+    escreveTextoBitmap(x1, y1, GLUT_BITMAP_HELVETICA_18, "JOGO PAUSADO");
     
+    // Calcula a posição central para o texto 2
+    comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_12, (const unsigned char *)"Selecione uma das caixas ou aperte ENTER para sair");
+    x1 = (larguraJanela - comprimentoTexto) / 2;
+    y1 = alturaJanela * 0.9f;
+    // Desenha o texto centralizado
+    escreveTextoBitmap(x1, y1-20, GLUT_BITMAP_HELVETICA_12, "Selecione uma das caixas ou aperte ENTER para sair");
+
+    // Coordenadas para centralizar o primeiro retângulo
+    largura = 200.0f;
+    altura = 100.0f;
+    retX = (larguraJanela - largura) / 2;
+    retY = ((alturaJanela - altura) / 2) + 60;
+    // Desenha o primeiro retângulo
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glBegin(GL_QUADS);
+    glVertex2f(retX, retY);
+    glVertex2f(retX + largura, retY);
+    glVertex2f(retX + largura, retY + altura);
+    glVertex2f(retX, retY + altura);
+    glEnd();
+
+    // Coordenadas para centralizar o segundo retângulo
+    largura = 200.0f;
+    altura = 100.0f;
+    retX = (larguraJanela - largura) / 2;
+    retY = ((alturaJanela - altura) / 2) - 60;
+    // Desenha o segundo retângulo
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glBegin(GL_QUADS);
+    glVertex2f(retX, retY);
+    glVertex2f(retX + largura, retY);
+    glVertex2f(retX + largura, retY + altura);
+    glVertex2f(retX, retY + altura);
+    glEnd();
+
+    glutSwapBuffers();
+}
+
+void telaFim ()
+{
+    glClearColor(0.8f, 0.2f, 0.2f, 0.2f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    // Matriz de modelagem
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    // Calcula a posição central para o texto
+    comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)"FIM DE JOGO");
+    x1 = (larguraJanela - comprimentoTexto) / 2;
+    y1 = alturaJanela * 0.9f;
+    // Desenha o texto centralizado
+    glColor3f(1.0f, 1.0f, 1.0f);
+    escreveTextoBitmap(x1, y1, GLUT_BITMAP_HELVETICA_18, "FIM DE JOGO");
+    
+    // Calcula a posição central para o texto 2
+    comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_12, (const unsigned char *)"Selecione uma das caixas");
+    x1 = (larguraJanela - comprimentoTexto) / 2;
+    y1 = alturaJanela * 0.9f;
+    // Desenha o texto centralizado
+    escreveTextoBitmap(x1, y1-20, GLUT_BITMAP_HELVETICA_12, "Selecione uma das caixas");
+
+    // Coordenadas para centralizar o primeiro retângulo
+    largura = 200.0f;
+    altura = 100.0f;
+    retX = (larguraJanela - largura) / 2;
+    retY = ((alturaJanela - altura) / 2) + 60;
+    // Desenha o primeiro retângulo
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glBegin(GL_QUADS);
+    glVertex2f(retX, retY);
+    glVertex2f(retX + largura, retY);
+    glVertex2f(retX + largura, retY + altura);
+    glVertex2f(retX, retY + altura);
+    glEnd();
+
+    // Coordenadas para centralizar o segundo retângulo
+    largura = 200.0f;
+    altura = 100.0f;
+    retX = (larguraJanela - largura) / 2;
+    retY = ((alturaJanela - altura) / 2) - 60;
+    // Desenha o segundo retângulo
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glBegin(GL_QUADS);
+    glVertex2f(retX, retY);
+    glVertex2f(retX + largura, retY);
+    glVertex2f(retX + largura, retY + altura);
+    glVertex2f(retX, retY + altura);
+    glEnd();
+
     glutSwapBuffers();
 }
