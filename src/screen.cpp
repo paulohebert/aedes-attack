@@ -215,17 +215,17 @@ void segundaTela()
     glPushMatrix();
     glTranslatef(translateX, translateY, 0.0);
 
-    // Desenha a Mosquito
-    glBindTexture(GL_TEXTURE_2D, textures[MOSQUITO_ENEMY]);
+    // Desenha o player
+    //glBindTexture(GL_TEXTURE_2D, textures[MOSQUITO_ENEMY]);
     glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 0.5f);
-    glVertex2f(larguraJanela * 0.2, alturaJanela * 0.5);
+    //glTexCoord2f(0.0f, 0.5f);
+    glVertex2f(larguraJanela/2 - 50, alturaJanela * 0.5 - 380);
     glTexCoord2f(0.5f, 0.5f);
-    glVertex2f(larguraJanela * 0.2 + 100, alturaJanela * 0.5);
+    glVertex2f(larguraJanela/2 + 50, alturaJanela * 0.5 - 380);
     glTexCoord2f(0.5f, 0.0f);
-    glVertex2f(larguraJanela * 0.2 + 100, alturaJanela * 0.5 + 100);
+    glVertex2f(larguraJanela/2 + 50, alturaJanela * 0.5 - 280);
     glTexCoord2f(0.0f, 0.0f);
-    glVertex2f(larguraJanela * 0.2, alturaJanela * 0.5 + 100);
+    glVertex2f(larguraJanela/2 - 50, alturaJanela * 0.5 - 280);
     glEnd();
 
     glPopMatrix();
