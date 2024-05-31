@@ -4,7 +4,6 @@
 #include <utils.h>
 #include <texture.h>
 
-
 // Variáveis globais para armazenar as dimensões da janela
 int larguraJanela;
 int alturaJanela;
