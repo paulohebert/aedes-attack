@@ -1,6 +1,7 @@
 #include <GL/glut.h>
 #include <screen.h>
 #include <physics.h>
+#include <stdbool.h>
 
 int pause = 0;
 GLfloat translateX = 0, translateY = 0;
@@ -48,16 +49,24 @@ void teclasEspeciais(int tecla, int x, int y)
     switch (tecla)
     {
     case GLUT_KEY_UP:
-        //translateY += 10;
+        if(verificaColisoes()){
+            translateY += jump;
+            playerNoChao = false;
+        }
         break;
     case GLUT_KEY_LEFT:
-        if(translateX > -larguraJanela/2){
+        if(translateX > -larguraJanela/2 && verificaColisoes()){
             translateX -= 10;
         }
         break;
     case GLUT_KEY_RIGHT:
-        if(translateX < larguraJanela/2){
+        if(translateX < larguraJanela/2 && verificaColisoes()){
             translateX += 10;
+        }
+        break;
+    case GLUT_KEY_DOWN:
+        if(verificaColisoes()){
+            translateY -= 10;
         }
         break;
     }

@@ -4,7 +4,7 @@
 #include <utils.h>
 #include <texture.h>
 #include <keyboard.h>
-
+#include <physics.h>
 
 // Variáveis globais para armazenar as dimensões da janela
 int larguraJanela, alturaJanela;
@@ -216,9 +216,9 @@ void segundaTela()
     glTranslatef(translateX, translateY, 0.0);
 
     // Desenha o player
-    //glBindTexture(GL_TEXTURE_2D, textures[MOSQUITO_ENEMY]);
+    glBindTexture(GL_TEXTURE_2D, textures[MOSQUITO_ENEMY]);
     glBegin(GL_QUADS);
-    //glTexCoord2f(0.0f, 0.5f);
+    glTexCoord2f(0.0f, 0.5f);
     glVertex2f(larguraJanela/2 - 50, alturaJanela * 0.5 - 380);
     glTexCoord2f(0.5f, 0.5f);
     glVertex2f(larguraJanela/2 + 50, alturaJanela * 0.5 - 380);
