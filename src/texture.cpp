@@ -1,10 +1,13 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 #include <GL/glut.h>
+#include <texture.h>
 
 GLuint textureID;
 
-void loadTexture(const char *filename)
+GLuint *textures;
+
+void loadTexture(GLuint texture, const char *filename)
 {
     int imgWidth, imgHeight, imgChannels;
     unsigned char *imgData;
@@ -16,9 +19,7 @@ void loadTexture(const char *filename)
         exit(1);
     }
 
-    // Gera e liga a textura
-    glGenTextures(1, &textureID);
-    glBindTexture(GL_TEXTURE_2D, textureID);
+    glBindTexture(GL_TEXTURE_2D, texture);
 
     // Define os parâmetros da textura
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -38,4 +39,16 @@ void loadTexture(const char *filename)
 
     // Libera a imagem carregada da memória RAM
     stbi_image_free(imgData);
+}
+
+void initTextures()
+{
+    textures = (GLuint *)malloc(sizeof(GLuint) * NUM_TEXTURES);
+    glGenTextures(NUM_TEXTURES, textures);
+    loadTexture(textures[BACKGROUND_MENU], "../assets/background-city.gif");
+    loadTexture(textures[BACKGROUND_MAIN], "../assets/background-desert.png");
+    loadTexture(textures[LOGO], "../assets/aedes-attack.png");
+    loadTexture(textures[MOSQUITO_PROHIBITED], "../assets/mosquito-prohibited-white.png");
+    loadTexture(textures[MOSQUITO_ENEMY], "../assets/mosquito.png");
+    loadTexture(textures[PLATFORM], "../assets/plataforma2.png");
 }

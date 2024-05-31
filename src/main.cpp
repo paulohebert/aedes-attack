@@ -9,14 +9,21 @@
 void init()
 {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+    // Habilita o blending para lidar com a transparência alfa
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+
+    initTextures();
 }
 
 // Função de limpeza
 void Cleanup()
 {
-    // Libera a textura
-    glDeleteTextures(1, &textureID);
+    // Libera as texturas
+    glDeleteTextures(NUM_TEXTURES, textures);
+    free(textures);
 }
 
 void alteraTamanhoJanela(GLsizei w, GLsizei h)
@@ -35,7 +42,7 @@ void alteraTamanhoJanela(GLsizei w, GLsizei h)
     // Inicializa o sistema de coordenadas
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluOrtho2D(0.0, larguraJanela,  0.0, alturaJanela);
+    gluOrtho2D(0.0, larguraJanela, 0.0, alturaJanela);
 }
 
 int main(int argc, char **argv)
@@ -44,7 +51,7 @@ int main(int argc, char **argv)
     glutInit(&argc, argv);
 
     // Define o modo de operação da GLUT
-    glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
 
     // Cria a janela passando como argumento o título da mesma
     glutCreateWindow("Aedes Attack");
