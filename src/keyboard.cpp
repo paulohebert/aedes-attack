@@ -10,7 +10,7 @@ void teclado(unsigned char tecla, int x, int y)
         if (telaAtual && !pause)
         {
             telaAtual = 1;                // Muda para a segunda tela
-            glutDisplayFunc(segundaTela); // Registra a função da segunda tela
+            glutDisplayFunc(telaPause); // Registra a função da segunda tela
         }
         break;
 
