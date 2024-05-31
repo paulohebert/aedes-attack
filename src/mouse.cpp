@@ -4,7 +4,7 @@
 
 void mouse(int button, int estado, int x, int y)
 {
-    int uraMax = glutGet(GLUT_WINDOW_HEIGHT); // Armazena a altura máxima da tela
+    int alturaMax = glutGet(GLUT_WINDOW_HEIGHT); // Armazena a altura máxima da tela
     // Desenha o primeiro retângulo
 
     if (button == GLUT_LEFT_BUTTON && estado == GLUT_DOWN && !telaAtual)

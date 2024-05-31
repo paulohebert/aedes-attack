@@ -3,7 +3,7 @@
 #include <GL/glut.h>
 #include <texture.h>
 
-GLuint textureID;
+//GLuint textureID;
 
 GLuint *textures;
 

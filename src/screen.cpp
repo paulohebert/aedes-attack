@@ -8,12 +8,13 @@
 // Variáveis globais para armazenar as dimensões da janela
 int larguraJanela, alturaJanela;
 
+GLuint textureID;
 int comprimentoTexto;
 
 // Variável global para controlar a tela atual
 int telaAtual = 0; // 0 para tela inicial, 1 para segunda tela
 
-float x1, y1;
+float x, y;
 float largura, altura, retX, retY;
 
 void telaInicial()
@@ -69,7 +70,7 @@ void telaInicial()
     glEnd();
 
     glDisable(GL_TEXTURE_2D);
-<<<<<<< HEAD
+
     glDeleteTextures(1, &textureID);
 
     // Coordenadas para centralizar o retângulo
@@ -77,9 +78,6 @@ void telaInicial()
     altura = 120.0f;
     retX = (larguraJanela - largura) / 2;
     retY = (alturaJanela - altura) / 2;
-
-=======
->>>>>>> 10b9261eedf667f89c377290539581878e9672eb
 
     glColor3f(1.0f, 1.0f, 1.0f);
     glBegin(GL_QUADS);
@@ -90,19 +88,14 @@ void telaInicial()
     glEnd();
 
     // Calcula a posição central para o texto
-<<<<<<< HEAD
+
     comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)"INICIAR");
     float iniciarX = (larguraJanela - comprimentoTexto) / 2;
     float iniciarY = alturaJanela / 2;
-=======
-    int comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)"Pressione ENTER para iniciar o jogo...");
-    float x = (larguraJanela - comprimentoTexto) / 2;
-    float y = alturaJanela / 2;
->>>>>>> 10b9261eedf667f89c377290539581878e9672eb
 
     // Desenha o texto centralizado
     glColor3f(0.0f, 0.0f, 0.0f);
-    escreveTextoBitmap(x, y, GLUT_BITMAP_HELVETICA_18, "Pressione ENTER para iniciar o jogo...");
+    escreveTextoBitmap(x, y, GLUT_BITMAP_HELVETICA_18, "INICIAR");
 
     // Atualiza a tela
     glutSwapBuffers();
@@ -122,14 +115,13 @@ void segundaTela()
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-<<<<<<< HEAD
     // Calcula a posição central para o texto
     comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)"Bem-vindo a segunda tela!");
-    x1 = (larguraJanela - comprimentoTexto) / 2;
-    y1 = alturaJanela / 2;
+    x = (larguraJanela - comprimentoTexto) / 2;
+    y = alturaJanela / 2;
     // Desenha o texto centralizado
     glColor3f(1.0f, 1.0f, 1.0f);
-    escreveTextoBitmap(x1, y1, GLUT_BITMAP_HELVETICA_18, "Bem-vindo a segunda tela!");
+    escreveTextoBitmap(x, y, GLUT_BITMAP_HELVETICA_18, "Bem-vindo a segunda tela!");
 
 
     glutSwapBuffers();
@@ -146,18 +138,18 @@ void telaPause()
 
     // Calcula a posição central para o texto
     comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)"JOGO PAUSADO");
-    x1 = (larguraJanela - comprimentoTexto) / 2;
-    y1 = alturaJanela * 0.9f;
+    x = (larguraJanela - comprimentoTexto) / 2;
+    y = alturaJanela * 0.9f;
     // Desenha o texto centralizado
     glColor3f(1.0f, 1.0f, 1.0f);
-    escreveTextoBitmap(x1, y1, GLUT_BITMAP_HELVETICA_18, "JOGO PAUSADO");
+    escreveTextoBitmap(x, y, GLUT_BITMAP_HELVETICA_18, "JOGO PAUSADO");
     
     // Calcula a posição central para o texto 2
     comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_12, (const unsigned char *)"Selecione uma das caixas ou aperte ENTER para sair");
-    x1 = (larguraJanela - comprimentoTexto) / 2;
-    y1 = alturaJanela * 0.9f;
+    x = (larguraJanela - comprimentoTexto) / 2;
+    y = alturaJanela * 0.9f;
     // Desenha o texto centralizado
-    escreveTextoBitmap(x1, y1-20, GLUT_BITMAP_HELVETICA_12, "Selecione uma das caixas ou aperte ENTER para sair");
+    escreveTextoBitmap(x, y-20, GLUT_BITMAP_HELVETICA_12, "Selecione uma das caixas ou aperte ENTER para sair");
 
     // Coordenadas para centralizar o primeiro retângulo
     largura = 200.0f;
@@ -201,18 +193,18 @@ void telaFim ()
 
     // Calcula a posição central para o texto
     comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)"FIM DE JOGO");
-    x1 = (larguraJanela - comprimentoTexto) / 2;
-    y1 = alturaJanela * 0.9f;
+    x = (larguraJanela - comprimentoTexto) / 2;
+    y = alturaJanela * 0.9f;
     // Desenha o texto centralizado
     glColor3f(1.0f, 1.0f, 1.0f);
-    escreveTextoBitmap(x1, y1, GLUT_BITMAP_HELVETICA_18, "FIM DE JOGO");
+    escreveTextoBitmap(x, y, GLUT_BITMAP_HELVETICA_18, "FIM DE JOGO");
     
     // Calcula a posição central para o texto 2
     comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_12, (const unsigned char *)"Selecione uma das caixas");
-    x1 = (larguraJanela - comprimentoTexto) / 2;
-    y1 = alturaJanela * 0.9f;
+    x = (larguraJanela - comprimentoTexto) / 2;
+    y = alturaJanela * 0.9f;
     // Desenha o texto centralizado
-    escreveTextoBitmap(x1, y1-20, GLUT_BITMAP_HELVETICA_12, "Selecione uma das caixas");
+    escreveTextoBitmap(x, y-20, GLUT_BITMAP_HELVETICA_12, "Selecione uma das caixas");
 
     // Coordenadas para centralizar o primeiro retângulo
     largura = 200.0f;
@@ -242,7 +234,7 @@ void telaFim ()
     glVertex2f(retX, retY + altura);
     glEnd();
 
-=======
+
     glEnable(GL_TEXTURE_2D);
 
     // Desenha o plano de fundo
@@ -314,6 +306,5 @@ void telaFim ()
     escreveTextoBitmap(x, y, GLUT_BITMAP_HELVETICA_18, "Bem-vindo a segunda tela!");
 
     // Atualiza a tela
->>>>>>> 10b9261eedf667f89c377290539581878e9672eb
     glutSwapBuffers();
 }

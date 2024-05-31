@@ -4,6 +4,7 @@
 extern int larguraJanela;
 extern int alturaJanela;
 extern int telaAtual;
+extern const GLuint *textureID;
 
 void telaInicial();
 

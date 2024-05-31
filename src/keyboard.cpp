@@ -2,6 +2,8 @@
 #include <screen.h>
 
 int pause = 0;
+GLfloat translateX = 0, translateY = 0;
+
 void teclado(unsigned char tecla, int x, int y)
 {
     switch (tecla)
@@ -9,8 +11,8 @@ void teclado(unsigned char tecla, int x, int y)
     case 13: // Tecla ENTER que trata o pause do jogo
         if (telaAtual && !pause)
         {
-            telaAtual = 1;                // Muda para a segunda tela
-            glutDisplayFunc(telaPause); // Registra a função da segunda tela
+            telaAtual = 1;                // Atualiza  o valor da variável para segunda tela
+            glutDisplayFunc(telaPause); // Efetiva a troca de tela
         }
         break;
 
