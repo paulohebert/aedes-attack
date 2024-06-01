@@ -13,7 +13,7 @@ void mouse(int button, int estado, int x, int y)
     // Desenha o primeiro retângulo
     if (button == GLUT_LEFT_BUTTON && estado == GLUT_DOWN && !telaAtual)
     {
-        if (x >= retXinic && x <= (retXinic + largura) && yInvertido >= retYinic && yInvertido <= (retYinic + altura)) // Verifica se "iniciar" foi selecionado
+        if (x >= xButtonStart && x <= (xButtonStart + wButtonStart) && yInvertido >= yButtonStart && yInvertido <= (yButtonStart + hButtonStart)) // Verifica se "iniciar" foi selecionado
         {
             glutDisplayFunc(segundaTela); // Troca para a tela de jogo
         }
