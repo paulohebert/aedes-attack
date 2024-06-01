@@ -8,6 +8,10 @@ extern int telaOver;
 extern int tempoRestante;
 extern const GLuint *textureID;
 
+extern int currentFrame;
+
+void loadingScreen();
+
 void telaInicial();
 
 void segundaTela();

@@ -2,8 +2,7 @@
 #include <stb_image.h>
 #include <GL/glut.h>
 #include <texture.h>
-
-//GLuint textureID;
+#include <screen.h>
 
 GLuint *textures;
 
@@ -45,10 +44,79 @@ void initTextures()
 {
     textures = (GLuint *)malloc(sizeof(GLuint) * NUM_TEXTURES);
     glGenTextures(NUM_TEXTURES, textures);
-    loadTexture(textures[BACKGROUND_MENU], "../assets/background-city.gif");
-    loadTexture(textures[BACKGROUND_MAIN], "../assets/background-desert.png");
+    loadTexture(textures[BACKGROUND_MENU], "../assets/background-city.png");
+    loadTexture(textures[BACKGROUND_MAIN], "../assets/background-rain.png");
     loadTexture(textures[LOGO], "../assets/aedes-attack.png");
     loadTexture(textures[MOSQUITO_PROHIBITED], "../assets/mosquito-prohibited-white.png");
     loadTexture(textures[MOSQUITO_ENEMY], "../assets/mosquito.png");
-    loadTexture(textures[PLATFORM], "../assets/plataforma2.png");
+    loadTexture(textures[PLATFORM], "../assets/platform.png");
+    loadTexture(textures[BUTTON_PLAY], "../assets/play-green.png");
+}
+
+void animateTextures(int)
+{
+    glutPostRedisplay();
+    glutTimerFunc(100, animateTextures, 0);
+}
+
+void loadTextures(int)
+{
+    initTextures();
+    glutDisplayFunc(telaInicial);
+
+    glutTimerFunc(100, animateTextures, 0);
+}
+
+int currentBackgroundMenuFrame = 0;
+int backgroundMenuFrames = 96;
+
+void drawBackgroundMenu()
+{
+    currentBackgroundMenuFrame = (currentBackgroundMenuFrame + 1) % backgroundMenuFrames;
+
+    int row = currentBackgroundMenuFrame / 10;
+    int col = currentBackgroundMenuFrame % 10;
+
+    float textureX = (float)col / 10.0f;
+    float textureY = (float)row / 10.0f;
+    float frameRatio = 1.0f / 10.0f;
+
+    glBindTexture(GL_TEXTURE_2D, textures[BACKGROUND_MENU]);
+    glBegin(GL_QUADS);
+    glTexCoord2f(textureX, textureY + frameRatio);
+    glVertex2f(0.0f, 0.0f);
+    glTexCoord2f(textureX + frameRatio, textureY + frameRatio);
+    glVertex2f(larguraJanela, 0.0f);
+    glTexCoord2f(textureX + frameRatio, textureY);
+    glVertex2f(larguraJanela, alturaJanela);
+    glTexCoord2f(textureX, textureY);
+    glVertex2f(0.0f, alturaJanela);
+    glEnd();
+}
+
+int currentBackgroundMainFrame = 0;
+int backgroundMainFrames = 16;
+
+void drawBackgroundMain()
+{
+    currentBackgroundMainFrame = (currentBackgroundMainFrame + 1) % backgroundMainFrames;
+
+    int row = currentBackgroundMainFrame / 4;
+    int col = currentBackgroundMainFrame % 4;
+
+    float textureX = (float)col / 4.0f;
+    float textureY = (float)row / 4.0f;
+    float frameRatio = 1.0f / 4.0f;
+
+    glBindTexture(GL_TEXTURE_2D, textures[BACKGROUND_MAIN]);
+    glBegin(GL_QUADS);
+    glTexCoord2f(textureX, textureY + frameRatio);
+    glVertex2f(0.0f, 0.0f);
+    glTexCoord2f(textureX + frameRatio, textureY + frameRatio);
+    glVertex2f(larguraJanela, 0.0f);
+    glTexCoord2f(textureX + frameRatio, textureY);
+    glVertex2f(larguraJanela, alturaJanela);
+    glTexCoord2f(textureX, textureY);
+    glVertex2f(0.0f, alturaJanela);
+    glEnd();
 }
