@@ -4,6 +4,7 @@
 #include <screen.h>
 #include <texture.h>
 #include <utils.h>
+#include <position.h>
 
 // Inicializa o que precisa ser usado no jogo
 void init()
@@ -43,6 +44,7 @@ void alteraTamanhoJanela(GLsizei w, GLsizei h)
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluOrtho2D(0.0, larguraJanela, 0.0, alturaJanela);
+    updatePosition();
 }
 
 int main(int argc, char **argv)
@@ -76,6 +78,9 @@ int main(int argc, char **argv)
 
     // Registra a função callback para tratamento dos botões do mouse
     glutMouseFunc(mouse);
+
+    // Registra a função callback para alterar o cursor do mouse quando estiver sobre um objeto
+    glutPassiveMotionFunc(passiveMouse);
 
     // Registra a função callback que será chamada a cada intervalo de tempo
     glutTimerFunc(100, loadTextures, 0);

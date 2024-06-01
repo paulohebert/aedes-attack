@@ -5,11 +5,11 @@
 #include <texture.h>
 #include <keyboard.h>
 #include <physics.h>
+#include <position.h>
 
 // Variáveis globais para armazenar as dimensões da janela
 int larguraJanela, alturaJanela;
 
-GLuint textureID;
 int comprimentoTexto;
 
 // Variáveis globais para controlar a tela
@@ -44,57 +44,23 @@ void telaInicial()
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
+    // Inicia a aplicação de texturas
     glEnable(GL_TEXTURE_2D);
 
     // Desenha o plano de fundo
-
     drawBackgroundMenu();
 
     // Desenha a logo Aedes Attack
-    glBindTexture(GL_TEXTURE_2D, textures[LOGO]);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex2f(larguraJanela * 0.3, alturaJanela * 0.7);
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex2f(larguraJanela * 0.7, alturaJanela * 0.7);
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex2f(larguraJanela * 0.7, alturaJanela * 0.7 + 200);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex2f(larguraJanela * 0.3, alturaJanela * 0.7 + 200);
-    glEnd();
+    draw(LOGO, xAedesAttack, yAedesAttack, wAedesAttack, hAedesAttack);
 
     // Desenha a placa de mosquito
-    glBindTexture(GL_TEXTURE_2D, textures[MOSQUITO_PROHIBITED]);
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex2f(larguraJanela * 0.45, alturaJanela * 0.62);
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex2f(larguraJanela * 0.55, alturaJanela * 0.62);
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex2f(larguraJanela * 0.55, alturaJanela * 0.62 + 200);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex2f(larguraJanela * 0.45, alturaJanela * 0.62 + 200);
-    glEnd();
+    draw(MOSQUITO_PROHIBITED, xMosquitoProhibited, yMosquitoProhibited, wMosquitoProhibited, hMosquitoProhibited);
 
-    // Coordenadas para centralizar o botão de iniciar
-    largura = 400.0f;
-    altura = 125.0f;
-    retX = (larguraJanela - largura) / 2;
-    retY = ((alturaJanela - altura) / 2.2);
     // Desenha o botão de iniciar
-    glBindTexture(GL_TEXTURE_2D, textures[BUTTON_START]);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex2f(retX, retY);
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex2f(retX + largura, retY);
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex2f(retX + largura, retY + altura);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex2f(retX, retY + altura);
-    glEnd();
+    draw(BUTTON_START, xButtonStart, yButtonStart, wButtonStart, hButtonStart);
+
+    // Desativa a aplicação de texturas
+    glDisable(GL_TEXTURE_2D);
 
     // Atualiza a tela
     glutSwapBuffers();
@@ -279,8 +245,8 @@ void telaPause()
     glVertex2f(0.0f, alturaJanela);
     glEnd();
 
-    // Desenha as informações de combate ao mosquito 
-    drawInfos(larguraJanela / 2 + larguraJanela * 0.175, alturaJanela * 0.6, larguraJanela * 0.35, alturaJanela * 0.55);
+    // Desenha as informações de combate ao mosquito
+    drawInfos(larguraJanela / 2 + larguraJanela * 0.15, alturaJanela * 0.6, larguraJanela * 0.3, alturaJanela * 0.55);
 
     // Coordenadas para centralizar o botão de "continuar"
     largura = 100.0f;
