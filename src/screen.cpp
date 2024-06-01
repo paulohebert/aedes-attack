@@ -211,6 +211,8 @@ void segundaTela()
     glVertex2f(larguraJanela / 2 - 50, alturaJanela * 0.5 - 280);
     glEnd();
 
+    drawBoyPlayer(100.0, 45.0, 100.0, 150.0);
+
     glPopMatrix();
 
     glDisable(GL_TEXTURE_2D);

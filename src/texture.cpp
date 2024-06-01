@@ -50,6 +50,7 @@ void initTextures()
     loadTexture(textures[LOGO], "../assets/aedes-attack.png");
     loadTexture(textures[MOSQUITO_PROHIBITED], "../assets/mosquito-prohibited-white.png");
     loadTexture(textures[MOSQUITO_ENEMY], "../assets/mosquito.png");
+    loadTexture(textures[PLAYER], "../assets/boy-player.png");
     loadTexture(textures[PLATFORM], "../assets/platform.png");
     loadTexture(textures[BUTTON_PLAY], "../assets/play-green.png");
     loadTexture(textures[BUTTON_START], "../assets/btn-start.png");
@@ -155,6 +156,33 @@ void drawInfos(float x, float y, float width, float height)
     glVertex2f(x, y);
     glTexCoord2f(textureX, textureY);
     glVertex2f(x - width, y);
+    glEnd();
+}
+
+int currentBoyPlayerFrame = 0;
+int boyPlayerFrames = 15;
+
+void drawBoyPlayer(GLfloat x, GLfloat y, GLfloat width, GLfloat height)
+{
+    currentBoyPlayerFrame = (currentBoyPlayerFrame + 1) % boyPlayerFrames;
+
+    int row = currentBoyPlayerFrame / 4;
+    int col = currentBoyPlayerFrame % 4;
+
+    float textureX = (float)col / 4.0f;
+    float textureY = (float)row / 4.0f;
+    float frameRatio = 1.0f / 4.0f;
+
+    glBindTexture(GL_TEXTURE_2D, textures[PLAYER]);
+    glBegin(GL_QUADS);
+    glTexCoord2f(textureX, textureY + frameRatio);
+    glVertex2f(x, y);
+    glTexCoord2f(textureX + frameRatio, textureY + frameRatio);
+    glVertex2f(x + width, y);
+    glTexCoord2f(textureX + frameRatio, textureY);
+    glVertex2f(x + width, y + height);
+    glTexCoord2f(textureX, textureY);
+    glVertex2f(x, y + height);
     glEnd();
 }
 

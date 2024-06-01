@@ -4,7 +4,7 @@
 #include <GL/glut.h>
 
 /* Quantidade de Texturas */
-#define NUM_TEXTURES 12
+#define NUM_TEXTURES 13
 /* Texturas */
 #define BACKGROUND_MENU 0
 #define BACKGROUND_MAIN 1
@@ -18,6 +18,7 @@
 #define BUTTON_PAUSE 9
 #define BUTTON_EXIT 10
 #define COMBAT_INFO 11
+#define PLAYER 12
 
 extern GLuint *textures;
 
@@ -28,6 +29,8 @@ void drawBackgroundMenu();
 void drawBackgroundMain();
 
 void drawInfos(float, float, float, float);
+
+void drawBoyPlayer(GLfloat x, GLfloat y, GLfloat width, GLfloat height);
 
 void draw(int textureID, GLfloat x, GLfloat y, GLfloat width, GLfloat height);
 
