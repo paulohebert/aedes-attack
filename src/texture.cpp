@@ -51,6 +51,7 @@ void initTextures()
     loadTexture(textures[MOSQUITO_ENEMY], "../assets/mosquito.png");
     loadTexture(textures[PLATFORM], "../assets/platform.png");
     loadTexture(textures[BUTTON_PLAY], "../assets/play-green.png");
+    loadTexture(textures[BUTTON_START], "../assets/btn-start.png");
 }
 
 void animateTextures(int)

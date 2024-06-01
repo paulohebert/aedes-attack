@@ -4,43 +4,34 @@
 #include <utils.h>
 #include <texture.h>
 #include <keyboard.h>
+#include <physics.h>
 
 // Variáveis globais para armazenar as dimensões da janela
 int larguraJanela, alturaJanela;
 
 GLuint textureID;
 int comprimentoTexto;
-int telaOver;
 
-// Variável global para controlar a tela atual
+
+// Variáveis globais para controlar a tela
 int telaAtual = 0; // 0 para tela inicial, 1 para segunda tela
+int telaOver; // Variável que será responsável pela tela de "game over"
 
 float x, y;
-float largura, altura, retX, retY;
+float largura, altura, retX, retY, retX2, retY2;
 
-void loadingScreen()
-{
+void loadingScreen() {
     glClear(GL_COLOR_BUFFER_BIT);
+    
+    glColor3f(1.0f, 1.0f, 1.0f); // Cor branca
+    const char* message = "Carregando...";
 
-    const char *message = "Carregando...";
-
-    glPushMatrix();
-
-    comprimentoTexto = glutStrokeLength(GLUT_STROKE_ROMAN, (const unsigned char *)message);
-    float x = (larguraJanela - comprimentoTexto * 0.5) / 2;
-    float y = alturaJanela / 2;
-
+    int comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)message);
+    x = (larguraJanela - comprimentoTexto) / 2;
+    y = alturaJanela / 2;
     glColor3f(0.0f, 0.0f, 0.0f);
-    glTranslatef(x, y, 0);
-    glScalef(0.5f, 0.5f, 1.0f);
-
-    for (const char *ch = message; *ch != '\0'; ch++)
-    {
-        glutStrokeCharacter(GLUT_STROKE_ROMAN, *ch);
-    }
-
-    glPopMatrix();
-
+    escreveTextoBitmap(x, y, GLUT_BITMAP_HELVETICA_18, message);
+    
     glutSwapBuffers();
 }
 
@@ -87,14 +78,13 @@ void telaInicial()
     glVertex2f(larguraJanela * 0.45, alturaJanela * 0.62 + 200);
     glEnd();
 
-    // Coordenadas para centralizar o primeiro retângulo
-    largura = 100.0f;
-    altura = 100.0f;
+    // Coordenadas para centralizar o botão de iniciar
+    largura = 400.0f;
+    altura = 125.0f;
     retX = (larguraJanela - largura) / 2;
-    retY = ((alturaJanela - altura) / 2);
-
-    // Desenha o botão de play
-    glBindTexture(GL_TEXTURE_2D, textures[BUTTON_PLAY]);
+    retY = ((alturaJanela - altura) / 2.2);
+    // Desenha o botão de iniciar
+    glBindTexture(GL_TEXTURE_2D, textures[BUTTON_START]);
     glBegin(GL_QUADS);
     glTexCoord2f(0.0f, 1.0f);
     glVertex2f(retX, retY);
@@ -105,17 +95,6 @@ void telaInicial()
     glTexCoord2f(0.0f, 0.0f);
     glVertex2f(retX, retY + altura);
     glEnd();
-
-    glDisable(GL_TEXTURE_2D);
-
-    // Calcula a posição central para o texto
-    // comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)"INICIAR");
-    // float iniciarX = (larguraJanela - comprimentoTexto) / 2;
-    // float iniciarY = alturaJanela / 2;
-
-    // Desenha o texto centralizado
-    // glColor3f(0.0f, 0.0f, 0.0f);
-    // escreveTextoBitmap(iniciarX, iniciarY, GLUT_BITMAP_HELVETICA_18, "INICIAR");
 
     // Atualiza a tela
     glutSwapBuffers();
@@ -248,7 +227,7 @@ void segundaTela()
     glBindTexture(GL_TEXTURE_2D, textures[MOSQUITO_ENEMY]);
     glBegin(GL_QUADS);
     glTexCoord2f(0.0f, 0.5f);
-    glVertex2f(larguraJanela / 2 - 50, alturaJanela * 0.5 - 380);
+    glVertex2f(larguraJanela/2 - 50, alturaJanela * 0.5 - 380);
     glTexCoord2f(0.5f, 0.5f);
     glVertex2f(larguraJanela / 2 + 50, alturaJanela * 0.5 - 380);
     glTexCoord2f(0.5f, 0.0f);
@@ -298,12 +277,12 @@ void telaPause()
     // Desenha o texto centralizado
     escreveTextoBitmap(x, y - 20, GLUT_BITMAP_HELVETICA_12, "Selecione uma das caixas ou aperte ENTER para sair");
 
-    // Coordenadas para centralizar o primeiro retângulo
+    // Coordenadas para centralizar o botão de "continuar"
     largura = 200.0f;
     altura = 100.0f;
     retX = (larguraJanela - largura) / 2;
-    retY = ((alturaJanela - altura) / 2) + 60;
-    // Desenha o primeiro retângulo
+    retY = ((alturaJanela - altura) / 2) - 60;
+    // Desenha o botão de "continuar"
     glColor3f(1.0f, 1.0f, 1.0f);
     glBegin(GL_QUADS);
     glVertex2f(retX, retY);
@@ -312,18 +291,18 @@ void telaPause()
     glVertex2f(retX, retY + altura);
     glEnd();
 
-    // Coordenadas para centralizar o segundo retângulo
+// Coordenadas para centralizar o botão de "sair"
     largura = 200.0f;
     altura = 100.0f;
-    retX = (larguraJanela - largura) / 2;
-    retY = ((alturaJanela - altura) / 2) - 60;
-    // Desenha o segundo retângulo
+    retX2 = (larguraJanela - largura) / 2;
+    retY2 = ((alturaJanela - altura) / 2) + 60;
+    // Desenha o botão de "sair"
     glColor3f(1.0f, 1.0f, 1.0f);
     glBegin(GL_QUADS);
-    glVertex2f(retX, retY);
-    glVertex2f(retX + largura, retY);
-    glVertex2f(retX + largura, retY + altura);
-    glVertex2f(retX, retY + altura);
+    glVertex2f(retX2, retY2);
+    glVertex2f(retX2 + largura, retY2);
+    glVertex2f(retX2 + largura, retY2 + altura);
+    glVertex2f(retX2, retY2 + altura);
     glEnd();
 
     glutSwapBuffers();
@@ -355,12 +334,12 @@ void telaFim()
     // Desenha o texto centralizado
     escreveTextoBitmap(x, y - 20, GLUT_BITMAP_HELVETICA_12, "Selecione uma das caixas");
 
-    // Coordenadas para centralizar horizontalmente o primeiro retângulo
+    // Coordenadas para centralizar horizontalmente o botão de "recomeçar"
     largura = 200.0f;
     altura = 100.0f;
     retX = (larguraJanela - largura) / 2;
-    retY = ((alturaJanela - altura) / 2) + 60;
-    // Desenha o primeiro retângulo
+    retY = ((alturaJanela - altura) / 2) - 60;
+    // Desenha o botão de "recomeçar"
     glColor3f(1.0f, 1.0f, 1.0f);
     glBegin(GL_QUADS);
     glVertex2f(retX, retY);
@@ -369,18 +348,18 @@ void telaFim()
     glVertex2f(retX, retY + altura);
     glEnd();
 
-    // Coordenadas para centralizar horizontalmente o segundo retângulo
+     // Coordenadas para centralizar horizontalmente o botão de "sair"
     largura = 200.0f;
     altura = 100.0f;
-    retX = (larguraJanela - largura) / 2;
-    retY = ((alturaJanela - altura) / 2) - 60;
-    // Desenha o segundo retângulo
+    retX2 = (larguraJanela - largura) / 2;
+    retY2 = ((alturaJanela - altura) / 2) + 60;
+    // Desenha o botão de "sair"
     glColor3f(1.0f, 1.0f, 1.0f);
     glBegin(GL_QUADS);
-    glVertex2f(retX, retY);
-    glVertex2f(retX + largura, retY);
-    glVertex2f(retX + largura, retY + altura);
-    glVertex2f(retX, retY + altura);
+    glVertex2f(retX2, retY2);
+    glVertex2f(retX2 + largura, retY2);
+    glVertex2f(retX2 + largura, retY2 + altura);
+    glVertex2f(retX2, retY2 + altura);
     glEnd();
 
     // Atualiza a tela

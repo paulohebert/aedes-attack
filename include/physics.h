@@ -1,6 +1,19 @@
 #ifndef PHYSICS_H
 #define PHYSICS_H
 
-void colisao(int, int, int);
+#include <stdbool.h>
+#include <GL/glut.h>
 
-#endif
+extern bool playerNoChao;
+extern GLfloat gravity;
+//extern GLfloat jump;
+extern GLfloat speedJump;
+
+bool verificaColisaoEsquerda();
+bool verificaColisaoDireita();
+bool verificaColisaoEmbaixo();
+bool verificaColisaoCima();
+void applyGravity();
+void jump();
+
+#endif // PHYSICS_H
