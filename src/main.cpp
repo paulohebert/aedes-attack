@@ -8,14 +8,14 @@
 // Inicializa o que precisa ser usado no jogo
 void init()
 {
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
     // Habilita o blending para lidar com a transparência alfa
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 
-    initTextures();
+    // initTextures();
 }
 
 // Função de limpeza
@@ -60,8 +60,8 @@ int main(int argc, char **argv)
     glutFullScreen();
 
     // Registra a função callback de redesenho da janela de visualização
-    glutDisplayFunc(telaInicial);
-    
+    glutDisplayFunc(loadingScreen);
+
     // Inicia a contagem regressiva
     glutTimerFunc(1000, *atualizaTempo, 0);
 
@@ -76,6 +76,9 @@ int main(int argc, char **argv)
 
     // Registra a função callback para tratamento dos botões do mouse
     glutMouseFunc(mouse);
+
+    // Registra a função callback que será chamada a cada intervalo de tempo
+    glutTimerFunc(100, loadTextures, 0);
 
     // Inicia o que precisa no jogo
     init();
