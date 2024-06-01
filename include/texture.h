@@ -4,7 +4,7 @@
 #include <GL/glut.h>
 
 /* Quantidade de Texturas */
-#define NUM_TEXTURES 11
+#define NUM_TEXTURES 12
 /* Texturas */
 #define BACKGROUND_MENU 0
 #define BACKGROUND_MAIN 1
@@ -15,8 +15,9 @@
 #define PLATFORM 6
 #define BUTTON_PLAY 7
 #define BUTTON_START 8
-#define BUTTON_EXIT 9
-#define COMBAT_INFO 10
+#define BUTTON_PAUSE 9
+#define BUTTON_EXIT 10
+#define COMBAT_INFO 11
 
 extern GLuint *textures;
 

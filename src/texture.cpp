@@ -53,6 +53,7 @@ void initTextures()
     loadTexture(textures[PLATFORM], "../assets/platform.png");
     loadTexture(textures[BUTTON_PLAY], "../assets/play-green.png");
     loadTexture(textures[BUTTON_START], "../assets/btn-start.png");
+    loadTexture(textures[BUTTON_PAUSE], "../assets/pause-verde.png");
     loadTexture(textures[BUTTON_EXIT], "../assets/exit-gray.png");
     loadTexture(textures[COMBAT_INFO], "../assets/combat-information.png");
 }

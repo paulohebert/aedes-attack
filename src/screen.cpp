@@ -104,7 +104,7 @@ void segundaTela()
     retXinic = 0;
     retYinic = alturaJanela - altura;
 
-    glBindTexture(GL_TEXTURE_2D, textures[BUTTON_PLAY]);
+    glBindTexture(GL_TEXTURE_2D, textures[BUTTON_PAUSE]);
     glBegin(GL_QUADS);
     glTexCoord2f(0.0f, 1.0f);
     glVertex2f(retXinic, retYinic);
