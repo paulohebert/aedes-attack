@@ -5,6 +5,11 @@ extern int larguraJanela, alturaJanela, telaAtual, telaOver;
 extern const GLuint *textureID;
 extern float largura, altura, retXinic, retYinic, retXcont, retYcont, retXexit, retYexit;
 
+#define HOME_SCREEN 0
+#define GAME_SCREEN 1
+#define GAME_PAUSE_SCREEN 2
+#define END_GAME_SCREEN 3
+
 void loadingScreen();
 
 void telaInicial();

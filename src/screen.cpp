@@ -1,6 +1,7 @@
 #include <GL/glut.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <screen.h>
 #include <utils.h>
 #include <texture.h>
 #include <keyboard.h>
@@ -37,7 +38,7 @@ void loadingScreen()
 
 void telaInicial()
 {
-    telaAtual = 0;
+    telaAtual = HOME_SCREEN;
     
     // Resetar o tempo quando a tela inicial for renderizada
     tempoRestante = 90.0;
@@ -73,7 +74,7 @@ void telaInicial()
 
 void segundaTela()
 {
-    telaAtual = 1;
+    telaAtual = GAME_SCREEN;
     pause = 0;
     glClearColor(0.2f, 0.7f, 0.2f, 0.2f);
     glClear(GL_COLOR_BUFFER_BIT);

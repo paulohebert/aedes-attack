@@ -18,7 +18,7 @@ void mouse(int button, int estado, int x, int y)
     // Desenha o primeiro retângulo
     if (button == GLUT_LEFT_BUTTON && estado == GLUT_DOWN && !telaAtual)
     {
-        if (x >= xButtonStart && x <= (xButtonStart + wButtonStart) && yInvertido >= yButtonStart && yInvertido <= (yButtonStart + hButtonStart)) // Verifica se "iniciar" foi selecionado
+        if (isHover(x, y, xButtonStart, yButtonStart, wButtonStart, hButtonStart)) // Verifica se "iniciar" foi selecionado
         {
             glutDisplayFunc(segundaTela); // Troca para a tela de jogo
         }
@@ -57,7 +57,7 @@ void passiveMouse(int x, int y)
     y = glutGet(GLUT_WINDOW_HEIGHT) - y;
 
     // Verifica se o mouse está sobre o botão
-    if (isHover(x, y, xButtonStart, yButtonStart, wButtonStart, hButtonStart))
+    if (isHover(x, y, xButtonStart, yButtonStart, wButtonStart, hButtonStart) && (telaAtual == HOME_SCREEN))
     {
         // Muda o cursor para quando estiver sobre o botão
         glutSetCursor(GLUT_CURSOR_INFO);
