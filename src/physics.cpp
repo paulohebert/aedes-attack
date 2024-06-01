@@ -10,7 +10,8 @@ bool verificaColisoes(){
     bool podeMover;
     
     // Verifica colisao com a plataforma 0
-    if(translateX > -larguraJanela/2  && translateX < larguraJanela/2){
+    if(translateX > -larguraJanela/2  && translateX < larguraJanela/2)
+    {
         podeMover = true;
     }
     else{
@@ -21,8 +22,10 @@ bool verificaColisoes(){
     return true;
 }
 
-void applyGravity() {
-    if (!playerNoChao) {
+void applyGravity() 
+{
+    if (!playerNoChao)
+    {
         translateY -= gravity;
     }
 }

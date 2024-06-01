@@ -11,13 +11,14 @@ int larguraJanela, alturaJanela;
 
 GLuint textureID;
 int comprimentoTexto;
-int telaOver;
 
-// Variável global para controlar a tela atual
+
+// Variáveis globais para controlar a tela
 int telaAtual = 0; // 0 para tela inicial, 1 para segunda tela
+int telaOver; // Variável que será responsável pela tela de "game over"
 
 float x, y;
-float largura, altura, retX, retY;
+float largura, altura, retX, retY, retX2, retY2;
 
 void telaInicial()
 {
@@ -75,12 +76,12 @@ void telaInicial()
 
     glDeleteTextures(1, &textureID);
 
-    // Coordenadas para centralizar o primeiro retângulo
+    // Coordenadas para centralizar o botão de iniciar
     largura = 200.0f;
     altura = 120.0f;
     retX = (larguraJanela - largura) / 2;
     retY = ((alturaJanela - altura) / 2);
-    // Desenha o primeiro retângulo
+    // Desenha o botão de iniciar
     glColor3f(1.0f, 1.0f, 1.0f);
     glBegin(GL_QUADS);
     glVertex2f(retX, retY);
@@ -88,15 +89,6 @@ void telaInicial()
     glVertex2f(retX + largura, retY + altura);
     glVertex2f(retX, retY + altura);
     glEnd();
-
-    // Calcula a posição central para o texto
-    comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)"INICIAR");
-    float iniciarX = (larguraJanela - comprimentoTexto) / 2;
-    float iniciarY = alturaJanela / 2;
-
-    // Desenha o texto centralizado
-    glColor3f(0.0f, 1.0f, 0.0f);
-    escreveTextoBitmap(x, y, GLUT_BITMAP_HELVETICA_18, "INICIAR");
 
     // Atualiza a tela
     glutSwapBuffers();
@@ -269,12 +261,12 @@ void telaPause()
     // Desenha o texto centralizado
     escreveTextoBitmap(x, y-20, GLUT_BITMAP_HELVETICA_12, "Selecione uma das caixas ou aperte ENTER para sair");
 
-    // Coordenadas para centralizar o primeiro retângulo
+    // Coordenadas para centralizar o botão de "continuar"
     largura = 200.0f;
     altura = 100.0f;
     retX = (larguraJanela - largura) / 2;
-    retY = ((alturaJanela - altura) / 2) + 60;
-    // Desenha o primeiro retângulo
+    retY = ((alturaJanela - altura) / 2) - 60;
+    // Desenha o botão de "continuar"
     glColor3f(1.0f, 1.0f, 1.0f);
     glBegin(GL_QUADS);
     glVertex2f(retX, retY);
@@ -283,18 +275,18 @@ void telaPause()
     glVertex2f(retX, retY + altura);
     glEnd();
 
-    // Coordenadas para centralizar o segundo retângulo
+// Coordenadas para centralizar o botão de "sair"
     largura = 200.0f;
     altura = 100.0f;
-    retX = (larguraJanela - largura) / 2;
-    retY = ((alturaJanela - altura) / 2) - 60;
-    // Desenha o segundo retângulo
+    retX2 = (larguraJanela - largura) / 2;
+    retY2 = ((alturaJanela - altura) / 2) + 60;
+    // Desenha o botão de "sair"
     glColor3f(1.0f, 1.0f, 1.0f);
     glBegin(GL_QUADS);
-    glVertex2f(retX, retY);
-    glVertex2f(retX + largura, retY);
-    glVertex2f(retX + largura, retY + altura);
-    glVertex2f(retX, retY + altura);
+    glVertex2f(retX2, retY2);
+    glVertex2f(retX2 + largura, retY2);
+    glVertex2f(retX2 + largura, retY2 + altura);
+    glVertex2f(retX2, retY2 + altura);
     glEnd();
 
     glutSwapBuffers();
@@ -326,12 +318,12 @@ void telaFim ()
     // Desenha o texto centralizado
     escreveTextoBitmap(x, y-20, GLUT_BITMAP_HELVETICA_12, "Selecione uma das caixas");
 
-    // Coordenadas para centralizar horizontalmente o primeiro retângulo
+    // Coordenadas para centralizar horizontalmente o botão de "recomeçar"
     largura = 200.0f;
     altura = 100.0f;
     retX = (larguraJanela - largura) / 2;
-    retY = ((alturaJanela - altura) / 2) + 60;
-    // Desenha o primeiro retângulo
+    retY = ((alturaJanela - altura) / 2) - 60;
+    // Desenha o botão de "recomeçar"
     glColor3f(1.0f, 1.0f, 1.0f);
     glBegin(GL_QUADS);
     glVertex2f(retX, retY);
@@ -340,18 +332,18 @@ void telaFim ()
     glVertex2f(retX, retY + altura);
     glEnd();
 
-    // Coordenadas para centralizar horizontalmente o segundo retângulo
+     // Coordenadas para centralizar horizontalmente o botão de "sair"
     largura = 200.0f;
     altura = 100.0f;
-    retX = (larguraJanela - largura) / 2;
-    retY = ((alturaJanela - altura) / 2) - 60;
-    // Desenha o segundo retângulo
+    retX2 = (larguraJanela - largura) / 2;
+    retY2 = ((alturaJanela - altura) / 2) + 60;
+    // Desenha o botão de "sair"
     glColor3f(1.0f, 1.0f, 1.0f);
     glBegin(GL_QUADS);
-    glVertex2f(retX, retY);
-    glVertex2f(retX + largura, retY);
-    glVertex2f(retX + largura, retY + altura);
-    glVertex2f(retX, retY + altura);
+    glVertex2f(retX2, retY2);
+    glVertex2f(retX2 + largura, retY2);
+    glVertex2f(retX2 + largura, retY2 + altura);
+    glVertex2f(retX2, retY2 + altura);
     glEnd();
     
     // Atualiza a tela
