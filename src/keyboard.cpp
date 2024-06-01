@@ -12,30 +12,27 @@ void teclado(unsigned char tecla, int x, int y)
     {
     case 13: // Tecla ENTER que trata o pause do jogo
         if (telaAtual && !pause)
-        {     
             glutDisplayFunc(telaPause); // Troca para a tela de pause
-        }
-        else if (telaAtual && pause) {            
+
+        else if (telaAtual && pause)       
             glutDisplayFunc(segundaTela); // Troca para a tela de jogo
-        }
         break;
 
-    case 'w':
-    case 'W':
+    case 'z':
+    case 'Z':
         
         break;
-    case 's':
-    case 'S':
+    case 'x':
+    case 'X':
         
         break;
-    case 'a':
-    case 'A':
+    case 'c':
+    case 'C':
         
         break;
 
-    case 'd':
-    case 'D':
-        
+    case 32: // Tecla espaço
+           
         break;
 
     case 27: // Tecla ESC

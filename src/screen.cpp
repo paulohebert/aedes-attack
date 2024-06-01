@@ -17,7 +17,7 @@ int telaAtual = 0; // 0 para tela inicial, 1 para segunda tela
 int telaOver;      // Variável que será responsável pela tela de "game over"
 
 float x, y;
-float largura, altura, retX, retY, retX2, retY2;
+float largura, altura, retXinic, retYinic, retXcont, retYcont, retXexit, retYexit;
 
 void loadingScreen()
 {
@@ -37,6 +37,11 @@ void loadingScreen()
 
 void telaInicial()
 {
+    telaAtual = 0;
+    
+    // Resetar o tempo quando a tela inicial for renderizada
+    tempoRestante = 90.0;
+
     // Limpa o buffer de cor e profundidade
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -81,19 +86,19 @@ void telaInicial()
     // Coordenadas para centralizar o botão de iniciar
     largura = 400.0f;
     altura = 125.0f;
-    retX = (larguraJanela - largura) / 2;
-    retY = ((alturaJanela - altura) / 2.2);
+    retXinic = (larguraJanela - largura) / 2;
+    retYinic = ((alturaJanela - altura) / 2);
     // Desenha o botão de iniciar
     glBindTexture(GL_TEXTURE_2D, textures[BUTTON_START]);
     glBegin(GL_QUADS);
     glTexCoord2f(0.0f, 1.0f);
-    glVertex2f(retX, retY);
+    glVertex2f(retXinic, retYinic);
     glTexCoord2f(1.0f, 1.0f);
-    glVertex2f(retX + largura, retY);
+    glVertex2f(retXinic + largura, retYinic);
     glTexCoord2f(1.0f, 0.0f);
-    glVertex2f(retX + largura, retY + altura);
+    glVertex2f(retXinic + largura, retYinic + altura);
     glTexCoord2f(0.0f, 0.0f);
-    glVertex2f(retX, retY + altura);
+    glVertex2f(retXinic, retYinic + altura);
     glEnd();
 
     // Atualiza a tela
@@ -128,22 +133,21 @@ void segundaTela()
     drawInfos(larguraJanela - 10, alturaJanela - 10, larguraJanela * 0.14, alturaJanela * 0.3);
 
     // Desenha o botão de play
-
     largura = 100.0f;
     altura = 100.0f;
-    retX = 0;
-    retY = alturaJanela - altura;
+    retXinic = 0;
+    retYinic = alturaJanela - altura;
 
     glBindTexture(GL_TEXTURE_2D, textures[BUTTON_PLAY]);
     glBegin(GL_QUADS);
     glTexCoord2f(0.0f, 1.0f);
-    glVertex2f(retX, retY);
+    glVertex2f(retXinic, retYinic);
     glTexCoord2f(1.0f, 1.0f);
-    glVertex2f(retX + largura, retY);
+    glVertex2f(retXinic + largura, retYinic);
     glTexCoord2f(1.0f, 0.0f);
-    glVertex2f(retX + largura, retY + altura);
+    glVertex2f(retXinic + largura, retYinic + altura);
     glTexCoord2f(0.0f, 0.0f);
-    glVertex2f(retX, retY + altura);
+    glVertex2f(retXinic, retYinic + altura);
     glEnd();
 
     // Desenha a plataforma 0
@@ -282,41 +286,43 @@ void telaPause()
     // Desenha as informações de combate ao mosquito 
     drawInfos(larguraJanela / 2 + larguraJanela * 0.175, alturaJanela * 0.6, larguraJanela * 0.35, alturaJanela * 0.55);
 
-    // Coordenadas para centralizar o botão de "continuar"
+    // Coordenadas para desenhar o botão de "continue"
     largura = 100.0f;
     altura = 100.0f;
-    retX = (larguraJanela - largura) * 0.6;
-    retY = (alturaJanela - altura) * 0.75;
-    // Desenha o botão de "continuar"
-    glBindTexture(GL_TEXTURE_2D, textures[BUTTON_EXIT]);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex2f(retX, retY);
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex2f(retX + largura, retY);
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex2f(retX + largura, retY + altura);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex2f(retX, retY + altura);
-    glEnd();
-
-    // Coordenadas para centralizar o botão de "sair"
-    largura = 100.0f;
-    altura = 100.0f;
-    retX2 = (larguraJanela - largura) * 0.4;
-    retY2 = (alturaJanela - altura) * 0.75;
-    // Desenha o botão de "sair"
+    retXcont = (larguraJanela - largura) * 0.4;
+    retYcont = (alturaJanela - altura) * 0.75;
+    // Desenha o botão de "continue"
     glBindTexture(GL_TEXTURE_2D, textures[BUTTON_PLAY]);
     glBegin(GL_QUADS);
     glTexCoord2f(0.0f, 1.0f);
-    glVertex2f(retX2, retY2);
+    glVertex2f(retXcont, retYcont);
     glTexCoord2f(1.0f, 1.0f);
-    glVertex2f(retX2 + largura, retY2);
+    glVertex2f(retXcont + largura, retYcont);
     glTexCoord2f(1.0f, 0.0f);
-    glVertex2f(retX2 + largura, retY2 + altura);
+    glVertex2f(retXcont + largura, retYcont + altura);
     glTexCoord2f(0.0f, 0.0f);
-    glVertex2f(retX2, retY2 + altura);
+    glVertex2f(retXcont, retYcont + altura);
     glEnd();
+
+    // Coordenadas para desenhar o botão de "exit"
+    largura = 100.0f;
+    altura = 100.0f;
+    retXexit = (larguraJanela - largura) * 0.6;
+    retYexit = (alturaJanela - altura) * 0.75;
+    // Desenha o botão de "exit"
+    glBindTexture(GL_TEXTURE_2D, textures[BUTTON_EXIT]);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex2f(retXexit, retYexit);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex2f(retXexit + largura, retYexit);
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex2f(retXexit + largura, retYexit + altura);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex2f(retXexit, retYexit + altura);
+    glEnd();
+
+    
 
     glDisable(GL_TEXTURE_2D);
 
@@ -329,11 +335,11 @@ void telaPause()
     escreveTextoBitmap(x, y, GLUT_BITMAP_HELVETICA_18, "JOGO PAUSADO");
 
     // Calcula a posição central para o texto 2
-    comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_12, (const unsigned char *)"Selecione uma das caixas ou aperte ENTER para sair");
+    comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_12, (const unsigned char *)"Selecione uma das caixas ou aperte ENTER para retormar o jogo");
     x = (larguraJanela - comprimentoTexto) / 2;
     y = alturaJanela * 0.9f;
     // Desenha o texto centralizado
-    escreveTextoBitmap(x, y - 20, GLUT_BITMAP_HELVETICA_12, "Selecione uma das caixas ou aperte ENTER para sair");
+    escreveTextoBitmap(x, y - 20, GLUT_BITMAP_HELVETICA_12, "Selecione uma das caixas ou aperte ENTER para retomar o jogo");
 
     glutSwapBuffers();
 }
@@ -364,32 +370,40 @@ void telaFim()
     // Desenha o texto centralizado
     escreveTextoBitmap(x, y - 20, GLUT_BITMAP_HELVETICA_12, "Selecione uma das caixas");
 
-    // Coordenadas para centralizar horizontalmente o botão de "recomeçar"
-    largura = 200.0f;
+    // Coordenadas para desenhar o botão de "recomeçar"
+    largura = 100.0f;
     altura = 100.0f;
-    retX = (larguraJanela - largura) / 2;
-    retY = ((alturaJanela - altura) / 2) - 60;
+    retXcont = (larguraJanela - largura) * 0.4;
+    retYcont = (alturaJanela - altura) * 0.75;
     // Desenha o botão de "recomeçar"
-    glColor3f(1.0f, 1.0f, 1.0f);
+    glBindTexture(GL_TEXTURE_2D, textures[BUTTON_PLAY]);
     glBegin(GL_QUADS);
-    glVertex2f(retX, retY);
-    glVertex2f(retX + largura, retY);
-    glVertex2f(retX + largura, retY + altura);
-    glVertex2f(retX, retY + altura);
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex2f(retXcont, retYcont);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex2f(retXcont + largura, retYcont);
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex2f(retXcont + largura, retYcont + altura);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex2f(retXcont, retYcont + altura);
     glEnd();
 
-    // Coordenadas para centralizar horizontalmente o botão de "sair"
-    largura = 200.0f;
+    // Coordenadas para desenhar o botão de "exit"
+    largura = 100.0f;
     altura = 100.0f;
-    retX2 = (larguraJanela - largura) / 2;
-    retY2 = ((alturaJanela - altura) / 2) + 60;
-    // Desenha o botão de "sair"
-    glColor3f(1.0f, 1.0f, 1.0f);
+    retXexit = (larguraJanela - largura) * 0.6;
+    retYexit = (alturaJanela - altura) * 0.75;
+    // Desenha o botão de "exit"
+    glBindTexture(GL_TEXTURE_2D, textures[BUTTON_EXIT]);
     glBegin(GL_QUADS);
-    glVertex2f(retX2, retY2);
-    glVertex2f(retX2 + largura, retY2);
-    glVertex2f(retX2 + largura, retY2 + altura);
-    glVertex2f(retX2, retY2 + altura);
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex2f(retXexit, retYexit);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex2f(retXexit + largura, retYexit);
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex2f(retXexit + largura, retYexit + altura);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex2f(retXexit, retYexit + altura);
     glEnd();
 
     // Atualiza a tela
