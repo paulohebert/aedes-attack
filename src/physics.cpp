@@ -7,39 +7,43 @@ GLfloat gravity = 0.5;
 GLfloat speedJump = 0;
 
 bool verificaColisaoEsquerda(){
-    if(translateX > -larguraJanela/2){
+    if (!(translateX < -larguraJanela * 0.5 + 500 &&  // Verifica se o lado direito do objeto1 em movimento está à esquerda do lado direito do objeto estático
+        translateX > -larguraJanela * 0.5 + 150 &&  // Verifica se o lado esquerdo do objeto1 em movimento está à direita do lado esquerdo do objeto estático
+        translateY < alturaJanela * 0.2 - 10 &&  // Verifica se a parte superior do objeto1 em movimento está abaixo da parte superior do objeto estático
+        translateY > alturaJanela * 0.2 - 150)) {  // Verifica se a parte inferior do objeto1 em movimento está acima da parte inferior do objeto estático
         return true;
     }
-    else{
-        return false;
-    }
+    return false;
 }
 
 bool verificaColisaoDireita(){
-    if((translateX < larguraJanela/2) && (true)){
+    if (!(translateX < -larguraJanela * 0.5 + 450 &&  // Verifica se o lado direito do objeto1 em movimento está à esquerda do lado direito do objeto estático
+        translateX > -larguraJanela * 0.5 + 100 &&  // Verifica se o lado esquerdo do objeto1 em movimento está à direita do lado esquerdo do objeto estático
+        translateY < alturaJanela * 0.2 - 10 &&  // Verifica se a parte superior do objeto1 em movimento está abaixo da parte superior do objeto estático
+        translateY > alturaJanela * 0.2 - 150)) {  // Verifica se a parte inferior do objeto1 em movimento está acima da parte inferior do objeto estático
         return true;
     }
-    else{
-        return false;
-    }
+    return false;
 }
 
 bool verificaColisaoEmbaixo(){
-    if(translateY > -alturaJanela/2 +430){
+    if (!(translateX < -larguraJanela * 0.5 + 490 &&  // Verifica se o lado direito do objeto1 em movimento está à esquerda do lado direito do objeto estático
+        translateX > -larguraJanela * 0.5 + 110 &&  // Verifica se o lado esquerdo do objeto1 em movimento está à direita do lado esquerdo do objeto estático
+        translateY < alturaJanela * 0.2 &&  // Verifica se a parte superior do objeto1 em movimento está abaixo da parte superior do objeto estático
+        translateY > alturaJanela * 0.2 - 150)) {  // Verifica se a parte inferior do objeto1 em movimento está acima da parte inferior do objeto estático
         return true;
     }
-    else{
-        return false;
-    }
+    return false;
 }
 
 bool verificaColisaoCima(){
-    if(translateY < alturaJanela -250){
+    if (!(translateX < -larguraJanela * 0.5 + 490 &&  // Verifica se o lado direito do objeto1 em movimento está à esquerda do lado direito do objeto estático
+        translateX > -larguraJanela * 0.5 + 110 &&  // Verifica se o lado esquerdo do objeto1 em movimento está à direita do lado esquerdo do objeto estático
+        translateY < alturaJanela * 0.2 - 10 &&  // Verifica se a parte superior do objeto1 em movimento está abaixo da parte superior do objeto estático
+        translateY > alturaJanela * 0.2 - 160)) {  // Verifica se a parte inferior do objeto1 em movimento está acima da parte inferior do objeto estático
         return true;
     }
-    else{
-        return false;
-    }
+    return false;
 }
 
 void jump(){
