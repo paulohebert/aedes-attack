@@ -28,4 +28,6 @@ void drawBackgroundMain();
 
 void drawInfos(float, float, float, float);
 
+void draw(int textureID, GLfloat x, GLfloat y, GLfloat width, GLfloat height);
+
 #endif
