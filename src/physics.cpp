@@ -10,7 +10,12 @@ bool verificaColisaoEsquerda(){
     if (!(translateX < -larguraJanela * 0.5 + 500 &&  // Verifica se o lado direito do objeto1 em movimento está à esquerda do lado direito do objeto estático
         translateX > -larguraJanela * 0.5 + 150 &&  // Verifica se o lado esquerdo do objeto1 em movimento está à direita do lado esquerdo do objeto estático
         translateY < alturaJanela * 0.2 - 10 &&  // Verifica se a parte superior do objeto1 em movimento está abaixo da parte superior do objeto estático
-        translateY > alturaJanela * 0.2 - 150)) {  // Verifica se a parte inferior do objeto1 em movimento está acima da parte inferior do objeto estático
+        translateY > alturaJanela * 0.2 - 150)
+        &&
+        !(translateX < -larguraJanela * 0.5 + 500 &&  // Verifica se o lado direito do objeto2 em movimento está à esquerda do lado direito do objeto estático
+        translateX > -larguraJanela * 0.5 + 150 &&  // Verifica se o lado esquerdo do objeto2 em movimento está à direita do lado esquerdo do objeto estático
+        translateY < alturaJanela * 0.2 - 10 &&  // Verifica se a parte superior do objeto2 em movimento está abaixo da parte superior do objeto estático
+        translateY > alturaJanela * 0.2 - 150)) {  // Verifica se a parte inferior do objeto2 em movimento está acima da parte inferior do objeto estático
         return true;
     }
     return false;
