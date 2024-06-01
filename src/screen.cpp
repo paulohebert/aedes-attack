@@ -12,26 +12,26 @@ int larguraJanela, alturaJanela;
 GLuint textureID;
 int comprimentoTexto;
 
-
 // Variáveis globais para controlar a tela
 int telaAtual = 0; // 0 para tela inicial, 1 para segunda tela
-int telaOver; // Variável que será responsável pela tela de "game over"
+int telaOver;      // Variável que será responsável pela tela de "game over"
 
 float x, y;
 float largura, altura, retX, retY, retX2, retY2;
 
-void loadingScreen() {
+void loadingScreen()
+{
     glClear(GL_COLOR_BUFFER_BIT);
-    
+
     glColor3f(1.0f, 1.0f, 1.0f); // Cor branca
-    const char* message = "Carregando...";
+    const char *message = "Carregando...";
 
     int comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)message);
     x = (larguraJanela - comprimentoTexto) / 2;
     y = alturaJanela / 2;
     glColor3f(0.0f, 0.0f, 0.0f);
     escreveTextoBitmap(x, y, GLUT_BITMAP_HELVETICA_18, message);
-    
+
     glutSwapBuffers();
 }
 
@@ -122,6 +122,10 @@ void segundaTela()
     // Desenha o plano de fundo
 
     drawBackgroundMain();
+
+    // Desenha informações de combate ao mosquito
+
+    drawInfos(larguraJanela - 10, alturaJanela - 10, larguraJanela * 0.14, alturaJanela * 0.3);
 
     // Desenha o botão de play
 
@@ -227,7 +231,7 @@ void segundaTela()
     glBindTexture(GL_TEXTURE_2D, textures[MOSQUITO_ENEMY]);
     glBegin(GL_QUADS);
     glTexCoord2f(0.0f, 0.5f);
-    glVertex2f(larguraJanela/2 - 50, alturaJanela * 0.5 - 380);
+    glVertex2f(larguraJanela / 2 - 50, alturaJanela * 0.5 - 380);
     glTexCoord2f(0.5f, 0.5f);
     glVertex2f(larguraJanela / 2 + 50, alturaJanela * 0.5 - 380);
     glTexCoord2f(0.5f, 0.0f);
@@ -255,19 +259,73 @@ void segundaTela()
 void telaPause()
 {
     pause = 1;
-    glClearColor(0.2f, 0.2f, 0.6f, 0.2f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     // Matriz de modelagem
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
+    glEnable(GL_TEXTURE_2D);
+
+    glBindTexture(GL_TEXTURE_2D, textures[BACKGROUND_PAUSE]);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex2f(0.0f, 0.0f);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex2f(larguraJanela, 0.0f);
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex2f(larguraJanela, alturaJanela);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex2f(0.0f, alturaJanela);
+    glEnd();
+
+    // Desenha as informações de combate ao mosquito 
+    drawInfos(larguraJanela / 2 + larguraJanela * 0.175, alturaJanela * 0.6, larguraJanela * 0.35, alturaJanela * 0.55);
+
+    // Coordenadas para centralizar o botão de "continuar"
+    largura = 100.0f;
+    altura = 100.0f;
+    retX = (larguraJanela - largura) * 0.6;
+    retY = (alturaJanela - altura) * 0.75;
+    // Desenha o botão de "continuar"
+    glBindTexture(GL_TEXTURE_2D, textures[BUTTON_EXIT]);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex2f(retX, retY);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex2f(retX + largura, retY);
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex2f(retX + largura, retY + altura);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex2f(retX, retY + altura);
+    glEnd();
+
+    // Coordenadas para centralizar o botão de "sair"
+    largura = 100.0f;
+    altura = 100.0f;
+    retX2 = (larguraJanela - largura) * 0.4;
+    retY2 = (alturaJanela - altura) * 0.75;
+    // Desenha o botão de "sair"
+    glBindTexture(GL_TEXTURE_2D, textures[BUTTON_PLAY]);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex2f(retX2, retY2);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex2f(retX2 + largura, retY2);
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex2f(retX2 + largura, retY2 + altura);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex2f(retX2, retY2 + altura);
+    glEnd();
+
+    glDisable(GL_TEXTURE_2D);
+
     // Calcula a posição central para o texto
     comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)"JOGO PAUSADO");
     x = (larguraJanela - comprimentoTexto) / 2;
     y = alturaJanela * 0.9f;
     // Desenha o texto centralizado
-    glColor3f(1.0f, 1.0f, 1.0f);
+    glColor3f(0.0f, 0.0f, 0.0f);
     escreveTextoBitmap(x, y, GLUT_BITMAP_HELVETICA_18, "JOGO PAUSADO");
 
     // Calcula a posição central para o texto 2
@@ -276,34 +334,6 @@ void telaPause()
     y = alturaJanela * 0.9f;
     // Desenha o texto centralizado
     escreveTextoBitmap(x, y - 20, GLUT_BITMAP_HELVETICA_12, "Selecione uma das caixas ou aperte ENTER para sair");
-
-    // Coordenadas para centralizar o botão de "continuar"
-    largura = 200.0f;
-    altura = 100.0f;
-    retX = (larguraJanela - largura) / 2;
-    retY = ((alturaJanela - altura) / 2) - 60;
-    // Desenha o botão de "continuar"
-    glColor3f(1.0f, 1.0f, 1.0f);
-    glBegin(GL_QUADS);
-    glVertex2f(retX, retY);
-    glVertex2f(retX + largura, retY);
-    glVertex2f(retX + largura, retY + altura);
-    glVertex2f(retX, retY + altura);
-    glEnd();
-
-// Coordenadas para centralizar o botão de "sair"
-    largura = 200.0f;
-    altura = 100.0f;
-    retX2 = (larguraJanela - largura) / 2;
-    retY2 = ((alturaJanela - altura) / 2) + 60;
-    // Desenha o botão de "sair"
-    glColor3f(1.0f, 1.0f, 1.0f);
-    glBegin(GL_QUADS);
-    glVertex2f(retX2, retY2);
-    glVertex2f(retX2 + largura, retY2);
-    glVertex2f(retX2 + largura, retY2 + altura);
-    glVertex2f(retX2, retY2 + altura);
-    glEnd();
 
     glutSwapBuffers();
 }
@@ -348,7 +378,7 @@ void telaFim()
     glVertex2f(retX, retY + altura);
     glEnd();
 
-     // Coordenadas para centralizar horizontalmente o botão de "sair"
+    // Coordenadas para centralizar horizontalmente o botão de "sair"
     largura = 200.0f;
     altura = 100.0f;
     retX2 = (larguraJanela - largura) / 2;

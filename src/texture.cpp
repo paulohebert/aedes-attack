@@ -46,12 +46,15 @@ void initTextures()
     glGenTextures(NUM_TEXTURES, textures);
     loadTexture(textures[BACKGROUND_MENU], "../assets/background-city.png");
     loadTexture(textures[BACKGROUND_MAIN], "../assets/background-rain.png");
+    loadTexture(textures[BACKGROUND_PAUSE], "../assets/background-terrain.png");
     loadTexture(textures[LOGO], "../assets/aedes-attack.png");
     loadTexture(textures[MOSQUITO_PROHIBITED], "../assets/mosquito-prohibited-white.png");
     loadTexture(textures[MOSQUITO_ENEMY], "../assets/mosquito.png");
     loadTexture(textures[PLATFORM], "../assets/platform.png");
     loadTexture(textures[BUTTON_PLAY], "../assets/play-green.png");
     loadTexture(textures[BUTTON_START], "../assets/btn-start.png");
+    loadTexture(textures[BUTTON_EXIT], "../assets/exit-gray.png");
+    loadTexture(textures[COMBAT_INFO], "../assets/combat-information.png");
 }
 
 void animateTextures(int)
@@ -119,5 +122,37 @@ void drawBackgroundMain()
     glVertex2f(larguraJanela, alturaJanela);
     glTexCoord2f(textureX, textureY);
     glVertex2f(0.0f, alturaJanela);
+    glEnd();
+}
+
+int currentInfosFrame = 0;
+int infosFrames = 61;
+int delay = 0;
+
+void drawInfos(float x, float y, float width, float height)
+{
+    if (delay == 4)
+    {
+        delay = -1;
+        currentInfosFrame = (currentInfosFrame + 1) % infosFrames;
+    }
+    delay++;
+    int row = currentInfosFrame / 8;
+    int col = currentInfosFrame % 8;
+
+    float textureX = (float)col / 8.0f;
+    float textureY = (float)row / 8.0f;
+    float frameRatio = 1.0f / 8.0f;
+
+    glBindTexture(GL_TEXTURE_2D, textures[COMBAT_INFO]);
+    glBegin(GL_QUADS);
+    glTexCoord2f(textureX, textureY + frameRatio);
+    glVertex2f(x - width, y - height);
+    glTexCoord2f(textureX + frameRatio, textureY + frameRatio);
+    glVertex2f(x, y - height);
+    glTexCoord2f(textureX + frameRatio, textureY);
+    glVertex2f(x, y);
+    glTexCoord2f(textureX, textureY);
+    glVertex2f(x - width, y);
     glEnd();
 }
