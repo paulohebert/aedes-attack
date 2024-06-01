@@ -50,7 +50,10 @@ void teclasEspeciais(int tecla, int x, int y)
     switch (tecla)
     {
     case GLUT_KEY_UP:
+        if(translateY < alturaJanela -250 && verificaColisaoCima()){
             translateY += 10;
+        }
+            //translateY += 10;
         break;
     case GLUT_KEY_LEFT:
         if(translateX > -larguraJanela/2 && verificaColisaoEsquerda()){
@@ -63,7 +66,7 @@ void teclasEspeciais(int tecla, int x, int y)
         }
         break;
     case GLUT_KEY_DOWN:
-        if(verificaColisaoEmbaixo()){
+        if(translateY > -alturaJanela/2 +430 && verificaColisaoEmbaixo()){
             translateY -= 10;
         }
         break;

@@ -12,7 +12,7 @@ extern GLfloat speedJump;
 bool verificaColisaoEsquerda();
 bool verificaColisaoDireita();
 bool verificaColisaoEmbaixo();
-bool verificaColisoesDireita();
+bool verificaColisaoCima();
 void applyGravity();
 void jump();
 

@@ -16,7 +16,7 @@ bool verificaColisaoEsquerda(){
 }
 
 bool verificaColisaoDireita(){
-    if(translateX < larguraJanela/2){
+    if((translateX < larguraJanela/2) && (true)){
         return true;
     }
     else{
@@ -25,13 +25,21 @@ bool verificaColisaoDireita(){
 }
 
 bool verificaColisaoEmbaixo(){
-
-    return true;
+    if(translateY > -alturaJanela/2 +430){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
-bool verificaColisoesDireita(){
-
-    return true;
+bool verificaColisaoCima(){
+    if(translateY < alturaJanela -250){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
 void jump(){
