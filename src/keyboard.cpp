@@ -48,23 +48,23 @@ void teclasEspeciais(int tecla, int x, int y)
     {
     case GLUT_KEY_UP:
         if(translateY < alturaJanela -250 && verificaColisaoCima()){
-            translateY += 10;
+            translateY += playerVelocity;
         }
-            //translateY += 10;
+            //translateY += playerVelocity;
         break;
     case GLUT_KEY_LEFT:
         if(translateX > -larguraJanela/2 && verificaColisaoEsquerda()){
-            translateX -= 10;
+            translateX -= playerVelocity;
         }
         break;
     case GLUT_KEY_RIGHT:
         if(translateX < larguraJanela/2 && verificaColisaoDireita()){
-            translateX += 10;
+            translateX += playerVelocity;
         }
         break;
     case GLUT_KEY_DOWN:
         if(translateY > -alturaJanela/2 +430 && verificaColisaoEmbaixo()){
-            translateY -= 10;
+            translateY -= playerVelocity;
         }
         break;
     }

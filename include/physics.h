@@ -6,7 +6,7 @@
 
 extern bool playerNoChao;
 extern GLfloat gravity;
-//extern GLfloat jump;
+extern GLfloat playerVelocity;
 extern GLfloat speedJump;
 
 bool verificaColisaoEsquerda();

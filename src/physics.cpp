@@ -3,6 +3,7 @@
 #include <screen.h>
 
 bool playerNoChao;
+GLfloat playerVelocity = 10;
 GLfloat gravity = 0.5;
 GLfloat speedJump = 0;
 
