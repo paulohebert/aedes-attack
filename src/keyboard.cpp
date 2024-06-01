@@ -50,27 +50,20 @@ void teclasEspeciais(int tecla, int x, int y)
     switch (tecla)
     {
     case GLUT_KEY_UP:
-        if(verificaColisoes())
-        {
-            translateY += jump;
-            playerNoChao = false;
-        }
+            translateY += 10;
         break;
     case GLUT_KEY_LEFT:
-        if(translateX > -larguraJanela/2 && verificaColisoes())
-        {
+        if(translateX > -larguraJanela/2 && verificaColisaoEsquerda()){
             translateX -= 10;
         }
         break;
     case GLUT_KEY_RIGHT:
-        if(translateX < larguraJanela/2 && verificaColisoes())
-        {
+        if(translateX < larguraJanela/2 && verificaColisaoDireita()){
             translateX += 10;
         }
         break;
     case GLUT_KEY_DOWN:
-        if(verificaColisoes())
-        {
+        if(verificaColisaoEmbaixo()){
             translateY -= 10;
         }
         break;

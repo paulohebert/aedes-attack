@@ -6,9 +6,14 @@
 
 extern bool playerNoChao;
 extern GLfloat gravity;
-extern GLfloat jump;
+//extern GLfloat jump;
+extern GLfloat speedJump;
 
-bool verificaColisoes();
+bool verificaColisaoEsquerda();
+bool verificaColisaoDireita();
+bool verificaColisaoEmbaixo();
+bool verificaColisoesDireita();
 void applyGravity();
+void jump();
 
 #endif // PHYSICS_H

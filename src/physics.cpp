@@ -4,28 +4,40 @@
 
 bool playerNoChao;
 GLfloat gravity = 0.5;
-GLfloat jump = 10.0;
+GLfloat speedJump = 0;
 
-bool verificaColisoes(){
-    bool podeMover;
-    
-    // Verifica colisao com a plataforma 0
-    if(translateX > -larguraJanela/2  && translateX < larguraJanela/2)
-    {
-        podeMover = true;
+bool verificaColisaoEsquerda(){
+    if(translateX > -larguraJanela/2){
+        return true;
     }
     else{
-        podeMover = false;
+        return false;
     }
+}
 
+bool verificaColisaoDireita(){
+    if(translateX < larguraJanela/2){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+bool verificaColisaoEmbaixo(){
 
     return true;
 }
 
-void applyGravity() 
-{
-    if (!playerNoChao)
-    {
-        translateY -= gravity;
-    }
+bool verificaColisoesDireita(){
+
+    return true;
+}
+
+void jump(){
+
+}
+
+void applyGravity() {
+
 }
