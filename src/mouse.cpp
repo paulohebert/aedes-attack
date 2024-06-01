@@ -3,6 +3,11 @@
 #include <keyboard.h>
 #include <position.h>
 
+int isHover(GLfloat xMouse, GLfloat yMouse, GLfloat xObj, GLfloat yObj, GLfloat wObj, GLfloat hObj)
+{
+    return (xMouse > xObj && xMouse < xObj + wObj && yMouse > yObj && yMouse < yObj + hObj);
+}
+
 void mouse(int button, int estado, int x, int y)
 {
     int alturaMax = glutGet(GLUT_WINDOW_HEIGHT); // Armazena a altura máxima da tela
@@ -52,7 +57,7 @@ void passiveMouse(int x, int y)
     y = glutGet(GLUT_WINDOW_HEIGHT) - y;
 
     // Verifica se o mouse está sobre o botão
-    if (x > xButtonStart && x < xButtonStart + wButtonStart && y > yButtonStart && y < yButtonStart + hButtonStart)
+    if (isHover(x, y, xButtonStart, yButtonStart, wButtonStart, hButtonStart))
     {
         // Muda o cursor para quando estiver sobre o botão
         glutSetCursor(GLUT_CURSOR_INFO);
