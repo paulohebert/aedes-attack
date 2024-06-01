@@ -20,7 +20,13 @@ void escreveTextoBitmap(float x, float y, void *fonte, const char *string)
     // Callback para a contagem regressiva
 void atualizaTempo(int value)
 {
-    if (tempoRestante > 0) {
+    if (pause)
+    {
+        glutTimerFunc(1000, atualizaTempo, 0); // Reagenda o timer mesmo quando pausado
+        return;
+    }
+    if (tempoRestante > 0)
+    {
         tempoRestante--;
         glutPostRedisplay();
         glutTimerFunc(1000, atualizaTempo, 0);
