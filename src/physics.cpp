@@ -6,7 +6,7 @@ bool playerNoChao;
 GLfloat playerVelocity = 10;
 GLfloat movePlayerX;
 GLfloat movePlayerY;
-GLfloat gravity = 0.5;
+GLfloat gravity = -5.0;
 GLfloat speedJump = 0;
 
 bool verificaColisaoEsquerda(){
@@ -133,13 +133,20 @@ bool verificaColisaoCima(){
     return false;
 }
 
+
+void applyGravity() {
+    if(verificaColisaoEmbaixo() && translateY > -alturaJanela/2 +430 && !playerNoChao){
+        //translateY += gravity;
+    }
+    if(translateY == -alturaJanela/2 +430){
+        playerNoChao = true;
+    }
+}
+
 void moveObjetos(){
     translateX += movePlayerX;
     translateY += movePlayerY;
     movePlayerX = 0;
     movePlayerY = 0;
-}
-
-void applyGravity() {
-
+    applyGravity();
 }
