@@ -10,5 +10,6 @@ extern int pause;
 void teclado(unsigned char, int, int);
 
 void teclasEspeciais(int, int, int);
+void specialKeysUp(int tecla, int x, int y);
 
 #endif

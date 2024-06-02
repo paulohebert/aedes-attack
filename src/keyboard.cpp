@@ -53,12 +53,16 @@ void teclasEspeciais(int tecla, int x, int y)
         break;
     case GLUT_KEY_LEFT:
         if(translateX > -150 && verificaColisaoEsquerda()){
+
             movePlayerX = -playerVelocity;                     
+            //movePlayerX = -playerVelocity;
+            leftPressed = true;
         }
         break;
     case GLUT_KEY_RIGHT:
         if(translateX < larguraJanela - 250 && verificaColisaoDireita()){
-            movePlayerX = playerVelocity;
+            //movePlayerX = playerVelocity;
+            rightPressed = true;
         }
         break;
     case GLUT_KEY_DOWN:
@@ -68,4 +72,15 @@ void teclasEspeciais(int tecla, int x, int y)
         break;
     }
     glutPostRedisplay();
+}
+
+void specialKeysUp(int tecla, int x, int y){
+    switch (tecla) {
+        case GLUT_KEY_LEFT:
+            leftPressed = false;
+            break;
+        case GLUT_KEY_RIGHT:
+            rightPressed = false;
+            break;
+    }
 }

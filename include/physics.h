@@ -13,7 +13,8 @@ extern GLfloat jumpStrength;
 extern bool isJumping;
 extern GLfloat jumpVelocity;
 extern GLfloat jumpHeight; 
-
+extern bool leftPressed;
+extern bool rightPressed;
 
 bool verificaColisaoEsquerda();
 bool verificaColisaoDireita();
