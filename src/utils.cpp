@@ -37,5 +37,5 @@ void atualizaTempo(int value)
 void atualizaMovimento(int)
 {
     moveObjetos();
-    glutTimerFunc(10, atualizaMovimento, 0);
+    glutTimerFunc(16, atualizaMovimento, 0);
 }

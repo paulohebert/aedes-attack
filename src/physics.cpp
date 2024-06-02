@@ -173,7 +173,7 @@ void jump(int value) {
         }
         
         // Redesenhe a cena
-        glutPostRedisplay();
+        //glutPostRedisplay();
         
         // Registre a função de salto novamente para o próximo quadro
         glutTimerFunc(16, jump, 0); // 16 ms para aproximadamente 60 FPS
@@ -185,6 +185,6 @@ void startJump() {
     if (!isJumping) {
         isJumping = true;
         jumpHeight = 0.0f;
-        glutTimerFunc(1, jump, 0); // Inicia o temporizador de salto
+        glutTimerFunc(16, jump, 0); // Inicia o temporizador de salto
     }
 }
