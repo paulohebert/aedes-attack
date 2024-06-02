@@ -10,12 +10,18 @@ extern GLfloat playerVelocity;
 extern GLfloat speedJump;
 extern GLfloat movePlayerX;
 extern GLfloat movePlayerY;
+extern GLfloat jumpStrength;
+extern bool isJumping;
+extern GLfloat jumpVelocity;
+extern GLfloat jumpHeight; 
+
 
 bool verificaColisaoEsquerda();
 bool verificaColisaoDireita();
 bool verificaColisaoEmbaixo();
 bool verificaColisaoCima();
-void applyGravity();
+bool applyGravity();
 void moveObjetos();
-
+void jump(int value);
+void startJump();;
 #endif // PHYSICS_H

@@ -6,8 +6,15 @@ bool playerNoChao;
 GLfloat playerVelocity = 10;
 GLfloat movePlayerX;
 GLfloat movePlayerY;
-GLfloat gravity = -5.0;
+GLfloat gravity = 10.0;
 GLfloat speedJump = 0;
+
+// Defina uma variável global para controlar o estado do pulo
+bool isJumping = false;
+GLfloat jumpStrength = 200.0f; // Força do pulo
+GLfloat jumpVelocity = 10.0f;   // Velocidade vertical do pulo
+GLfloat jumpHeight = 0.0f;     // Altura atual do pulo
+
 
 bool verificaColisaoEsquerda(){
     if (!(translateX < -larguraJanela * 0.5 + 500 &&  // Verifica se o lado direito do objeto1 em movimento está à esquerda do lado direito do objeto estático
@@ -133,13 +140,12 @@ bool verificaColisaoCima(){
     return false;
 }
 
-
-void applyGravity() {
-    if(verificaColisaoEmbaixo() && translateY > -alturaJanela/2 +430 && !playerNoChao){
-        //translateY += gravity;
-    }
-    if(translateY == -alturaJanela/2 +430){
-        playerNoChao = true;
+bool applyGravity() {
+    // Verifica se há colisão embaixo e se o jogador não está pulando
+    if (translateY > alturaJanela * 0.05 - 40 && !isJumping) {
+        return true; // Aplicar gravidade apenas se não houver colisão embaixo e o jogador não estiver pulando
+    } else {
+        return false;
     }
 }
 
@@ -148,9 +154,37 @@ void moveObjetos(){
     translateY += movePlayerY;
     movePlayerX = 0;
     movePlayerY = 0;
-    applyGravity();
+    if(applyGravity()){
+        translateY -= gravity;
+    }
 }
 
-void jump(){
-    
+// Função para controlar o pulo do jogador
+void jump(int value) {
+    if (isJumping) {
+        // Atualize a posição vertical do jogador
+        jumpHeight += jumpVelocity;
+        translateY += jumpVelocity;
+        
+        // Verifique se o jogador atingiu a altura máxima do pulo
+        if (jumpHeight >= jumpStrength || !verificaColisaoCima()) {
+            isJumping = false;
+            jumpHeight = 0.0f;
+        }
+        
+        // Redesenhe a cena
+        glutPostRedisplay();
+        
+        // Registre a função de salto novamente para o próximo quadro
+        glutTimerFunc(16, jump, 0); // 16 ms para aproximadamente 60 FPS
+    }
+}
+
+// Função para iniciar o pulo do jogador
+void startJump() {
+    if (!isJumping) {
+        isJumping = true;
+        jumpHeight = 0.0f;
+        glutTimerFunc(1, jump, 0); // Inicia o temporizador de salto
+    }
 }

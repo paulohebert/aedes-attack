@@ -48,7 +48,7 @@ void teclasEspeciais(int tecla, int x, int y)
     {
     case GLUT_KEY_UP:
         if(translateY < alturaJanela - 200 && verificaColisaoCima()){
-            movePlayerY = playerVelocity;
+            startJump();
         }
         break;
     case GLUT_KEY_LEFT:
