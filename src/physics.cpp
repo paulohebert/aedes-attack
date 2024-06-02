@@ -150,3 +150,7 @@ void moveObjetos(){
     movePlayerY = 0;
     applyGravity();
 }
+
+void jump(){
+    
+}
