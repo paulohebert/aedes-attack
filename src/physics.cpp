@@ -142,7 +142,7 @@ bool verificaColisaoCima(){
 
 bool applyGravity() {
     // Verifica se há colisão embaixo e se o jogador não está pulando
-    if (translateY > alturaJanela * 0.05 - 40 && !isJumping) {
+    if (translateY > alturaJanela * 0.05 - 40 && !isJumping && verificaColisaoEmbaixo()) {
         return true; // Aplicar gravidade apenas se não houver colisão embaixo e o jogador não estiver pulando
     } else {
         return false;
