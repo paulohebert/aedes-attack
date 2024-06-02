@@ -76,6 +76,9 @@ int main(int argc, char **argv)
     // Registra a função callback para tratamento das teclas especiais
     glutSpecialFunc(teclasEspeciais);
 
+    // Registra a função callback para tratamento das teclas especiais com duas teclas pressionadas
+    glutSpecialUpFunc(specialKeysUp);
+
     // Registra a função callback para tratamento dos botões do mouse
     glutMouseFunc(mouse);
 
@@ -86,7 +89,7 @@ int main(int argc, char **argv)
     glutTimerFunc(100, loadTextures, 0);
 
     // Registra a função callback que será chamada a cada intervalo de tempo para mover objetos na tela
-    glutTimerFunc(16, atualizaMovimento, 0); //16 ms para aproximadamente 60 FPS
+    glutTimerFunc(10, atualizaMovimento, 0);
 
     // Inicia o que precisa no jogo
     init();

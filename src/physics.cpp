@@ -3,7 +3,7 @@
 #include <screen.h>
 
 bool playerNoChao;
-GLfloat playerVelocity = 10;
+GLfloat playerVelocity = 5;
 GLfloat movePlayerX;
 GLfloat movePlayerY;
 GLfloat gravity = 8.0;
@@ -14,6 +14,10 @@ GLfloat jumpStrength = 230.0f; // Força do pulo
 GLfloat jumpVelocity = 10.0f;   // Velocidade vertical do pulo
 GLfloat jumpHeight = 0.0f;     // Altura atual do pulo
 
+
+// Define variável que verifica se há um botão de movimento horizontal pressionado
+bool leftPressed = false;
+bool rightPressed = false;
 
 bool verificaColisaoEsquerda(){
     if (!(translateX < -larguraJanela * 0.5 + 500 &&  // Verifica se o lado direito do objeto1 em movimento está à esquerda do lado direito do objeto estático
@@ -149,13 +153,24 @@ bool applyGravity() {
 }
 
 void moveObjetos(){
+    if(applyGravity()){
+        translateY -= gravity;
+    }
+
+    // Atualizar a velocidade horizontal com base nas teclas pressionadas
+    if (leftPressed && translateX > -150 && verificaColisaoEsquerda()) {
+        movePlayerX = -playerVelocity;
+    } else if (rightPressed && translateX < larguraJanela - 250 && verificaColisaoDireita()) {
+        movePlayerX = playerVelocity;
+    } else {
+        movePlayerX = 0.0;
+    }
+
     translateX += movePlayerX;
     translateY += movePlayerY;
     movePlayerX = 0;
     movePlayerY = 0;
-    if(applyGravity()){
-        translateY -= gravity;
-    }
+
 }
 
 // Função para controlar o pulo do jogador
@@ -175,7 +190,7 @@ void jump(int value) {
         //glutPostRedisplay();
         
         // Registre a função de salto novamente para o próximo quadro
-        glutTimerFunc(16, jump, 0); // 16 ms para aproximadamente 60 FPS
+        glutTimerFunc(10, jump, 0); // 16 ms para aproximadamente 60 FPS
     }
 }
 
@@ -184,6 +199,6 @@ void startJump() {
     if (!isJumping) {
         isJumping = true;
         jumpHeight = 0.0f;
-        glutTimerFunc(16, jump, 0); // Inicia o temporizador de salto
+        glutTimerFunc(10, jump, 0); // Inicia o temporizador de salto
     }
 }
