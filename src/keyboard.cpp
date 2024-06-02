@@ -53,7 +53,7 @@ void teclasEspeciais(int tecla, int x, int y)
         break;
     case GLUT_KEY_LEFT:
         if(translateX > -150 && verificaColisaoEsquerda()){
-            movePlayerX = -playerVelocity;
+            movePlayerX = -playerVelocity;                     
         }
         break;
     case GLUT_KEY_RIGHT:
