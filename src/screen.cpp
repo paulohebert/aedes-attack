@@ -132,7 +132,7 @@ void segundaTela()
     int comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)buffer);
     x = (larguraJanela - comprimentoTexto) / 2;
     y = alturaJanela - 50;
-    glColor3f(0.0f, 0.0f, 0.0f);
+    glColor3f(1.0f, 1.0f, 1.0f);
     escreveTextoBitmap(x, y, GLUT_BITMAP_HELVETICA_18, buffer);
 
     glutSwapBuffers();
