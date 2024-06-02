@@ -56,6 +56,7 @@ void initTextures()
     loadTexture(textures[BUTTON_START], "../assets/btn-start.png");
     loadTexture(textures[BUTTON_PAUSE], "../assets/pause-verde.png");
     loadTexture(textures[BUTTON_EXIT], "../assets/exit-gray.png");
+    loadTexture(textures[HEART], "../assets/vida.png");
     loadTexture(textures[COMBAT_INFO], "../assets/combat-information.png");
 }
 
@@ -87,17 +88,7 @@ void drawBackgroundMenu()
     float textureY = (float)row / 10.0f;
     float frameRatio = 1.0f / 10.0f;
 
-    glBindTexture(GL_TEXTURE_2D, textures[BACKGROUND_MENU]);
-    glBegin(GL_QUADS);
-    glTexCoord2f(textureX, textureY + frameRatio);
-    glVertex2f(0.0f, 0.0f);
-    glTexCoord2f(textureX + frameRatio, textureY + frameRatio);
-    glVertex2f(larguraJanela, 0.0f);
-    glTexCoord2f(textureX + frameRatio, textureY);
-    glVertex2f(larguraJanela, alturaJanela);
-    glTexCoord2f(textureX, textureY);
-    glVertex2f(0.0f, alturaJanela);
-    glEnd();
+    drawTexture(BACKGROUND_MENU, textureX, textureY, frameRatio, frameRatio, 0.0f, 0.0f, larguraJanela, alturaJanela);
 }
 
 int currentBackgroundMainFrame = 0;
@@ -114,17 +105,22 @@ void drawBackgroundMain()
     float textureY = (float)row / 4.0f;
     float frameRatio = 1.0f / 4.0f;
 
-    glBindTexture(GL_TEXTURE_2D, textures[BACKGROUND_MAIN]);
-    glBegin(GL_QUADS);
-    glTexCoord2f(textureX, textureY + frameRatio);
-    glVertex2f(0.0f, 0.0f);
-    glTexCoord2f(textureX + frameRatio, textureY + frameRatio);
-    glVertex2f(larguraJanela, 0.0f);
-    glTexCoord2f(textureX + frameRatio, textureY);
-    glVertex2f(larguraJanela, alturaJanela);
-    glTexCoord2f(textureX, textureY);
-    glVertex2f(0.0f, alturaJanela);
-    glEnd();
+    drawTexture(BACKGROUND_MAIN, textureX, textureY, frameRatio, frameRatio, 0.0f, 0.0f, larguraJanela, alturaJanela);
+}
+
+void drawFrame(int textureID, int currentFrame, int totalFrame, int totalRow, int totalCol, GLfloat x, GLfloat y, GLfloat width, GLfloat height)
+{
+/*     currentFrame = (currentFrame + 1) % totalFrame;
+
+    int row = currentFrame / totalRow;
+    int col = currentFrame % totalCol;
+
+    float textureX = (float)col / totalRow;
+    float textureY = (float)row / totalCol;
+    float frameRatioX = 1.0f / totalRow;
+    float frameRatioY = 1.0f / totalCol;
+
+    drawTexture(textureID, textureX, textureY, frameRatioX, frameRatioY, x, y, width, height); */
 }
 
 int currentInfosFrame = 0;
@@ -146,17 +142,7 @@ void drawInfos(float x, float y, float width, float height)
     float textureY = (float)row / 8.0f;
     float frameRatio = 1.0f / 8.0f;
 
-    glBindTexture(GL_TEXTURE_2D, textures[COMBAT_INFO]);
-    glBegin(GL_QUADS);
-    glTexCoord2f(textureX, textureY + frameRatio);
-    glVertex2f(x - width, y - height);
-    glTexCoord2f(textureX + frameRatio, textureY + frameRatio);
-    glVertex2f(x, y - height);
-    glTexCoord2f(textureX + frameRatio, textureY);
-    glVertex2f(x, y);
-    glTexCoord2f(textureX, textureY);
-    glVertex2f(x - width, y);
-    glEnd();
+    drawTexture(COMBAT_INFO, textureX, textureY, frameRatio, frameRatio, x, y, width, height);
 }
 
 int currentBoyPlayerFrame = 0;
@@ -173,30 +159,27 @@ void drawBoyPlayer(GLfloat x, GLfloat y, GLfloat width, GLfloat height)
     float textureY = (float)row / 4.0f;
     float frameRatio = 1.0f / 4.0f;
 
-    glBindTexture(GL_TEXTURE_2D, textures[PLAYER]);
+    drawTexture(PLAYER, textureX, textureY, frameRatio, frameRatio, x, y, width, height);
+}
+
+// Função que Desenha uma imagem que tem o controle do recorte da textura
+void drawTexture(int textureID, GLfloat xTexture, GLfloat yTexture, GLfloat wTexture, GLfloat hTexture, GLfloat x, GLfloat y, GLfloat width, GLfloat height)
+{
+    glBindTexture(GL_TEXTURE_2D, textures[textureID]);
     glBegin(GL_QUADS);
-    glTexCoord2f(textureX, textureY + frameRatio);
+    glTexCoord2f(xTexture, yTexture + hTexture);
     glVertex2f(x, y);
-    glTexCoord2f(textureX + frameRatio, textureY + frameRatio);
+    glTexCoord2f(xTexture + wTexture, yTexture + hTexture);
     glVertex2f(x + width, y);
-    glTexCoord2f(textureX + frameRatio, textureY);
+    glTexCoord2f(xTexture + wTexture, yTexture);
     glVertex2f(x + width, y + height);
-    glTexCoord2f(textureX, textureY);
+    glTexCoord2f(xTexture, yTexture);
     glVertex2f(x, y + height);
     glEnd();
 }
 
+// Função que Desenha uma imagem usando toda a textura
 void draw(int textureID, GLfloat x, GLfloat y, GLfloat width, GLfloat height)
 {
-    glBindTexture(GL_TEXTURE_2D, textures[textureID]);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex2f(x, y);
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex2f(x + width, y);
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex2f(x + width, y + height);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex2f(x, y + height);
-    glEnd();
+    drawTexture(textureID, 0.0f, 0.0f, 1.0f, 1.0f, x, y, width, height);
 }

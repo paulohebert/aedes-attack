@@ -20,6 +20,7 @@ void mouse(int button, int estado, int x, int y)
     {
         if (isHover(x, y, xButtonStart, yButtonStart, wButtonStart, hButtonStart)) // Verifica se "iniciar" foi selecionado
         {
+            glutSetCursor(GLUT_CURSOR_INHERIT);
             glutDisplayFunc(segundaTela); // Troca para a tela de jogo
         }
     }

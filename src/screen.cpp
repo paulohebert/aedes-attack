@@ -39,7 +39,7 @@ void loadingScreen()
 void telaInicial()
 {
     telaAtual = HOME_SCREEN;
-    
+
     // Resetar o tempo quando a tela inicial for renderizada
     tempoRestante = 90.0;
 
@@ -76,15 +76,11 @@ void segundaTela()
 {
     telaAtual = GAME_SCREEN;
     pause = 0;
-    glClearColor(0.2f, 0.7f, 0.2f, 0.2f);
+
+    // Limpa o buffer de cor e profundidade
     glClear(GL_COLOR_BUFFER_BIT);
 
-    // Configura o sistema de coordenadas para o sistema de coordenadas do mundo
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluOrtho2D(0.0, larguraJanela, 0.0, alturaJanela);
-
-    // Volta para a matriz de modelagem
+    // Define a matriz de modelagem para coordenadas de objeto
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
@@ -92,128 +88,41 @@ void segundaTela()
     glEnable(GL_TEXTURE_2D);
 
     // Desenha o plano de fundo
-
     drawBackgroundMain();
 
     // Desenha informações de combate ao mosquito
+    drawInfos(xBannerDengue, yBannerDengue, wBannerDengue, hBannerDengue);
 
-    drawInfos(larguraJanela - 10, alturaJanela - 10, larguraJanela * 0.14, alturaJanela * 0.3);
+    // Desenha o botão de Pause
+    draw(BUTTON_PAUSE, xButtonPause, yButtonPause, wButtonPause, hButtonPause);
 
-    // Desenha o botão de play
-    largura = 100.0f;
-    altura = 100.0f;
-    retXinic = 0;
-    retYinic = alturaJanela - altura;
-
-    glBindTexture(GL_TEXTURE_2D, textures[BUTTON_PAUSE]);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex2f(retXinic, retYinic);
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex2f(retXinic + largura, retYinic);
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex2f(retXinic + largura, retYinic + altura);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex2f(retXinic, retYinic + altura);
-    glEnd();
-
-    // Desenha a plataforma 0
-    glBindTexture(GL_TEXTURE_2D, textures[PLATFORM]);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex2f(0, -5);
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex2f(larguraJanela, -5);
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex2f(larguraJanela, 50);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex2f(0, 50);
-    glEnd();
+    // Desenha a plataforma de piso
+    draw(PLATFORM, xPlatformFloor, yPlatformFloor, wPlatformFloor, hPlatformFloor);
 
     // Desenha a plataforma 1
-    glBindTexture(GL_TEXTURE_2D, textures[PLATFORM]);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex2f(larguraJanela * 0.1, alturaJanela * 0.2);
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex2f(larguraJanela * 0.1 + 300, alturaJanela * 0.2);
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex2f(larguraJanela * 0.1 + 300, alturaJanela * 0.2 + 50);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex2f(larguraJanela * 0.1, alturaJanela * 0.2 + 50);
-    glEnd();
+    draw(PLATFORM, xPlatform1, yPlatform1, wPlatform1, hPlatform1);
 
     // Desenha a plataforma 2
-    glBindTexture(GL_TEXTURE_2D, textures[PLATFORM]);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex2f(larguraJanela * 0.3, alturaJanela * 0.4);
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex2f(larguraJanela * 0.3 + 450, alturaJanela * 0.4);
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex2f(larguraJanela * 0.3 + 450, alturaJanela * 0.4 + 50);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex2f(larguraJanela * 0.3, alturaJanela * 0.4 + 50);
-    glEnd();
+    draw(PLATFORM, xPlatform2, yPlatform2, wPlatform2, hPlatform2);
 
     // Desenha a plataforma 3
-    glBindTexture(GL_TEXTURE_2D, textures[PLATFORM]);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex2f(larguraJanela * 0.6, alturaJanela * 0.6);
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex2f(larguraJanela * 0.6 + 300, alturaJanela * 0.6);
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex2f(larguraJanela * 0.6 + 300, alturaJanela * 0.6 + 50);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex2f(larguraJanela * 0.6, alturaJanela * 0.6 + 50);
-    glEnd();
+    draw(PLATFORM, xPlatform3, yPlatform3, wPlatform3, hPlatform3);
 
     // Desenha a plataforma 4
-    glBindTexture(GL_TEXTURE_2D, textures[PLATFORM]);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex2f(larguraJanela * 0.08, alturaJanela * 0.6);
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex2f(larguraJanela * 0.08 + 300, alturaJanela * 0.6);
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex2f(larguraJanela * 0.08 + 300, alturaJanela * 0.6 + 50);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex2f(larguraJanela * 0.08, alturaJanela * 0.6 + 50);
-    glEnd();
+    draw(PLATFORM, xPlatform4, yPlatform4, wPlatform4, hPlatform4);
 
     // Desenha a plataforma 5
-    glBindTexture(GL_TEXTURE_2D, textures[PLATFORM]);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex2f(larguraJanela * 0.8, alturaJanela * 0.3);
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex2f(larguraJanela * 0.8 + 300, alturaJanela * 0.3);
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex2f(larguraJanela * 0.8 + 300, alturaJanela * 0.3 + 50);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex2f(larguraJanela * 0.8, alturaJanela * 0.3 + 50);
-    glEnd();
+    draw(PLATFORM, xPlatform5, yPlatform5, wPlatform5, hPlatform5);
 
     glPushMatrix();
     glTranslatef(translateX, translateY, 0.0);
 
     // Desenha o player
-    glBindTexture(GL_TEXTURE_2D, textures[MOSQUITO_ENEMY]);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 0.5f);
-    glVertex2f(larguraJanela / 2 - 50, alturaJanela * 0.5 - 380);
-    glTexCoord2f(0.5f, 0.5f);
-    glVertex2f(larguraJanela / 2 + 50, alturaJanela * 0.5 - 380);
-    glTexCoord2f(0.5f, 0.0f);
-    glVertex2f(larguraJanela / 2 + 50, alturaJanela * 0.5 - 280);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex2f(larguraJanela / 2 - 50, alturaJanela * 0.5 - 280);
-    glEnd();
-
-    drawBoyPlayer(100.0, 45.0, 100.0, 150.0);
+    drawBoyPlayer(xPlayer, yPlayer, wPlayer, hPlayer);
 
     glPopMatrix();
+
+    drawTexture(MOSQUITO_ENEMY, 0.0f, 0.0f, 0.5f, 0.5f, xMosquito, yMosquito, wMosquito, hMosquito);
 
     glDisable(GL_TEXTURE_2D);
 
@@ -290,8 +199,6 @@ void telaPause()
     glTexCoord2f(0.0f, 0.0f);
     glVertex2f(retXexit, retYexit + altura);
     glEnd();
-
-    
 
     glDisable(GL_TEXTURE_2D);
 
