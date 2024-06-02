@@ -6,5 +6,6 @@ extern int tempoRestante;
 void escreveTextoBitmap(float x, float y, void *font, const char *string);
 
 void atualizaTempo(int valor);
+void atualizaMovimento(int);
 
 #endif
