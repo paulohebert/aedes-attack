@@ -6,12 +6,11 @@ bool playerNoChao;
 GLfloat playerVelocity = 10;
 GLfloat movePlayerX;
 GLfloat movePlayerY;
-GLfloat gravity = 10.0;
-GLfloat speedJump = 0;
+GLfloat gravity = 8.0;
 
 // Defina uma variável global para controlar o estado do pulo
 bool isJumping = false;
-GLfloat jumpStrength = 200.0f; // Força do pulo
+GLfloat jumpStrength = 230.0f; // Força do pulo
 GLfloat jumpVelocity = 10.0f;   // Velocidade vertical do pulo
 GLfloat jumpHeight = 0.0f;     // Altura atual do pulo
 
