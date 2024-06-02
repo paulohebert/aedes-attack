@@ -85,6 +85,9 @@ int main(int argc, char **argv)
     // Registra a função callback que será chamada a cada intervalo de tempo
     glutTimerFunc(100, loadTextures, 0);
 
+    // Registra a função callback que será chamada a cada intervalo de tempo para mover objetos na tela
+    glutTimerFunc(10, atualizaMovimento, 0);
+
     // Inicia o que precisa no jogo
     init();
 

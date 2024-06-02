@@ -4,6 +4,8 @@
 
 bool playerNoChao;
 GLfloat playerVelocity = 10;
+GLfloat movePlayerX;
+GLfloat movePlayerY;
 GLfloat gravity = 0.5;
 GLfloat speedJump = 0;
 
@@ -132,7 +134,10 @@ bool verificaColisaoCima(){
 }
 
 void moveObjetos(){
-
+    translateX += movePlayerX;
+    translateY += movePlayerY;
+    movePlayerX = 0;
+    movePlayerY = 0;
 }
 
 void applyGravity() {

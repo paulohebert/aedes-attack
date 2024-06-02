@@ -28,9 +28,14 @@ void atualizaTempo(int value)
     }
     if (tempoRestante > 0)
     {
-        moveObjetos();
         tempoRestante--;
         glutPostRedisplay();
         glutTimerFunc(1000, atualizaTempo, 0);
     }
+}
+
+void atualizaMovimento(int)
+{
+    moveObjetos();
+    glutTimerFunc(10, atualizaMovimento, 0);
 }
