@@ -14,6 +14,6 @@ bool verificaColisaoDireita();
 bool verificaColisaoEmbaixo();
 bool verificaColisaoCima();
 void applyGravity();
-void jump();
+void moveObjetos();
 
 #endif // PHYSICS_H

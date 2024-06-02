@@ -4,6 +4,7 @@
 #include <utils.h>
 #include <texture.h>
 #include <keyboard.h>
+#include <physics.h>
 
 int tempoRestante=90;
 
@@ -27,6 +28,7 @@ void atualizaTempo(int value)
     }
     if (tempoRestante > 0)
     {
+        moveObjetos();
         tempoRestante--;
         glutPostRedisplay();
         glutTimerFunc(1000, atualizaTempo, 0);

@@ -131,7 +131,7 @@ bool verificaColisaoCima(){
     return false;
 }
 
-void jump(){
+void moveObjetos(){
 
 }
 
