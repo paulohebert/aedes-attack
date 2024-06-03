@@ -1,6 +1,7 @@
 #include <GL/glut.h>
 #include <keyboard.h>
 #include <screen.h>
+#include <position.h>
 
 bool playerNoChao;
 GLfloat playerVelocity = 5;
@@ -20,30 +21,30 @@ bool leftPressed = false;
 bool rightPressed = false;
 
 bool verificaColisaoEsquerda(){
-    if (!(translateX < -larguraJanela * 0.5 + 500 &&  // Verifica se o lado direito do objeto1 em movimento está à esquerda do lado direito do objeto estático
-        translateX > -larguraJanela * 0.5 + 150 &&   // Verifica se o lado esquerdo do objeto1 em movimento está à direita do lado esquerdo do objeto estático
-        translateY < alturaJanela * 0.2 - 10 &&     // Verifica se a parte superior do objeto1 em movimento está abaixo da parte superior do objeto estático
-        translateY > alturaJanela * 0.2 - 150)     // Verifica se a parte inferior do objeto1 em movimento está acima da parte inferior do objeto estático
+    if (!(translateX < xPlatform1 + wPlatform1 &&  // Verifica se o lado direito do objeto1 em movimento está à esquerda do lado direito do objeto estático
+        translateX > xPlatform1  &&   // Verifica se o lado esquerdo do objeto1 em movimento está à direita do lado esquerdo do objeto estático
+        translateY < yPlatform1 &&     // Verifica se a parte superior do objeto1 em movimento está abaixo da parte superior do objeto estático
+        translateY > yPlatform1 + hPlatform1)     // Verifica se a parte inferior do objeto1 em movimento está acima da parte inferior do objeto estático
         &&
-        !(translateX < 200 &&                         // Verifica se o lado direito do objeto2 em movimento está à esquerda do lado direito do objeto estático
-        translateX > - 300 &&                        // Verifica se o lado esquerdo do objeto2 em movimento está à direita do lado esquerdo do objeto estático
-        translateY < alturaJanela * 0.2 + 165 &&    // Verifica se a parte superior do objeto2 em movimento está abaixo da parte superior do objeto estático
-        translateY > alturaJanela * 0.2 + 35)      // Verifica se a parte inferior do objeto2 em movimento está acima da parte inferior do objeto estático
+        !(translateX < xPlatform2 + wPlatform2 &&  // Verifica se o lado direito do objeto1 em movimento está à esquerda do lado direito do objeto estático
+        translateX > xPlatform2  &&   // Verifica se o lado esquerdo do objeto1 em movimento está à direita do lado esquerdo do objeto estático
+        translateY < yPlatform2 &&     // Verifica se a parte superior do objeto1 em movimento está abaixo da parte superior do objeto estático
+        translateY > yPlatform2 + hPlatform2)      // Verifica se a parte inferior do objeto2 em movimento está acima da parte inferior do objeto estático
         &&
-        !(translateX < -290 &&                        // Verifica se o lado direito do objeto4 em movimento está à esquerda do lado direito do objeto estático
-        translateX > - 640 &&                        // Verifica se o lado esquerdo do objeto4 em movimento está à direita do lado esquerdo do objeto estático
-        translateY < alturaJanela * 0.2 + 330 &&    // Verifica se a parte superior do objeto4 em movimento está abaixo da parte superior do objeto estático
-        translateY > alturaJanela * 0.2 + 200)     // Verifica se a parte inferior do objeto4 em movimento está acima da parte inferior do objeto estático
+        !(translateX < xPlatform3 + wPlatform3 &&  // Verifica se o lado direito do objeto1 em movimento está à esquerda do lado direito do objeto estático
+        translateX > xPlatform3  &&   // Verifica se o lado esquerdo do objeto1 em movimento está à direita do lado esquerdo do objeto estático
+        translateY < yPlatform3 &&     // Verifica se a parte superior do objeto1 em movimento está abaixo da parte superior do objeto estático
+        translateY > yPlatform3 + hPlatform3)     // Verifica se a parte inferior do objeto4 em movimento está acima da parte inferior do objeto estático
         &&
-        !(translateX < 510 &&                         // Verifica se o lado direito do objeto3 em movimento está à esquerda do lado direito do objeto estático
-        translateX > 210 &&                          // Verifica se o lado esquerdo do objeto3 em movimento está à direita do lado esquerdo do objeto estático
-        translateY < alturaJanela * 0.2 + 330 &&    // Verifica se a parte superior do objeto3 em movimento está abaixo da parte superior do objeto estático
-        translateY > alturaJanela * 0.2 + 200)     // Verifica se a parte inferior do objeto3 em movimento está acima da parte inferior do objeto estático
+        !(translateX < xPlatform4 + wPlatform4 &&  // Verifica se o lado direito do objeto1 em movimento está à esquerda do lado direito do objeto estático
+        translateX > xPlatform4  &&   // Verifica se o lado esquerdo do objeto1 em movimento está à direita do lado esquerdo do objeto estático
+        translateY < yPlatform4 &&     // Verifica se a parte superior do objeto1 em movimento está abaixo da parte superior do objeto estático
+        translateY > yPlatform4 + hPlatform4)     // Verifica se a parte inferior do objeto3 em movimento está acima da parte inferior do objeto estático
         &&
-        !(translateX < 820 &&                         // Verifica se o lado direito do objeto5 em movimento está à esquerda do lado direito do objeto estático
-        translateX > 520 &&                          // Verifica se o lado esquerdo do objeto5 em movimento está à direita do lado esquerdo do objeto estático
-        translateY < alturaJanela * 0.2 + 75 &&     // Verifica se a parte superior do objeto5 em movimento está abaixo da parte superior do objeto estático
-        translateY > alturaJanela * 0.2 - 60))     // Verifica se a parte inferior do objeto5 em movimento está acima da parte inferior do objeto estático
+        !(translateX < xPlatform5 + wPlatform5 &&  // Verifica se o lado direito do objeto1 em movimento está à esquerda do lado direito do objeto estático
+        translateX > xPlatform5  &&   // Verifica se o lado esquerdo do objeto1 em movimento está à direita do lado esquerdo do objeto estático
+        translateY < yPlatform5 &&     // Verifica se a parte superior do objeto1 em movimento está abaixo da parte superior do objeto estático
+        translateY > yPlatform5 + hPlatform5))     // Verifica se a parte inferior do objeto5 em movimento está acima da parte inferior do objeto estático
         {  
         return true;
     }
@@ -51,10 +52,10 @@ bool verificaColisaoEsquerda(){
 }
 
 bool verificaColisaoDireita(){
-    if (!(translateX < -larguraJanela * 0.5 + 450 &&   // Verifica se o lado direito do objeto1 em movimento está à esquerda do lado direito do objeto estático
-        translateX > -larguraJanela * 0.5 + 100 &&    // Verifica se o lado esquerdo do objeto1 em movimento está à direita do lado esquerdo do objeto estático
-        translateY < alturaJanela * 0.2 - 10 &&      // Verifica se a parte superior do objeto1 em movimento está abaixo da parte superior do objeto estático
-        translateY > alturaJanela * 0.2 - 150)      // Verifica se a parte inferior do objeto1 em movimento está acima da parte inferior do objeto estático
+    if (!(translateX < xPlatform1 + wPlatform1 &&  // Verifica se o lado direito do objeto1 em movimento está à esquerda do lado direito do objeto estático
+        translateX > xPlatform1  &&   // Verifica se o lado esquerdo do objeto1 em movimento está à direita do lado esquerdo do objeto estático
+        translateY < yPlatform1 &&     // Verifica se a parte superior do objeto1 em movimento está abaixo da parte superior do objeto estático
+        translateY > alturaJanela + hPlatform1)      // Verifica se a parte inferior do objeto1 em movimento está acima da parte inferior do objeto estático
         &&
         !(translateX < 150 &&                          // Verifica se o lado direito do objeto2 em movimento está à esquerda do lado direito do objeto estático
         translateX > -360 &&                          // Verifica se o lado esquerdo do objeto2 em movimento está à direita do lado esquerdo do objeto estático
@@ -82,10 +83,10 @@ bool verificaColisaoDireita(){
 }
 
 bool verificaColisaoEmbaixo(){
-    if (!(translateX < -larguraJanela * 0.5 + 490 &&  // Verifica se o lado direito do objeto1 em movimento está à esquerda do lado direito do objeto estático
-        translateX > -larguraJanela * 0.5 + 110 &&   // Verifica se o lado esquerdo do objeto1 em movimento está à direita do lado esquerdo do objeto estático
-        translateY < alturaJanela * 0.2 &&          // Verifica se a parte superior do objeto1 em movimento está abaixo da parte superior do objeto estático
-        translateY > alturaJanela * 0.2 - 150)     // Verifica se a parte inferior do objeto1 em movimento está acima da parte inferior do objeto estático
+    if (!(translateX < xPlatform1 + wPlatform1 &&  // Verifica se o lado direito do objeto1 em movimento está à esquerda do lado direito do objeto estático
+        translateX > xPlatform1  &&   // Verifica se o lado esquerdo do objeto1 em movimento está à direita do lado esquerdo do objeto estático
+        translateY < yPlatform1 &&     // Verifica se a parte superior do objeto1 em movimento está abaixo da parte superior do objeto estático
+        translateY > alturaJanela + hPlatform1)     // Verifica se a parte inferior do objeto1 em movimento está acima da parte inferior do objeto estático
         &&
         !(translateX < 190 &&                         // Verifica se o lado direito do objeto2 em movimento está à esquerda do lado direito do objeto estático
         translateX > - 350 &&                        // Verifica se o lado esquerdo do objeto2 em movimento está à direita do lado esquerdo do objeto estático
@@ -113,10 +114,10 @@ bool verificaColisaoEmbaixo(){
 }
 
 bool verificaColisaoCima(){
-    if (!(translateX < -larguraJanela * 0.5 + 490 &&  // Verifica se o lado direito do objeto1 em movimento está à esquerda do lado direito do objeto estático
-        translateX > -larguraJanela * 0.5 + 110 &&   // Verifica se o lado esquerdo do objeto1 em movimento está à direita do lado esquerdo do objeto estático
-        translateY < alturaJanela * 0.2 - 10 &&     // Verifica se a parte superior do objeto1 em movimento está abaixo da parte superior do objeto estático
-        translateY > alturaJanela * 0.2 - 160)     // Verifica se a parte inferior do objeto1 em movimento está acima da parte inferior do objeto estático
+    if (!(translateX < xPlatform1 + wPlatform1 &&  // Verifica se o lado direito do objeto1 em movimento está à esquerda do lado direito do objeto estático
+        translateX > xPlatform1  &&   // Verifica se o lado esquerdo do objeto1 em movimento está à direita do lado esquerdo do objeto estático
+        translateY < yPlatform1 &&     // Verifica se a parte superior do objeto1 em movimento está abaixo da parte superior do objeto estático
+        translateY > alturaJanela + hPlatform1)     // Verifica se a parte inferior do objeto1 em movimento está acima da parte inferior do objeto estático
         &&
         !(translateX < 190 &&                         // Verifica se o lado direito do objeto2 em movimento está à esquerda do lado direito do objeto estático
         translateX > - 350 &&                        // Verifica se o lado esquerdo do objeto2 em movimento está à direita do lado esquerdo do objeto estático
