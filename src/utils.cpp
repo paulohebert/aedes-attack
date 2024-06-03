@@ -1,15 +1,13 @@
 #include <GL/glut.h>
-#include <stdio.h>
 #include <stdlib.h>
-#include <utils.h>
+#include <screen.h>
 #include <texture.h>
 #include <keyboard.h>
 #include <physics.h>
 
-int tempoRestante=90;
+int tempoRestante = 90;
 
 // Função para desenhar texto na tela
-
 void escreveTextoBitmap(float x, float y, void *fonte, const char *string)
 {
     const char *c;
@@ -18,7 +16,7 @@ void escreveTextoBitmap(float x, float y, void *fonte, const char *string)
         glutBitmapCharacter(fonte, *c);
 }
 
-    // Callback para a contagem regressiva
+// Callback para a contagem regressiva
 void atualizaTempo(int value)
 {
     if (pause)
@@ -38,4 +36,58 @@ void atualizaMovimento(int)
 {
     moveObjetos();
     glutTimerFunc(10, atualizaMovimento, 0);
+}
+
+/* Atualiza os frames das texturas da tela inicial */
+void animateHomeScreenTextures(int)
+{
+    /* Evita que a animação continue quando trocar de tela */
+    if (telaAtual == HOME_SCREEN)
+    {
+        // Altera para o próximo frame do plano de fundo da tela inicial
+        currentBackgroundMenuFrame = (currentBackgroundMenuFrame + 1) % BACKGROUND_MENU_TOTAL_FRAMES;
+
+        glutPostRedisplay();                              // Redesenha a tela
+        glutTimerFunc(70, animateHomeScreenTextures, 0); // Loop
+    }
+}
+
+/* Atualiza os frames das texturas da tela do jogo */
+void animateGameScreenTextures(int)
+{
+    /* Evita que a animação continue quando trocar de tela */
+    if (telaAtual == GAME_SCREEN)
+    {
+        // Altera para o próximo frame do plano de fundo da tela do jogo
+        currentBackgroundMainFrame = (currentBackgroundMainFrame + 1) % BACKGROUND_MAIN_TOTAL_FRAMES;
+
+        // Altera para o próximo frame do personagem do jogador
+        currentPlayerFrame = (currentPlayerFrame + 1) % PLAYER_TOTAL_FRAMES;
+
+        // Adiciona um delay na animação do banner para não ficar passando muito rápido
+        static int delay = 4;
+        if (delay-- == 0)
+        {
+            // Altera para o próximo frame do banner de combate à dengue
+            currentBannerCombatInfoFrame = (currentBannerCombatInfoFrame + 1) % BANNER_COMBAT_INFO_TOTAL_FRAMES;
+            delay = 4;
+        }
+
+        glutPostRedisplay();                              // Redesenha a tela
+        glutTimerFunc(100, animateGameScreenTextures, 0); // Loop
+    }
+}
+
+/* Atualiza os frames das texturas da tela de pause do jogo */
+void animateGamePauseScreenTextures(int)
+{
+    /* Evita que a animação continue quando trocar de tela */
+    if (telaAtual == GAME_PAUSE_SCREEN)
+    {
+        // Altera para o próximo frame do banner de combate à dengue
+        currentBannerCombatInfoFrame = (currentBannerCombatInfoFrame + 1) % BANNER_COMBAT_INFO_TOTAL_FRAMES;
+
+        glutPostRedisplay();                                   // Redesenha a tela
+        glutTimerFunc(400, animateGamePauseScreenTextures, 0); // Loop
+    }
 }

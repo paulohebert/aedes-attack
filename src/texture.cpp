@@ -3,8 +3,16 @@
 #include <GL/glut.h>
 #include <texture.h>
 #include <screen.h>
+#include <utils.h>
 
+/* Armazena as todas texturas */
 GLuint *textures;
+
+/* Guarda o estado atual do frame da animação  */
+int currentBackgroundMenuFrame = 0;   // Background da Tela Inicial
+int currentBackgroundMainFrame = 0;   // Background da Tela do Jogo
+int currentBannerCombatInfoFrame = 0; // Banner de Combate à dengue
+int currentPlayerFrame = 0;           // Personagem do Jogador
 
 void loadTexture(GLuint texture, const char *filename)
 {
@@ -42,12 +50,16 @@ void loadTexture(GLuint texture, const char *filename)
 
 void initTextures()
 {
+    // Armazenar o espaço para todas as texturas
     textures = (GLuint *)malloc(sizeof(GLuint) * NUM_TEXTURES);
     glGenTextures(NUM_TEXTURES, textures);
+
+    // Carrega todas as texturas usadas no Jogo
     loadTexture(textures[BACKGROUND_MENU], "../assets/background-city.png");
     loadTexture(textures[BACKGROUND_MAIN], "../assets/background-rain.png");
     loadTexture(textures[BACKGROUND_PAUSE], "../assets/background-terrain.png");
     loadTexture(textures[LOGO], "../assets/aedes-attack.png");
+    loadTexture(textures[UNIVASF], "../assets/univasf.png");
     loadTexture(textures[MOSQUITO_PROHIBITED], "../assets/mosquito-prohibited-white.png");
     loadTexture(textures[MOSQUITO_ENEMY], "../assets/mosquito.png");
     loadTexture(textures[PLAYER], "../assets/boy-player.png");
@@ -56,116 +68,45 @@ void initTextures()
     loadTexture(textures[BUTTON_START], "../assets/btn-start.png");
     loadTexture(textures[BUTTON_PAUSE], "../assets/pause-verde.png");
     loadTexture(textures[BUTTON_EXIT], "../assets/exit-gray.png");
+    loadTexture(textures[BUTTON_ABOUT], "../assets/btn-about.png");
     loadTexture(textures[HEART], "../assets/vida.png");
-    loadTexture(textures[COMBAT_INFO], "../assets/combat-information.png");
+    loadTexture(textures[BANNER_COMBAT_INFO], "../assets/combat-information.png");
 }
 
-void animateTextures(int)
-{
-    glutPostRedisplay();
-    glutTimerFunc(100, animateTextures, 0);
-}
-
+/* Função que espera carregar todas as texturas para só depois ir para tela inicial */
 void loadTextures(int)
 {
-    initTextures();
+    initTextures(); // Carrega as texturas
+
+    // Depois muda a tela de carregando para a tela de início
     glutDisplayFunc(telaInicial);
-
-    glutTimerFunc(100, animateTextures, 0);
+    glutTimerFunc(70, animateHomeScreenTextures, 0); // Começa a animação da tela inicial
 }
 
-int currentBackgroundMenuFrame = 0;
-int backgroundMenuFrames = 96;
-
-void drawBackgroundMenu()
+/* Libera as texturas da memória */
+void freeTextures()
 {
-    currentBackgroundMenuFrame = (currentBackgroundMenuFrame + 1) % backgroundMenuFrames;
-
-    int row = currentBackgroundMenuFrame / 10;
-    int col = currentBackgroundMenuFrame % 10;
-
-    float textureX = (float)col / 10.0f;
-    float textureY = (float)row / 10.0f;
-    float frameRatio = 1.0f / 10.0f;
-
-    drawTexture(BACKGROUND_MENU, textureX, textureY, frameRatio, frameRatio, 0.0f, 0.0f, larguraJanela, alturaJanela);
+    glDeleteTextures(NUM_TEXTURES, textures);
+    free(textures);
 }
 
-int currentBackgroundMainFrame = 0;
-int backgroundMainFrames = 16;
-
-void drawBackgroundMain()
+void drawFrame(int textureID, int currentFrame, int totalRow, int totalCol, GLfloat x, GLfloat y, GLfloat width, GLfloat height)
 {
-    currentBackgroundMainFrame = (currentBackgroundMainFrame + 1) % backgroundMainFrames;
-
-    int row = currentBackgroundMainFrame / 4;
-    int col = currentBackgroundMainFrame % 4;
-
-    float textureX = (float)col / 4.0f;
-    float textureY = (float)row / 4.0f;
-    float frameRatio = 1.0f / 4.0f;
-
-    drawTexture(BACKGROUND_MAIN, textureX, textureY, frameRatio, frameRatio, 0.0f, 0.0f, larguraJanela, alturaJanela);
-}
-
-void drawFrame(int textureID, int currentFrame, int totalFrame, int totalRow, int totalCol, GLfloat x, GLfloat y, GLfloat width, GLfloat height)
-{
-/*     currentFrame = (currentFrame + 1) % totalFrame;
-
     int row = currentFrame / totalRow;
-    int col = currentFrame % totalCol;
+    int col = currentFrame % totalRow;
 
     float textureX = (float)col / totalRow;
     float textureY = (float)row / totalCol;
     float frameRatioX = 1.0f / totalRow;
     float frameRatioY = 1.0f / totalCol;
 
-    drawTexture(textureID, textureX, textureY, frameRatioX, frameRatioY, x, y, width, height); */
+    drawTexture(textureID, textureX, textureY, frameRatioX, frameRatioY, x, y, width, height);
 }
 
-int currentInfosFrame = 0;
-int infosFrames = 61;
-int delay = 0;
-
-void drawInfos(float x, float y, float width, float height)
-{
-    if (delay == 4)
-    {
-        delay = -1;
-        currentInfosFrame = (currentInfosFrame + 1) % infosFrames;
-    }
-    delay++;
-    int row = currentInfosFrame / 8;
-    int col = currentInfosFrame % 8;
-
-    float textureX = (float)col / 8.0f;
-    float textureY = (float)row / 8.0f;
-    float frameRatio = 1.0f / 8.0f;
-
-    drawTexture(COMBAT_INFO, textureX, textureY, frameRatio, frameRatio, x, y, width, height);
-}
-
-int currentBoyPlayerFrame = 0;
-int boyPlayerFrames = 15;
-
-void drawBoyPlayer(GLfloat x, GLfloat y, GLfloat width, GLfloat height)
-{
-    currentBoyPlayerFrame = (currentBoyPlayerFrame + 1) % boyPlayerFrames;
-
-    int row = currentBoyPlayerFrame / 4;
-    int col = currentBoyPlayerFrame % 4;
-
-    float textureX = (float)col / 4.0f;
-    float textureY = (float)row / 4.0f;
-    float frameRatio = 1.0f / 4.0f;
-
-    drawTexture(PLAYER, textureX, textureY, frameRatio, frameRatio, x, y, width, height);
-}
-
-// Função que Desenha uma imagem que tem o controle do recorte da textura
+// Função que Desenha uma imagem que tem o controle do recorte sobre a textura
 void drawTexture(int textureID, GLfloat xTexture, GLfloat yTexture, GLfloat wTexture, GLfloat hTexture, GLfloat x, GLfloat y, GLfloat width, GLfloat height)
 {
-    glBindTexture(GL_TEXTURE_2D, textures[textureID]);
+    glBindTexture(GL_TEXTURE_2D, textures[textureID]); // Aplica a textura
     glBegin(GL_QUADS);
     glTexCoord2f(xTexture, yTexture + hTexture);
     glVertex2f(x, y);
@@ -178,7 +119,7 @@ void drawTexture(int textureID, GLfloat xTexture, GLfloat yTexture, GLfloat wTex
     glEnd();
 }
 
-// Função que Desenha uma imagem usando toda a textura
+// Função que Desenha uma imagem usando a textura completa
 void draw(int textureID, GLfloat x, GLfloat y, GLfloat width, GLfloat height)
 {
     drawTexture(textureID, 0.0f, 0.0f, 1.0f, 1.0f, x, y, width, height);
