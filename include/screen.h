@@ -5,6 +5,7 @@ extern int larguraJanela, alturaJanela, telaAtual, telaOver;
 extern const GLuint *textureID;
 extern float largura, altura, retXinic, retYinic, retXcont, retYcont, retXexit, retYexit;
 
+/* Estados das Telas do Jogo */
 #define HOME_SCREEN 0
 #define GAME_SCREEN 1
 #define GAME_PAUSE_SCREEN 2

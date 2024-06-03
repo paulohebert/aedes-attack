@@ -54,16 +54,22 @@ void telaInicial()
     glEnable(GL_TEXTURE_2D);
 
     // Desenha o plano de fundo
-    drawBackgroundMenu();
+    drawFrame(BACKGROUND_MENU, currentBackgroundMenuFrame, 10, 10, 0, 0, larguraJanela, alturaJanela);
 
     // Desenha a logo Aedes Attack
     draw(LOGO, xAedesAttack, yAedesAttack, wAedesAttack, hAedesAttack);
+
+    // Desenha a logo da Univasf
+    draw(UNIVASF, xUnivasf, yUnivasf, wUnivasf, hUnivasf);
 
     // Desenha a placa de mosquito
     draw(MOSQUITO_PROHIBITED, xMosquitoProhibited, yMosquitoProhibited, wMosquitoProhibited, hMosquitoProhibited);
 
     // Desenha o botão de iniciar
     draw(BUTTON_START, xButtonStart, yButtonStart, wButtonStart, hButtonStart);
+
+    // Desenha o botão de Sobre
+    draw(BUTTON_ABOUT, xButtonAbout, yButtonAbout, wButtonAbout, hButtonAbout);
 
     // Desativa a aplicação de texturas
     glDisable(GL_TEXTURE_2D);
@@ -88,13 +94,19 @@ void segundaTela()
     glEnable(GL_TEXTURE_2D);
 
     // Desenha o plano de fundo
-    drawBackgroundMain();
+    drawFrame(BACKGROUND_MAIN, currentBackgroundMainFrame, 4, 4, 0, 0, larguraJanela, alturaJanela);
 
     // Desenha informações de combate ao mosquito
-    drawInfos(xBannerDengue, yBannerDengue, wBannerDengue, hBannerDengue);
+    drawFrame(BANNER_COMBAT_INFO, currentBannerCombatInfoFrame, 8, 8, xBannerDengue, yBannerDengue, wBannerDengue, hBannerDengue);
 
     // Desenha o botão de Pause
     draw(BUTTON_PAUSE, xButtonPause, yButtonPause, wButtonPause, hButtonPause);
+
+    // Desenha a quantidade de Vida que o jogador tem
+    for (int totalHeart = 5; totalHeart; totalHeart--)
+    {
+        draw(HEART, xHeart + (wHeart * totalHeart) + (totalHeart * offsetHeart), yHeart, wHeart, hHeart);
+    }
 
     // Desenha a plataforma de piso
     draw(PLATFORM, xPlatformFloor, yPlatformFloor, wPlatformFloor, hPlatformFloor);
@@ -114,14 +126,16 @@ void segundaTela()
     // Desenha a plataforma 5
     draw(PLATFORM, xPlatform5, yPlatform5, wPlatform5, hPlatform5);
 
+    // Move o Jogador
     glPushMatrix();
     glTranslatef(translateX, translateY, 0.0);
 
     // Desenha o player
-    drawBoyPlayer(xPlayer, yPlayer, wPlayer, hPlayer);
+    drawFrame(PLAYER, currentPlayerFrame, 4, 4, xPlayer, yPlayer, wPlayer, hPlayer);
 
     glPopMatrix();
 
+    // Desenha o Mosquito
     drawTexture(MOSQUITO_ENEMY, 0.0f, 0.0f, 0.5f, 0.5f, xMosquito, yMosquito, wMosquito, hMosquito);
 
     glDisable(GL_TEXTURE_2D);
@@ -131,7 +145,7 @@ void segundaTela()
     snprintf(buffer, sizeof(buffer), "Tempo restante: %02d:%02d", tempoRestante / 60, tempoRestante % 60);
     int comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)buffer);
     x = (larguraJanela - comprimentoTexto) / 2;
-    y = alturaJanela - 50;
+    y = alturaJanela * 0.95;
     glColor3f(1.0f, 1.0f, 1.0f);
     escreveTextoBitmap(x, y, GLUT_BITMAP_HELVETICA_18, buffer);
 
@@ -140,6 +154,7 @@ void segundaTela()
 
 void telaPause()
 {
+    telaAtual = GAME_PAUSE_SCREEN;
     pause = 1;
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -147,58 +162,20 @@ void telaPause()
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
+    // Inicia a aplicação de texturas
     glEnable(GL_TEXTURE_2D);
 
-    glBindTexture(GL_TEXTURE_2D, textures[BACKGROUND_PAUSE]);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex2f(0.0f, 0.0f);
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex2f(larguraJanela, 0.0f);
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex2f(larguraJanela, alturaJanela);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex2f(0.0f, alturaJanela);
-    glEnd();
+    // Desenha o plano de fundo
+    draw(BACKGROUND_PAUSE, 0, 0, larguraJanela, alturaJanela);
 
     // Desenha as informações de combate ao mosquito
-    drawInfos(larguraJanela / 2 + larguraJanela * 0.15, alturaJanela * 0.6, larguraJanela * 0.3, alturaJanela * 0.55);
+    drawFrame(BANNER_COMBAT_INFO, currentBannerCombatInfoFrame, 8, 8, xBannerDengueCenter, yBannerDengueCenter, wBannerDengueCenter, hBannerDengueCenter);
 
-    // Coordenadas para desenhar o botão de "continue"
-    largura = 100.0f;
-    altura = 100.0f;
-    retXcont = (larguraJanela - largura) * 0.4;
-    retYcont = (alturaJanela - altura) * 0.75;
     // Desenha o botão de "continue"
-    glBindTexture(GL_TEXTURE_2D, textures[BUTTON_PLAY]);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex2f(retXcont, retYcont);
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex2f(retXcont + largura, retYcont);
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex2f(retXcont + largura, retYcont + altura);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex2f(retXcont, retYcont + altura);
-    glEnd();
+    draw(BUTTON_PLAY, xButtonContinue, yButtonContinue, wButtonContinue, hButtonContinue);
 
-    // Coordenadas para desenhar o botão de "exit"
-    largura = 100.0f;
-    altura = 100.0f;
-    retXexit = (larguraJanela - largura) * 0.6;
-    retYexit = (alturaJanela - altura) * 0.75;
     // Desenha o botão de "exit"
-    glBindTexture(GL_TEXTURE_2D, textures[BUTTON_EXIT]);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex2f(retXexit, retYexit);
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex2f(retXexit + largura, retYexit);
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex2f(retXexit + largura, retYexit + altura);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex2f(retXexit, retYexit + altura);
-    glEnd();
+    draw(BUTTON_EXIT, xButtonExit, yButtonExit, wButtonExit, hButtonExit);
 
     glDisable(GL_TEXTURE_2D);
 
@@ -222,6 +199,7 @@ void telaPause()
 
 void telaFim()
 {
+    telaAtual = END_GAME_SCREEN;
     telaOver = 1;
     pause = 0;
     glClearColor(0.8f, 0.2f, 0.2f, 0.2f);
@@ -247,40 +225,40 @@ void telaFim()
     escreveTextoBitmap(x, y - 20, GLUT_BITMAP_HELVETICA_12, "Selecione uma das caixas");
 
     // Coordenadas para desenhar o botão de "recomeçar"
-    largura = 100.0f;
-    altura = 100.0f;
-    retXcont = (larguraJanela - largura) * 0.4;
-    retYcont = (alturaJanela - altura) * 0.75;
-    // Desenha o botão de "recomeçar"
-    glBindTexture(GL_TEXTURE_2D, textures[BUTTON_PLAY]);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex2f(retXcont, retYcont);
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex2f(retXcont + largura, retYcont);
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex2f(retXcont + largura, retYcont + altura);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex2f(retXcont, retYcont + altura);
-    glEnd();
+    /*  largura = 100.0f;
+     altura = 100.0f;
+     retXcont = (larguraJanela - largura) * 0.4;
+     retYcont = (alturaJanela - altura) * 0.75;
+     // Desenha o botão de "recomeçar"
+     glBindTexture(GL_TEXTURE_2D, textures[BUTTON_PLAY]);
+     glBegin(GL_QUADS);
+     glTexCoord2f(0.0f, 1.0f);
+     glVertex2f(retXcont, retYcont);
+     glTexCoord2f(1.0f, 1.0f);
+     glVertex2f(retXcont + largura, retYcont);
+     glTexCoord2f(1.0f, 0.0f);
+     glVertex2f(retXcont + largura, retYcont + altura);
+     glTexCoord2f(0.0f, 0.0f);
+     glVertex2f(retXcont, retYcont + altura);
+     glEnd();
 
-    // Coordenadas para desenhar o botão de "exit"
-    largura = 100.0f;
-    altura = 100.0f;
-    retXexit = (larguraJanela - largura) * 0.6;
-    retYexit = (alturaJanela - altura) * 0.75;
-    // Desenha o botão de "exit"
-    glBindTexture(GL_TEXTURE_2D, textures[BUTTON_EXIT]);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex2f(retXexit, retYexit);
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex2f(retXexit + largura, retYexit);
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex2f(retXexit + largura, retYexit + altura);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex2f(retXexit, retYexit + altura);
-    glEnd();
+     // Coordenadas para desenhar o botão de "exit"
+     largura = 100.0f;
+     altura = 100.0f;
+     retXexit = (larguraJanela - largura) * 0.6;
+     retYexit = (alturaJanela - altura) * 0.75;
+     // Desenha o botão de "exit"
+     glBindTexture(GL_TEXTURE_2D, textures[BUTTON_EXIT]);
+     glBegin(GL_QUADS);
+     glTexCoord2f(0.0f, 1.0f);
+     glVertex2f(retXexit, retYexit);
+     glTexCoord2f(1.0f, 1.0f);
+     glVertex2f(retXexit + largura, retYexit);
+     glTexCoord2f(1.0f, 0.0f);
+     glVertex2f(retXexit + largura, retYexit + altura);
+     glTexCoord2f(0.0f, 0.0f);
+     glVertex2f(retXexit, retYexit + altura);
+     glEnd(); */
 
     // Atualiza a tela
     glutSwapBuffers();

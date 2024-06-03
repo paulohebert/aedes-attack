@@ -15,16 +15,12 @@ void init()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-
-    // initTextures();
 }
 
 // Função de limpeza
 void Cleanup()
 {
-    // Libera as texturas
-    glDeleteTextures(NUM_TEXTURES, textures);
-    free(textures);
+    freeTextures();
 }
 
 void alteraTamanhoJanela(GLsizei w, GLsizei h)
@@ -85,7 +81,7 @@ int main(int argc, char **argv)
     // Registra a função callback para alterar o cursor do mouse quando estiver sobre um objeto
     glutPassiveMotionFunc(passiveMouse);
 
-    // Registra a função callback que será chamada a cada intervalo de tempo
+    // Registra a função callback que será chamada para trocar a tela de carregando após carregar as texturas
     glutTimerFunc(100, loadTextures, 0);
 
     // Registra a função callback que será chamada a cada intervalo de tempo para mover objetos na tela

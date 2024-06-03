@@ -2,6 +2,7 @@
 #include <screen.h>
 #include <keyboard.h>
 #include <position.h>
+#include <utils.h>
 
 int isHover(GLfloat xMouse, GLfloat yMouse, GLfloat xObj, GLfloat yObj, GLfloat wObj, GLfloat hObj)
 {
@@ -21,21 +22,24 @@ void mouse(int button, int estado, int x, int y)
         if (isHover(x, yInvertido, xButtonStart, yButtonStart, wButtonStart, hButtonStart)) // Verifica se "iniciar" foi selecionado
         {
             glutSetCursor(GLUT_CURSOR_INHERIT);
-            glutDisplayFunc(segundaTela); // Troca para a tela de jogo
+            glutDisplayFunc(segundaTela);                     // Troca para a tela de jogo
+            glutTimerFunc(100, animateGameScreenTextures, 0); // Começa a animação da tela do jogo
         }
     }
 
     if (button == GLUT_LEFT_BUTTON && estado == GLUT_DOWN && pause)
     {
-        if (isHover(x, yInvertido, retXcont, retYcont, largura, altura)) // Verifica se "continuar" foi selecionado
+        if (isHover(x, yInvertido, xButtonContinue, yButtonContinue, wButtonContinue, hButtonContinue)) // Verifica se "continuar" foi selecionado
         {
-            glutDisplayFunc(segundaTela); // Troca para a tela de jogo
+            glutSetCursor(GLUT_CURSOR_INHERIT);
+            glutDisplayFunc(segundaTela);                     // Troca para a tela de jogo
+            glutTimerFunc(100, animateGameScreenTextures, 0); // Começa a animação da tela do jogo
         }
     }
 
     if (button == GLUT_LEFT_BUTTON && estado == GLUT_DOWN && telaOver)
     {
-        if (isHover(x, yInvertido, retXcont, retYcont, largura, altura)) // Verifica se "recomeçar" foi selecionado
+        if (isHover(x, yInvertido, xButtonContinue, yButtonContinue, wButtonContinue, hButtonContinue)) // Verifica se "recomeçar" foi selecionado
         {
             glutDisplayFunc(telaInicial); // Troca para a tela inicial
         }
@@ -43,7 +47,7 @@ void mouse(int button, int estado, int x, int y)
 
     if (button == GLUT_LEFT_BUTTON && estado == GLUT_DOWN && (pause || telaOver))
     {
-        if (isHover(x, yInvertido, retXexit, retYexit, largura, altura)) // Verifica se "sair" foi selecionado tanto na tela de pause, como na tela fim
+        if (isHover(x, yInvertido, xButtonExit, yButtonExit, wButtonExit, hButtonExit)) // Verifica se "sair" foi selecionado tanto na tela de pause, como na tela fim
         {
             exit(0); // Sai do jogo
         }
@@ -54,14 +58,16 @@ void mouse(int button, int estado, int x, int y)
     {
         if (isHover(x, yInvertido, xButtonPause, yButtonPause, wButtonPause, hButtonPause)) // Verifica se "pause" foi selecionado
         {
-            pause = 1; // Pausa o jogo
-            glutDisplayFunc(telaPause); // Troca para a tela de pause
+            pause = 1;                                             // Pausa o jogo
+            glutDisplayFunc(telaPause);                            // Troca para a tela de pause
+            glutTimerFunc(400, animateGamePauseScreenTextures, 0); // Começa a animação da tela de pause do jogo
         }
     }
 
     glutPostRedisplay();
 }
 
+// Verifica a cada movimento do mouse se ele está sobre algum botão para poder mudar o cursor
 void passiveMouse(int x, int y)
 {
     // Converte a coordenada Y para corresponder ao sistema de coordenadas do GLUT
@@ -74,22 +80,22 @@ void passiveMouse(int x, int y)
         glutSetCursor(GLUT_CURSOR_INFO);
     }
     // Verifica se o mouse está sobre o botão "continuar"
-    else if (isHover(x, y, retXcont, retYcont, largura, altura) && pause)
+    else if (isHover(x, y, xButtonContinue, yButtonContinue, wButtonContinue, hButtonContinue) && pause)
     {
         // Muda o cursor para quando estiver sobre o botão "continuar"
         glutSetCursor(GLUT_CURSOR_INFO);
     }
     // Verifica se o mouse está sobre o botão "recomeçar"
-    else if (isHover(x, y, retXcont, retYcont, largura, altura) && telaOver)
+    else if (isHover(x, y, xButtonContinue, yButtonContinue, wButtonContinue, hButtonContinue) && telaOver)
     {
         // Muda o cursor para quando estiver sobre o botão "recomeçar"
         glutSetCursor(GLUT_CURSOR_INFO);
     }
     // Verifica se o mouse está sobre o botão "sair"
-    else if (isHover(x, y, retXexit, retYexit, largura, altura) && (pause || telaOver))
+    else if (isHover(x, y, xButtonExit, yButtonExit, wButtonExit, hButtonExit) && (pause || telaOver))
     {
         // Muda o cursor para quando estiver sobre o botão "sair"
-        glutSetCursor(GLUT_CURSOR_INFO);
+        glutSetCursor(GLUT_CURSOR_DESTROY);
     }
     // Verifica se o mouse está sobre o botão "pause"
     else if (isHover(x, y, xButtonPause, yButtonPause, wButtonPause, hButtonPause) && !pause && (telaAtual != HOME_SCREEN))

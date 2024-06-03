@@ -9,11 +9,17 @@
 // Posição da Logo do Jogo Aedes Attack
 extern GLfloat xAedesAttack, yAedesAttack, wAedesAttack, hAedesAttack;
 
+// Posição da Logo da Univasf
+extern GLfloat xUnivasf, yUnivasf, wUnivasf, hUnivasf;
+
 // Posição da Placa de Proibido Mosquito
 extern GLfloat xMosquitoProhibited, yMosquitoProhibited, wMosquitoProhibited, hMosquitoProhibited;
 
 // Posição do Botão de Iniciar do Jogo
 extern GLfloat xButtonStart, yButtonStart, wButtonStart, hButtonStart;
+
+// Posição do Botão de Sobre
+extern GLfloat xButtonAbout, yButtonAbout, wButtonAbout, hButtonAbout;
 
 // --------------------------------------------------------------- //
 // Tela do Jogo
@@ -47,6 +53,23 @@ extern GLfloat xPlatform4, yPlatform4, wPlatform4, hPlatform4;
 
 // Posição da Plataforma Suspensa 5
 extern GLfloat xPlatform5, yPlatform5, wPlatform5, hPlatform5;
+
+// Posição das Vidas
+extern GLfloat xHeart, yHeart, wHeart, hHeart, offsetHeart;
+
+// --------------------------------------------------------------- //
+// Tela de Pause
+
+// Posição do Botão de Volta para o Jogo
+extern GLfloat xButtonContinue, yButtonContinue, wButtonContinue, hButtonContinue;
+
+// Posição do Botão de Sair do Jogo
+extern GLfloat xButtonExit, yButtonExit, wButtonExit, hButtonExit;
+
+// Posição do Banner de Combate à Dengue
+extern GLfloat xBannerDengueCenter, yBannerDengueCenter, wBannerDengueCenter, hBannerDengueCenter;
+
+// --------------------------------------------------------------- //
 
 void updatePosition();
 
