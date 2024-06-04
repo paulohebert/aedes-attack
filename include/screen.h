@@ -15,7 +15,7 @@ void loadingScreen();
 
 void telaInicial();
 
-void segundaTela();
+void telaJogo();
 
 void telaPause();
 

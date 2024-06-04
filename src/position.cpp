@@ -127,6 +127,11 @@ GLfloat hBannerDengueCenter; // Altura
 
 // --------------------------------------------------------------- //
 // Tela de Fim de Jogo
+// Posição do Botão de Recomeçar o Jogo
+GLfloat xButtonRestart; // Posição X do Canto Inferior Esquerdo
+GLfloat yButtonRestart; // Posição Y do Canto Inferior Esquerdo
+GLfloat wButtonRestart; // Largura
+GLfloat hButtonRestart; // Altura
 
 // --------------------------------------------------------------- //
 
@@ -266,6 +271,12 @@ void updatePosition()
 
     // --------------------------------------------------------------- //
     // Tela de Fim de Jogo
+    
+    // Posição do Botão de Recomeçar o Jogo
+    wButtonContinue = alturaJanela * 0.1;                      // Largura
+    hButtonContinue = alturaJanela * 0.1;                      // Altura
+    xButtonContinue = (larguraJanela - wButtonContinue) * 0.4; // Posição X do Canto Inferior Esquerdo
+    yButtonContinue = (alturaJanela - hButtonContinue) * 0.75; // Posição Y do Canto Inferior Esquerdo
 
     // --------------------------------------------------------------- //
 }

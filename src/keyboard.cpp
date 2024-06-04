@@ -13,21 +13,20 @@ void teclado(unsigned char tecla, int x, int y)
     switch (tecla)
     {
     case 13: // Tecla ENTER que trata o pause do jogo
-        if (telaAtual && !pause)
+        if (telaAtual == GAME_SCREEN)
         {
             glutDisplayFunc(telaPause);                            // Troca para a tela de pause
             glutTimerFunc(400, animateGamePauseScreenTextures, 0); // Começa a animação da tela de pause do jogo
         }
-        else if (telaAtual && pause)
+        else if (telaAtual == GAME_PAUSE_SCREEN)
         {
-            glutDisplayFunc(segundaTela);                     // Troca para a tela de jogo
+            glutDisplayFunc(telaJogo);                     // Troca para a tela de jogo
             glutTimerFunc(200, animateGameScreenTextures, 0); // Começa a animação da tela do jogo
         }
         break;
 
     case 'z':
     case 'Z':
-        //glutDisplayFunc(telaFim);
         disparos.push_back({translateX + wPlayer, translateY + hPlayer / 2, 30, 10, true, 15.0f});
         break;
     case 'x':

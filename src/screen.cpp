@@ -41,7 +41,7 @@ void telaInicial()
     telaAtual = HOME_SCREEN;
 
     // Resetar o tempo quando a tela inicial for renderizada
-    tempoRestante = 90.0;
+    tempoRestante = 60.0;
 
     // Limpa o buffer de cor e profundidade
     glClear(GL_COLOR_BUFFER_BIT);
@@ -78,7 +78,7 @@ void telaInicial()
     glutSwapBuffers();
 }
 
-void segundaTela()
+void telaJogo()
 {
     telaAtual = GAME_SCREEN;
     pause = 0;
@@ -226,41 +226,14 @@ void telaFim()
     // Desenha o texto centralizado
     escreveTextoBitmap(x, y - 20, GLUT_BITMAP_HELVETICA_12, "Selecione uma das caixas");
 
-    // Coordenadas para desenhar o botão de "recomeçar"
-    /*  largura = 100.0f;
-     altura = 100.0f;
-     retXcont = (larguraJanela - largura) * 0.4;
-     retYcont = (alturaJanela - altura) * 0.75;
-     // Desenha o botão de "recomeçar"
-     glBindTexture(GL_TEXTURE_2D, textures[BUTTON_PLAY]);
-     glBegin(GL_QUADS);
-     glTexCoord2f(0.0f, 1.0f);
-     glVertex2f(retXcont, retYcont);
-     glTexCoord2f(1.0f, 1.0f);
-     glVertex2f(retXcont + largura, retYcont);
-     glTexCoord2f(1.0f, 0.0f);
-     glVertex2f(retXcont + largura, retYcont + altura);
-     glTexCoord2f(0.0f, 0.0f);
-     glVertex2f(retXcont, retYcont + altura);
-     glEnd();
+    // Desenha o botão de "restart"
+    draw(BUTTON_PLAY, xButtonRestart, yButtonRestart, wButtonRestart, hButtonRestart);
 
-     // Coordenadas para desenhar o botão de "exit"
-     largura = 100.0f;
-     altura = 100.0f;
-     retXexit = (larguraJanela - largura) * 0.6;
-     retYexit = (alturaJanela - altura) * 0.75;
-     // Desenha o botão de "exit"
-     glBindTexture(GL_TEXTURE_2D, textures[BUTTON_EXIT]);
-     glBegin(GL_QUADS);
-     glTexCoord2f(0.0f, 1.0f);
-     glVertex2f(retXexit, retYexit);
-     glTexCoord2f(1.0f, 1.0f);
-     glVertex2f(retXexit + largura, retYexit);
-     glTexCoord2f(1.0f, 0.0f);
-     glVertex2f(retXexit + largura, retYexit + altura);
-     glTexCoord2f(0.0f, 0.0f);
-     glVertex2f(retXexit, retYexit + altura);
-     glEnd(); */
+    // Desenha o botão de "exit"
+    draw(BUTTON_EXIT, xButtonExit, yButtonExit, wButtonExit, hButtonExit);
+
+    // Desenha as informações de combate ao mosquito
+    drawFrame(BANNER_COMBAT_INFO, currentBannerCombatInfoFrame, 8, 8, xBannerDengueCenter, yBannerDengueCenter, wBannerDengueCenter, hBannerDengueCenter);
 
     // Atualiza a tela
     glutSwapBuffers();
