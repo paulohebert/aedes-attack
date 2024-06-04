@@ -19,10 +19,11 @@ extern bool rightPressed;
 struct disparo {
     float x, y;
     float largura = 20, altura = 10;
-    bool disparou;
     GLfloat velocity;
+    bool direita;
 };
 extern std::vector<disparo> disparos;
+extern bool direcaoDisparo;
 
 bool verificaColisaoEsquerda();
 bool verificaColisaoDireita();
@@ -33,5 +34,7 @@ void moveObjetos();
 void jump(int value);
 void startJump();;
 void disparar();
+void moveDisparos();
+
 
 #endif // PHYSICS_H

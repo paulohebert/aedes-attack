@@ -26,10 +26,11 @@ bool rightPressed = false;
 struct disparo {
     float x, y;
     float largura = 30, altura = 10;
-    bool disparou = false;
-    GLfloat velocity;
+    GLfloat velocity = 10;
+    bool direita = true;
 };
 std::vector<disparo> disparos;
+bool direcaoDisparo = true;
 
 bool verificaColisaoEsquerda(){
     if (!(translateX < xPlatform1 + wPlatform1/2 + jumpVelocity &&  // Verifica se o lado direito do objeto1 em movimento está à esquerda do lado direito do objeto estático
@@ -164,6 +165,16 @@ bool applyGravity() {
     }
 }
 
+void moveDisparos() {
+    for (auto& disparo : disparos) {
+        if(disparo.direita){
+            disparo.x += disparo.velocity;
+        }else{
+            disparo.x -= disparo.velocity;
+        }
+    }
+}
+
 void moveObjetos(){
     if(applyGravity()){
         translateY -= gravity;
@@ -177,6 +188,8 @@ void moveObjetos(){
     } else {
         movePlayerX = 0.0;
     }
+
+    moveDisparos();
 
     translateX += movePlayerX;
     translateY += movePlayerY;

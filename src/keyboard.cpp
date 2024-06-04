@@ -27,7 +27,12 @@ void teclado(unsigned char tecla, int x, int y)
 
     case 'z':
     case 'Z':
-        disparos.push_back({translateX + wPlayer, translateY + hPlayer / 2, 30, 10, true, 15.0f});
+                //glutDisplayFunc(telaFim);
+        if(direcaoDisparo){
+            disparos.push_back({translateX + wPlayer, translateY + hPlayer / 2, 30, 10, 15.0f, true});
+        }else{
+            disparos.push_back({translateX + wPlayer, translateY + hPlayer / 2, 30, 10, 15.0f, false});
+        }
         break;
     case 'x':
     case 'X':
@@ -65,6 +70,7 @@ void teclasEspeciais(int tecla, int x, int y)
         {
             movePlayerX = -playerVelocity;
             leftPressed = true;
+            direcaoDisparo = false;
             //translateX -= playerVelocity;
         }
         break;
@@ -73,7 +79,8 @@ void teclasEspeciais(int tecla, int x, int y)
         {
             movePlayerX = playerVelocity;
             rightPressed = true;
-            //translateX += playerVelocity;            
+            //translateX += playerVelocity;
+            direcaoDisparo = true;            
         }
         break;
     case GLUT_KEY_DOWN:
