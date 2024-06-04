@@ -135,6 +135,8 @@ void segundaTela()
 
     glPopMatrix();
 
+    disparar(); 
+
     // Desenha o Mosquito
     drawTexture(MOSQUITO_ENEMY, 0.0f, 0.0f, 0.5f, 0.5f, xMosquito, yMosquito, wMosquito, hMosquito);
 

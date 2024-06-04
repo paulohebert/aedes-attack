@@ -22,6 +22,7 @@
 #define PLATFORM 13            /* Índice da Textura da Plataforma do Jogo */
 #define HEART 14               /* Índice da Textura da Vida do Jogador */
 #define BANNER_COMBAT_INFO 15  /* Índice da Textura do Banner Educativo sobre o combate ao mosquito */
+#define DISPARO_FRAME 16       /* Índice da Textura do Disparo */
 
 /* Frame Atual da Animação a ser exibido na Tela */
 extern int currentBackgroundMenuFrame;

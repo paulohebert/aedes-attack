@@ -3,6 +3,7 @@
 #include <physics.h>
 #include <utils.h>
 #include <stdbool.h>
+#include <position.h>
 
 int pause = 0;
 GLfloat translateX = 0, translateY = 0; // Define as variáveis responsáveis pela movimentação do personagem
@@ -26,8 +27,8 @@ void teclado(unsigned char tecla, int x, int y)
 
     case 'z':
     case 'Z':
-        glutDisplayFunc(telaFim);
-
+        //glutDisplayFunc(telaFim);
+        disparos.push_back({translateX + wPlayer, translateY + hPlayer / 2, 30, 10, true, 15.0f});
         break;
     case 'x':
     case 'X':
