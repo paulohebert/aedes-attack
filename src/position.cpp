@@ -201,27 +201,27 @@ void updatePosition()
     hPlatform1 = alturaJanela * 0.05; // Altura
 
     // Posição da Plataforma Suspensa 2
-    xPlatform2 = larguraJanela * 0.35; // Posição X do Canto Inferior Esquerdo
+    xPlatform2 = larguraJanela * 0.4; // Posição X do Canto Inferior Esquerdo
     yPlatform2 = alturaJanela * 0.4;   // Posição Y do Canto Inferior Esquerdo
     wPlatform2 = larguraJanela * 0.2;  // Largura
     hPlatform2 = alturaJanela * 0.05;  // Altura
 
     // Posição da Plataforma Suspensa 3
-    xPlatform3 = larguraJanela * 0.6;  // Posição X do Canto Inferior Esquerdo
-    yPlatform3 = alturaJanela * 0.6;   // Posição Y do Canto Inferior Esquerdo
-    wPlatform3 = larguraJanela * 0.17; // Largura
+    xPlatform3 = larguraJanela * 0.7;  // Posição X do Canto Inferior Esquerdo
+    yPlatform3 = alturaJanela * 0.55;   // Posição Y do Canto Inferior Esquerdo
+    wPlatform3 = larguraJanela * 0.2; // Largura
     hPlatform3 = alturaJanela * 0.05;  // Altura
 
     // Posição da Plataforma Suspensa 4
-    xPlatform4 = larguraJanela * 0.05; // Posição X do Canto Inferior Esquerdo
-    yPlatform4 = alturaJanela * 0.6;   // Posição Y do Canto Inferior Esquerdo
-    wPlatform4 = larguraJanela * 0.17; // Largura
+    xPlatform4 = larguraJanela * 0.07; // Posição X do Canto Inferior Esquerdo
+    yPlatform4 = alturaJanela * 0.55;   // Posição Y do Canto Inferior Esquerdo
+    wPlatform4 = larguraJanela * 0.2; // Largura
     hPlatform4 = alturaJanela * 0.05;  // Altura
 
     // Posição da Plataforma Suspensa 5
-    xPlatform5 = larguraJanela * 0.7;  // Posição X do Canto Inferior Esquerdo
-    yPlatform5 = alturaJanela * 0.3;   // Posição Y do Canto Inferior Esquerdo
-    wPlatform5 = larguraJanela * 0.22; // Largura
+    xPlatform5 = larguraJanela * 0.75;  // Posição X do Canto Inferior Esquerdo
+    yPlatform5 = alturaJanela * 0.25;   // Posição Y do Canto Inferior Esquerdo
+    wPlatform5 = larguraJanela * 0.2; // Largura
     hPlatform5 = alturaJanela * 0.05;  // Altura
 
     // Posição do Jogador
