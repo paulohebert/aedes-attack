@@ -219,7 +219,7 @@ void updatePosition()
     hPlatform4 = alturaJanela * 0.05;  // Altura
 
     // Posição da Plataforma Suspensa 5
-    xPlatform5 = larguraJanela * 0.75;  // Posição X do Canto Inferior Esquerdo
+    xPlatform5 = larguraJanela * 0.73;  // Posição X do Canto Inferior Esquerdo
     yPlatform5 = alturaJanela * 0.25;   // Posição Y do Canto Inferior Esquerdo
     wPlatform5 = larguraJanela * 0.2; // Largura
     hPlatform5 = alturaJanela * 0.05;  // Altura
