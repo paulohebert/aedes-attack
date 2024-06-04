@@ -57,11 +57,8 @@ int main(int argc, char **argv)
     // Faz a janela entrar em modo de tela cheia
     glutFullScreen();
 
-    // Registra a função callback de redesenho da janela de visualização
-    glutDisplayFunc(loadingScreen);
-
-    // Inicia a contagem regressiva
-    glutTimerFunc(1000, *atualizaTempo, 0);
+    // Inicia na tela de Carregamento
+    changeScreen(LOADING_SCREEN);
 
     // Registra a função callback de redimensionamento da janela de visualização
     glutReshapeFunc(alteraTamanhoJanela);
@@ -83,9 +80,6 @@ int main(int argc, char **argv)
 
     // Registra a função callback que será chamada para trocar a tela de carregando após carregar as texturas
     glutTimerFunc(100, loadTextures, 0);
-
-    // Registra a função callback que será chamada a cada intervalo de tempo para mover objetos na tela
-    glutTimerFunc(10, atualizaMovimento, 0);
 
     // Inicia o que precisa no jogo
     init();

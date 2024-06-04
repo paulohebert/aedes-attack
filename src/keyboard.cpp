@@ -14,19 +14,17 @@ void teclado(unsigned char tecla, int x, int y)
     case 13: // Tecla ENTER que trata o pause do jogo
         if (telaAtual && !pause)
         {
-            glutDisplayFunc(telaPause);                            // Troca para a tela de pause
-            glutTimerFunc(400, animateGamePauseScreenTextures, 0); // Começa a animação da tela de pause do jogo
+            changeScreen(GAME_PAUSE_SCREEN); // Muda para a tela de pause
         }
         else if (telaAtual && pause)
         {
-            glutDisplayFunc(segundaTela);                     // Troca para a tela de jogo
-            glutTimerFunc(200, animateGameScreenTextures, 0); // Começa a animação da tela do jogo
+            changeScreen(GAME_SCREEN); // Muda para a tela do jogo
         }
         break;
 
     case 'z':
     case 'Z':
-        glutDisplayFunc(telaFim);
+        changeScreen(END_GAME_SCREEN);
 
         break;
     case 'x':
@@ -57,7 +55,7 @@ void teclasEspeciais(int tecla, int x, int y)
         if (translateY < alturaJanela - 200 && verificaColisaoCima())
         {
             startJump();
-            //translateY += playerVelocity;
+            // translateY += playerVelocity;
         }
         break;
     case GLUT_KEY_LEFT:
@@ -65,7 +63,7 @@ void teclasEspeciais(int tecla, int x, int y)
         {
             movePlayerX = -playerVelocity;
             leftPressed = true;
-            //translateX -= playerVelocity;
+            // translateX -= playerVelocity;
         }
         break;
     case GLUT_KEY_RIGHT:
@@ -73,13 +71,13 @@ void teclasEspeciais(int tecla, int x, int y)
         {
             movePlayerX = playerVelocity;
             rightPressed = true;
-            //translateX += playerVelocity;            
+            // translateX += playerVelocity;
         }
         break;
     case GLUT_KEY_DOWN:
         if (translateY > alturaJanela * 0.05 - 40 && verificaColisaoEmbaixo())
         {
-            //translateY -= playerVelocity;
+            // translateY -= playerVelocity;
         }
         break;
     }

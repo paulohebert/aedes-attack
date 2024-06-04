@@ -10,6 +10,9 @@ extern float largura, altura, retXinic, retYinic, retXcont, retYcont, retXexit, 
 #define GAME_SCREEN 1
 #define GAME_PAUSE_SCREEN 2
 #define END_GAME_SCREEN 3
+#define LOADING_SCREEN 4
+
+void changeScreen(int screenId);
 
 void loadingScreen();
 

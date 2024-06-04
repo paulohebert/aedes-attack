@@ -1,5 +1,5 @@
 #include <GL/glut.h>
-#include <stdio.h>
+#include <iostream>
 #include <stdlib.h>
 #include <screen.h>
 #include <utils.h>
@@ -20,18 +20,57 @@ int telaOver;      // Variável que será responsável pela tela de "game over"
 float x, y;
 float largura, altura, retXinic, retYinic, retXcont, retYcont, retXexit, retYexit;
 
+
+// Muda a tela atual e faz que só as animações presente na tela executem
+void changeScreen(int screenId)
+{
+    telaAtual = screenId; // Altera o ID da tela atual
+    switch (screenId)
+    {
+    case HOME_SCREEN:
+        // Muda para a tela de início
+        glutDisplayFunc(telaInicial);
+
+        // Começa a animação das texturas da tela inicial
+        glutTimerFunc(70, animateHomeScreenTextures, 0);
+        break;
+    case GAME_SCREEN:
+        // Muda para a tela de início
+        glutDisplayFunc(segundaTela);
+
+        // Começa a animação das texturas da tela do jogo
+        glutTimerFunc(100, animateGameScreenTextures, 0);
+
+        // Inicia a contagem regressiva
+        glutTimerFunc(1000, *atualizaTempo, 0);
+
+        // Registra a função callback que será chamada a cada intervalo de tempo para mover objetos na tela
+        glutTimerFunc(10, atualizaMovimento, 0);
+        break;
+    case GAME_PAUSE_SCREEN:
+        // Muda para a tela de pause
+        glutDisplayFunc(telaPause);
+
+        // Começa a animação das texturas da tela de pause
+        glutTimerFunc(400, animateGamePauseScreenTextures, 0);
+        break;
+    case END_GAME_SCREEN:
+        // Muda para a tela de fim de jogo
+        glutDisplayFunc(telaFim);
+        break;
+    case LOADING_SCREEN:
+        // Muda para a tela de carregamento
+        glutDisplayFunc(loadingScreen);
+        break;
+    }
+}
+
 void loadingScreen()
 {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    glColor3f(1.0f, 1.0f, 1.0f); // Cor branca
-    const char *message = "Carregando...";
-
-    int comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)message);
-    x = (larguraJanela - comprimentoTexto) / 2;
-    y = alturaJanela / 2;
     glColor3f(0.0f, 0.0f, 0.0f);
-    escreveTextoBitmap(x, y, GLUT_BITMAP_HELVETICA_18, message);
+    escreveTextoBitmap(larguraJanela / 2, alturaJanela / 2, GLUT_BITMAP_HELVETICA_18, "Carregando...");
 
     glutSwapBuffers();
 }
@@ -143,11 +182,8 @@ void segundaTela()
     // Desenha a contagem regressiva
     char buffer[50];
     snprintf(buffer, sizeof(buffer), "Tempo restante: %02d:%02d", tempoRestante / 60, tempoRestante % 60);
-    int comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)buffer);
-    x = (larguraJanela - comprimentoTexto) / 2;
-    y = alturaJanela * 0.95;
     glColor3f(1.0f, 1.0f, 1.0f);
-    escreveTextoBitmap(x, y, GLUT_BITMAP_HELVETICA_18, buffer);
+    escreveTextoBitmap(larguraJanela / 2, alturaJanela * 0.95, GLUT_BITMAP_HELVETICA_18, buffer);
 
     glutSwapBuffers();
 }
@@ -179,20 +215,12 @@ void telaPause()
 
     glDisable(GL_TEXTURE_2D);
 
-    // Calcula a posição central para o texto
-    comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)"JOGO PAUSADO");
-    x = (larguraJanela - comprimentoTexto) / 2;
-    y = alturaJanela * 0.9f;
     // Desenha o texto centralizado
     glColor3f(0.0f, 0.0f, 0.0f);
-    escreveTextoBitmap(x, y, GLUT_BITMAP_HELVETICA_18, "JOGO PAUSADO");
+    escreveTextoBitmap(larguraJanela / 2, alturaJanela * 0.9f, GLUT_BITMAP_HELVETICA_18, "JOGO PAUSADO");
 
-    // Calcula a posição central para o texto 2
-    comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_12, (const unsigned char *)"Selecione uma das caixas ou aperte ENTER para retormar o jogo");
-    x = (larguraJanela - comprimentoTexto) / 2;
-    y = alturaJanela * 0.9f;
     // Desenha o texto centralizado
-    escreveTextoBitmap(x, y - 20, GLUT_BITMAP_HELVETICA_12, "Selecione uma das caixas ou aperte ENTER para retomar o jogo");
+    escreveTextoBitmap(larguraJanela / 2, alturaJanela * 0.9f - 20, GLUT_BITMAP_HELVETICA_12, "Selecione uma das caixas ou aperte ENTER para retomar o jogo");
 
     glutSwapBuffers();
 }
@@ -209,56 +237,18 @@ void telaFim()
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    // Calcula a posição central para o texto
-    comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)"FIM DE JOGO");
-    x = (larguraJanela - comprimentoTexto) / 2;
-    y = alturaJanela * 0.9f;
+    // Inicia a aplicação de texturas
+    glEnable(GL_TEXTURE_2D);
+
+
+    glDisable(GL_TEXTURE_2D);
+
     // Desenha o texto centralizado
     glColor3f(1.0f, 1.0f, 1.0f);
-    escreveTextoBitmap(x, y, GLUT_BITMAP_HELVETICA_18, "FIM DE JOGO");
+    escreveTextoBitmap(larguraJanela / 2, alturaJanela * 0.9f, GLUT_BITMAP_HELVETICA_18, "FIM DE JOGO");
 
-    // Calcula a posição central para o texto 2
-    comprimentoTexto = glutBitmapLength(GLUT_BITMAP_HELVETICA_12, (const unsigned char *)"Selecione uma das caixas");
-    x = (larguraJanela - comprimentoTexto) / 2;
-    y = alturaJanela * 0.9f;
     // Desenha o texto centralizado
-    escreveTextoBitmap(x, y - 20, GLUT_BITMAP_HELVETICA_12, "Selecione uma das caixas");
-
-    // Coordenadas para desenhar o botão de "recomeçar"
-    /*  largura = 100.0f;
-     altura = 100.0f;
-     retXcont = (larguraJanela - largura) * 0.4;
-     retYcont = (alturaJanela - altura) * 0.75;
-     // Desenha o botão de "recomeçar"
-     glBindTexture(GL_TEXTURE_2D, textures[BUTTON_PLAY]);
-     glBegin(GL_QUADS);
-     glTexCoord2f(0.0f, 1.0f);
-     glVertex2f(retXcont, retYcont);
-     glTexCoord2f(1.0f, 1.0f);
-     glVertex2f(retXcont + largura, retYcont);
-     glTexCoord2f(1.0f, 0.0f);
-     glVertex2f(retXcont + largura, retYcont + altura);
-     glTexCoord2f(0.0f, 0.0f);
-     glVertex2f(retXcont, retYcont + altura);
-     glEnd();
-
-     // Coordenadas para desenhar o botão de "exit"
-     largura = 100.0f;
-     altura = 100.0f;
-     retXexit = (larguraJanela - largura) * 0.6;
-     retYexit = (alturaJanela - altura) * 0.75;
-     // Desenha o botão de "exit"
-     glBindTexture(GL_TEXTURE_2D, textures[BUTTON_EXIT]);
-     glBegin(GL_QUADS);
-     glTexCoord2f(0.0f, 1.0f);
-     glVertex2f(retXexit, retYexit);
-     glTexCoord2f(1.0f, 1.0f);
-     glVertex2f(retXexit + largura, retYexit);
-     glTexCoord2f(1.0f, 0.0f);
-     glVertex2f(retXexit + largura, retYexit + altura);
-     glTexCoord2f(0.0f, 0.0f);
-     glVertex2f(retXexit, retYexit + altura);
-     glEnd(); */
+    escreveTextoBitmap(larguraJanela / 2, alturaJanela * 0.9f - 20, GLUT_BITMAP_HELVETICA_12, "Selecione uma das caixas");
 
     // Atualiza a tela
     glutSwapBuffers();

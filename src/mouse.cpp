@@ -21,9 +21,8 @@ void mouse(int button, int estado, int x, int y)
     {
         if (isHover(x, yInvertido, xButtonStart, yButtonStart, wButtonStart, hButtonStart)) // Verifica se "iniciar" foi selecionado
         {
-            glutSetCursor(GLUT_CURSOR_INHERIT);
-            glutDisplayFunc(segundaTela);                     // Troca para a tela de jogo
-            glutTimerFunc(100, animateGameScreenTextures, 0); // Começa a animação da tela do jogo
+            glutSetCursor(GLUT_CURSOR_INHERIT); // Muda para cursor padrão após o click
+            changeScreen(GAME_SCREEN);          // Muda para a tela do jogo
         }
     }
 
@@ -31,9 +30,8 @@ void mouse(int button, int estado, int x, int y)
     {
         if (isHover(x, yInvertido, xButtonContinue, yButtonContinue, wButtonContinue, hButtonContinue)) // Verifica se "continuar" foi selecionado
         {
-            glutSetCursor(GLUT_CURSOR_INHERIT);
-            glutDisplayFunc(segundaTela);                     // Troca para a tela de jogo
-            glutTimerFunc(100, animateGameScreenTextures, 0); // Começa a animação da tela do jogo
+            glutSetCursor(GLUT_CURSOR_INHERIT); // Muda para cursor padrão após o click
+            changeScreen(GAME_SCREEN);          // Muda para a tela do jogo
         }
     }
 
@@ -41,7 +39,8 @@ void mouse(int button, int estado, int x, int y)
     {
         if (isHover(x, yInvertido, xButtonContinue, yButtonContinue, wButtonContinue, hButtonContinue)) // Verifica se "recomeçar" foi selecionado
         {
-            glutDisplayFunc(telaInicial); // Troca para a tela inicial
+            glutSetCursor(GLUT_CURSOR_INHERIT); // Muda para cursor padrão após o click
+            changeScreen(HOME_SCREEN);          // Muda para a tela inicial
         }
     }
 
@@ -58,9 +57,9 @@ void mouse(int button, int estado, int x, int y)
     {
         if (isHover(x, yInvertido, xButtonPause, yButtonPause, wButtonPause, hButtonPause)) // Verifica se "pause" foi selecionado
         {
-            pause = 1;                                             // Pausa o jogo
-            glutDisplayFunc(telaPause);                            // Troca para a tela de pause
-            glutTimerFunc(400, animateGamePauseScreenTextures, 0); // Começa a animação da tela de pause do jogo
+            pause = 1;                          // Pausa o jogo
+            glutSetCursor(GLUT_CURSOR_INHERIT); // Muda para cursor padrão após o click
+            changeScreen(GAME_PAUSE_SCREEN);    // Muda para a tela de pause
         }
     }
 

@@ -10,8 +10,9 @@ int tempoRestante = 90;
 // Função para desenhar texto na tela
 void escreveTextoBitmap(float x, float y, void *fonte, const char *string)
 {
+    int comprimentoTexto = glutBitmapLength(fonte, (const unsigned char *)string);
     const char *c;
-    glRasterPos2f(x, y);
+    glRasterPos2f(x - comprimentoTexto / 2, y);
     for (c = string; *c != '\0'; c++)
         glutBitmapCharacter(fonte, *c);
 }
@@ -47,7 +48,7 @@ void animateHomeScreenTextures(int)
         // Altera para o próximo frame do plano de fundo da tela inicial
         currentBackgroundMenuFrame = (currentBackgroundMenuFrame + 1) % BACKGROUND_MENU_TOTAL_FRAMES;
 
-        glutPostRedisplay();                              // Redesenha a tela
+        glutPostRedisplay();                             // Redesenha a tela
         glutTimerFunc(70, animateHomeScreenTextures, 0); // Loop
     }
 }
