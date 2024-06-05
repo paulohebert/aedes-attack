@@ -19,7 +19,7 @@ int telaAtual = 0; // 0 para tela inicial, 1 para segunda tela
 int telaOver;      // Variável que será responsável pela tela de "game over"
 
 // Variável que vai ficar verificando o tempo para contabilizar nos pontos
-int ultimoTempoAtualizado = 0;
+int ultimoTempoAtualizado;
 
 float x, y;
 float largura, altura, retXinic, retYinic, retXcont, retYcont, retXexit, retYexit;
@@ -218,9 +218,9 @@ void telaJogo()
 
     // Atualiza o tempo e a pontuação
     int tempoAtual = glutGet(GLUT_ELAPSED_TIME) / 1000; // Obtém o tempo atual em segundos
-    if (tempoRestante && (tempoAtual - ultimoTempoAtualizado >= 10)) {
-        score += 10; // Incrementa 10 pontos a cada 10 segundos de sobrevivência
+    if (tempoRestante && (tempoAtual - ultimoTempoAtualizado >= 10)) {        
         ultimoTempoAtualizado = tempoAtual;
+        score += 10; // Incrementa 10 pontos a cada 10 segundos de sobrevivência
     }
 
     // Move o Jogador
