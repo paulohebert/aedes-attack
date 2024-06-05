@@ -44,6 +44,9 @@ void resetGame()
 
     // Inicializa o tempo
     ultimoTempoAtualizado = glutGet(GLUT_ELAPSED_TIME) / 1000;
+
+    // Reseta os pontos ao reiniciar o jogo
+    score = 0;
 }
 
 // Muda a tela atual e faz que só as animações presente na tela executem
