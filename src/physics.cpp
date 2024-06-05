@@ -4,6 +4,8 @@
 #include <position.h>
 #include <texture.h>
 #include <vector>
+#include <cmath>
+#include <time.h>
 
 bool playerNoChao;
 GLfloat playerVelocity = 5;
@@ -22,15 +24,24 @@ GLfloat jumpHeight = 0.0f;     // Altura atual do pulo
 bool leftPressed = false;
 bool rightPressed = false;
 
-// Define variável que verifica disparo
+// Define variáveis de controle de disparo
 struct disparo {
-    float x, y;
-    float largura = 30, altura = 10;
+    GLfloat x, y;
+    GLfloat largura = 30, altura = 10;
     GLfloat velocity = 10;
     bool direita = true;
 };
 std::vector<disparo> disparos;
 bool direcaoDisparo = true;
+
+// Define variáveis de controle dos mosquitos
+struct mosquito {
+    GLfloat x, y;
+    GLfloat largura, altura;
+    GLfloat velocity = 2;
+    bool ativo = false;
+};
+std::vector<mosquito> mosquitos;
 
 bool verificaColisaoEsquerda(){
     if (!(translateX < xPlatform1 + wPlatform1/2 + jumpVelocity &&  // Verifica se o lado direito do objeto1 em movimento está à esquerda do lado direito do objeto estático
@@ -156,8 +167,8 @@ bool verificaColisaoCima(){
     return false;
 }
 
+// Verifica se há colisão embaixo e se o jogador não está pulando para ativar a gravidade
 bool applyGravity() {
-    // Verifica se há colisão embaixo e se o jogador não está pulando
     if (translateY > alturaJanela * 0.05 - 40 && !isJumping && verificaColisaoEmbaixo()) {
         return true; // Aplicar gravidade apenas se não houver colisão embaixo e o jogador não estiver pulando
     } else {
@@ -165,6 +176,7 @@ bool applyGravity() {
     }
 }
 
+// Atualiza a posição dos disparos na tela fazendo se mover na horizontal
 void moveDisparos() {
     for (auto& disparo : disparos) {
         if(disparo.direita){
@@ -175,6 +187,7 @@ void moveDisparos() {
     }
 }
 
+// Atualiza a posição de objetos na tela
 void moveObjetos(){
     if(applyGravity()){
         translateY -= gravity;
@@ -189,8 +202,10 @@ void moveObjetos(){
         movePlayerX = 0.0;
     }
 
+    // Chama a função que atualiza a posição dos disparos
     moveDisparos();
 
+    // Atualiza a posição do player
     translateX += movePlayerX;
     translateY += movePlayerY;
     movePlayerX = 0;
@@ -228,9 +243,41 @@ void startJump() {
     }
 }
 
+// Desenhar os disparos na tela
 void disparar(){
-    // Desenhar os disparos na tela
     for (const auto& disparo : disparos) {
         draw(DISPARO_FRAME, disparo.x, disparo.y, disparo.largura, disparo.altura);
     }
+}
+
+// Desenha mosquitos na tela
+void desenhaMosquito(GLfloat x, GLfloat y, GLfloat largura, GLfloat altura){
+    draw(MOSQUITO_ENEMY, x, y, largura, altura);
+}
+
+void adicionaMosquito() {
+    mosquito novoMosquito;
+    int lado = rand() % 3; // Escolhe um dos lados da tela para gerar o mosquito
+
+    switch (lado) {
+        case 0: // Topo
+            novoMosquito.x = rand() % larguraJanela;
+            novoMosquito.y = alturaJanela + 100;
+            break;
+        case 1: // Esquerda
+            novoMosquito.x = -100;
+            novoMosquito.y = rand() % alturaJanela;
+            break;
+        case 2: // Direita
+            novoMosquito.x = larguraJanela + 100;
+            novoMosquito.y = rand() % alturaJanela;
+            break;
+    }
+
+        mosquitos.push_back(novoMosquito);
+}
+
+// Atualiza a posição dos disparos na tela fazendo se mover na horizontal
+void moveMosquitos() {
+
 }

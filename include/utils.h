@@ -7,6 +7,7 @@ void escreveTextoBitmap(float x, float y, void *font, const char *string);
 
 void atualizaTempo(int valor);
 void atualizaMovimento(int);
+void atualizaMosquitos(int);
 
 /* Anima as texturas */
 void animateHomeScreenTextures(int);

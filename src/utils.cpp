@@ -39,6 +39,11 @@ void atualizaMovimento(int)
     glutTimerFunc(10, atualizaMovimento, 0);
 }
 
+void atualizaMosquitos(int){
+    adicionaMosquito();
+    glutTimerFunc(5000, atualizaMosquitos, 0);
+}
+
 /* Atualiza os frames das texturas da tela inicial */
 void animateHomeScreenTextures(int)
 {
