@@ -128,7 +128,7 @@ GLfloat hBannerDengueCenter; // Altura
 // --------------------------------------------------------------- //
 // Tela de Fim de Jogo
 
-// Posição do Botão de Reiniciar o Jogo
+// Posição do Botão de Recomeçar o Jogo
 GLfloat xButtonRestart; // Posição X do Canto Inferior Esquerdo
 GLfloat yButtonRestart; // Posição Y do Canto Inferior Esquerdo
 GLfloat wButtonRestart; // Largura

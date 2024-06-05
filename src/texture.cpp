@@ -75,6 +75,7 @@ void initTextures()
     loadTexture(textures[HEART], "../assets/vida.png");
     loadTexture(textures[BANNER_COMBAT_INFO], "../assets/combat-information.png");
     loadTexture(textures[MOSQUITO_GAME_OVER], "../assets/mosquito-gameover.png");
+    loadTexture(textures[DISPARO_FRAME], "../assets/particula_disparo_reduce.png");
 }
 
 /* Função que espera carregar todas as texturas para só depois ir para tela inicial */

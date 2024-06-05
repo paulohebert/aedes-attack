@@ -83,6 +83,13 @@ extern GLfloat xMosquitoGameOver, yMosquitoGameOver, wMosquitoGameOver, hMosquit
 
 // --------------------------------------------------------------- //
 
+// Tela de Fim
+
+// Posição do Botão de Volta para o Jogo
+extern GLfloat xButtonRestart, yButtonRestart, wButtonRestart, hButtonRestart;
+
+// --------------------------------------------------------------- //
+
 void updatePosition();
 
 #endif

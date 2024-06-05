@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 #include <GL/glut.h>
+#include <vector> 
 
 extern bool playerNoChao;
 extern GLfloat gravity;
@@ -15,6 +16,14 @@ extern GLfloat jumpVelocity;
 extern GLfloat jumpHeight; 
 extern bool leftPressed;
 extern bool rightPressed;
+struct disparo {
+    float x, y;
+    float largura = 20, altura = 10;
+    GLfloat velocity;
+    bool direita;
+};
+extern std::vector<disparo> disparos;
+extern bool direcaoDisparo;
 
 bool verificaColisaoEsquerda();
 bool verificaColisaoDireita();
@@ -24,4 +33,8 @@ bool applyGravity();
 void moveObjetos();
 void jump(int value);
 void startJump();;
+void disparar();
+void moveDisparos();
+
+
 #endif // PHYSICS_H

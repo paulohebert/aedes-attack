@@ -2,6 +2,8 @@
 #include <keyboard.h>
 #include <screen.h>
 #include <position.h>
+#include <texture.h>
+#include <vector>
 
 bool playerNoChao;
 GLfloat playerVelocity = 5;
@@ -19,6 +21,16 @@ GLfloat jumpHeight = 0.0f;     // Altura atual do pulo
 // Define variável que verifica se há um botão de movimento horizontal pressionado
 bool leftPressed = false;
 bool rightPressed = false;
+
+// Define variável que verifica disparo
+struct disparo {
+    float x, y;
+    float largura = 30, altura = 10;
+    GLfloat velocity = 10;
+    bool direita = true;
+};
+std::vector<disparo> disparos;
+bool direcaoDisparo = true;
 
 bool verificaColisaoEsquerda(){
     if (!(translateX < xPlatform1 + wPlatform1/2 + jumpVelocity &&  // Verifica se o lado direito do objeto1 em movimento está à esquerda do lado direito do objeto estático
@@ -153,6 +165,16 @@ bool applyGravity() {
     }
 }
 
+void moveDisparos() {
+    for (auto& disparo : disparos) {
+        if(disparo.direita){
+            disparo.x += disparo.velocity;
+        }else{
+            disparo.x -= disparo.velocity;
+        }
+    }
+}
+
 void moveObjetos(){
     if(applyGravity()){
         translateY -= gravity;
@@ -166,6 +188,8 @@ void moveObjetos(){
     } else {
         movePlayerX = 0.0;
     }
+
+    moveDisparos();
 
     translateX += movePlayerX;
     translateY += movePlayerY;
@@ -201,5 +225,12 @@ void startJump() {
         isJumping = true;
         jumpHeight = 0.0f;
         glutTimerFunc(10, jump, 0); // Inicia o temporizador de salto
+    }
+}
+
+void disparar(){
+    // Desenhar os disparos na tela
+    for (const auto& disparo : disparos) {
+        draw(DISPARO_FRAME, disparo.x, disparo.y, disparo.largura, disparo.altura);
     }
 }

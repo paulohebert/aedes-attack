@@ -3,6 +3,7 @@
 #include <physics.h>
 #include <utils.h>
 #include <stdbool.h>
+#include <position.h>
 
 int pause = 0;
 GLfloat translateX = 0, translateY = 0; // Define as variáveis responsáveis pela movimentação do personagem
@@ -12,11 +13,11 @@ void teclado(unsigned char tecla, int x, int y)
     switch (tecla)
     {
     case 13: // Tecla ENTER que trata o pause do jogo
-        if (telaAtual && !pause)
+        if (telaAtual == GAME_SCREEN)
         {
             changeScreen(GAME_PAUSE_SCREEN); // Muda para a tela de pause
         }
-        else if (telaAtual && pause)
+        else if (telaAtual == GAME_PAUSE_SCREEN)
         {
             changeScreen(GAME_SCREEN); // Muda para a tela do jogo
         }
@@ -24,11 +25,18 @@ void teclado(unsigned char tecla, int x, int y)
 
     case 'z':
     case 'Z':
-        changeScreen(END_GAME_SCREEN);
-
+        if (direcaoDisparo)
+        {
+            disparos.push_back({translateX + xPlayer + wPlayer / 2, translateY + yPlayer + hPlayer / 3, 30, 10, 15.0f, true});
+        }
+        else
+        {
+            disparos.push_back({translateX + xPlayer + wPlayer / 2, translateY + yPlayer + hPlayer / 3, 30, 10, 15.0f, false});
+        }
         break;
     case 'x':
     case 'X':
+        changeScreen(END_GAME_SCREEN);
 
         break;
     case 'c':
@@ -64,6 +72,7 @@ void teclasEspeciais(int tecla, int x, int y)
             movePlayerX = -playerVelocity;
             leftPressed = true;
             // translateX -= playerVelocity;
+            direcaoDisparo = false;
         }
         break;
     case GLUT_KEY_RIGHT:
@@ -72,6 +81,7 @@ void teclasEspeciais(int tecla, int x, int y)
             movePlayerX = playerVelocity;
             rightPressed = true;
             // translateX += playerVelocity;
+            direcaoDisparo = true;
         }
         break;
     case GLUT_KEY_DOWN:

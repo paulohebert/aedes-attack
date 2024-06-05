@@ -20,7 +20,6 @@ int telaOver;      // Variável que será responsável pela tela de "game over"
 float x, y;
 float largura, altura, retXinic, retYinic, retXcont, retYcont, retXexit, retYexit;
 
-
 // Muda a tela atual e faz que só as animações presente na tela executem
 void changeScreen(int screenId)
 {
@@ -35,14 +34,14 @@ void changeScreen(int screenId)
         glutTimerFunc(70, animateHomeScreenTextures, 0);
         break;
     case GAME_SCREEN:
-        // Muda para a tela de início
-        glutDisplayFunc(segundaTela);
+        // Muda para a tela do jogo
+        glutDisplayFunc(telaJogo);
 
         // Começa a animação das texturas da tela do jogo
         glutTimerFunc(100, animateGameScreenTextures, 0);
 
         // Inicia a contagem regressiva
-        glutTimerFunc(1000, *atualizaTempo, 0);
+        glutTimerFunc(1000, atualizaTempo, 0);
 
         // Registra a função callback que será chamada a cada intervalo de tempo para mover objetos na tela
         glutTimerFunc(10, atualizaMovimento, 0);
@@ -83,7 +82,7 @@ void telaInicial()
     telaAtual = HOME_SCREEN;
 
     // Resetar o tempo quando a tela inicial for renderizada
-    tempoRestante = 90.0;
+    tempoRestante = 60.0;
 
     // Limpa o buffer de cor e profundidade
     glClear(GL_COLOR_BUFFER_BIT);
@@ -120,7 +119,7 @@ void telaInicial()
     glutSwapBuffers();
 }
 
-void segundaTela()
+void telaJogo()
 {
     telaAtual = GAME_SCREEN;
     pause = 0;
@@ -176,6 +175,8 @@ void segundaTela()
     drawFrame(PLAYER, currentPlayerFrame, 4, 4, xPlayer, yPlayer, wPlayer, hPlayer);
 
     glPopMatrix();
+
+    disparar();
 
     // Desenha o Mosquito
     drawTexture(MOSQUITO_ENEMY, 0.0f, 0.0f, 0.5f, 0.5f, xMosquito, yMosquito, wMosquito, hMosquito);
