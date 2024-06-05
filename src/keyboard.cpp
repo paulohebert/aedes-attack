@@ -29,11 +29,11 @@ void teclado(unsigned char tecla, int x, int y)
     case 'Z':
         if (direcaoDisparo)
         {
-            disparos.push_back({translateX + xPlayer + wPlayer / 2, translateY + yPlayer + hPlayer / 3, 30, 10, 15.0f, true});
+            disparos.push_back({translateX + xPlayer + wPlayer, translateY + yPlayer + hPlayer / 3, 30, 10, 15.0f, true});
         }
         else
         {
-            disparos.push_back({translateX + xPlayer + wPlayer / 2, translateY + yPlayer + hPlayer / 3, 30, 10, 15.0f, false});
+            disparos.push_back({translateX + xPlayer + wPlayer, translateY + yPlayer + hPlayer / 3, 30, 10, 15.0f, false});
         }
         break;
     case 'x':

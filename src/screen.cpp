@@ -186,6 +186,8 @@ void telaJogo()
         drawFrame(PLAYER, currentPlayerFrame, 4, 4, xPlayer, yPlayer, wPlayer, hPlayer);
     }
 
+    draw(SHOTGUN, xPlayer, yPlayer * 1.5, wPlayer * 1.25, hPlayer / 3);
+
     glPopMatrix();
 
     // Desenha o Disparo
@@ -193,7 +195,7 @@ void telaJogo()
 
     // Desenha o Mosquito
     desenhaMosquito();
-    //drawTexture(MOSQUITO_ENEMY, 0.0f, 0.0f, 0.5f, 0.5f, xMosquito, yMosquito, wMosquito, hMosquito);
+    // drawTexture(MOSQUITO_ENEMY, 0.0f, 0.0f, 0.5f, 0.5f, xMosquito, yMosquito, wMosquito, hMosquito);
 
     // Desenha o plano de fundo da pontuação
     draw(SCORE, xScore, yScore, wScore, hScore);
