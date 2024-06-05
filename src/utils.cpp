@@ -22,6 +22,9 @@ void atualizaTempo(int value)
 {
     if (telaAtual == GAME_SCREEN && tempoRestante > 0)
     {
+        if(tempoRestante % 5 == 0){
+            adicionaMosquito();
+        }
         tempoRestante--;
         glutPostRedisplay();
         glutTimerFunc(1000, atualizaTempo, 0);
@@ -34,15 +37,6 @@ void atualizaMovimento(int)
     {
         moveObjetos();
         glutTimerFunc(10, atualizaMovimento, 0);
-    }
-}
-
-void atualizaMosquitos(int)
-{
-    if (telaAtual == GAME_SCREEN)
-    {
-        adicionaMosquito();
-        glutTimerFunc(5000, atualizaMosquitos, 0);
     }
 }
 

@@ -3,9 +3,12 @@
 #include <screen.h>
 #include <position.h>
 #include <texture.h>
+#include <utils.h>
 #include <vector>
 #include <cmath>
 #include <time.h>
+
+#define MAX_MOSQUITOS 5
 
 bool playerNoChao;
 GLfloat playerVelocity = 5;
@@ -34,14 +37,14 @@ struct disparo {
 std::vector<disparo> disparos;
 bool direcaoDisparo = true;
 
-// Define variáveis de controle dos mosquitos
-struct mosquito {
+// Variáveis de controle dos mosquitos
+struct Mosquito {
     GLfloat x, y;
-    GLfloat largura, altura;
-    GLfloat velocity = 2;
-    bool ativo = false;
+    GLfloat largura = wMosquito, altura = hMosquito;
+    GLfloat velocity = 1;
 };
-std::vector<mosquito> mosquitos;
+std::vector<Mosquito> mosquitos;
+
 
 bool verificaColisaoEsquerda(){
     if (!(translateX < xPlatform1 + wPlatform1/2 + jumpVelocity &&  // Verifica se o lado direito do objeto1 em movimento está à esquerda do lado direito do objeto estático
@@ -187,6 +190,95 @@ void moveDisparos() {
     }
 }
 
+// Função para controlar o pulo do jogador
+void jump(int value) {
+    if (isJumping) {
+        // Atualize a posição vertical do jogador
+        jumpHeight += jumpVelocity;
+        translateY += jumpVelocity;
+        
+        // Verifique se o jogador atingiu a altura máxima do pulo
+        if (jumpHeight >= jumpStrength || !verificaColisaoCima()) {
+            isJumping = false;
+            jumpHeight = 0.0f;
+        }
+        
+        // Redesenhe a cena
+        glutPostRedisplay();
+        
+        // Registre a função de salto novamente para o próximo quadro
+        glutTimerFunc(10, jump, 0); // 16 ms para aproximadamente 60 FPS
+    }
+}
+
+// Função para iniciar o pulo do jogador
+void startJump() {
+    if (!isJumping) {
+        isJumping = true;
+        jumpHeight = 0.0f;
+        glutTimerFunc(0, jump, 0); // Inicia o temporizador de salto
+    }
+}
+
+// Desenhar os disparos na tela
+void disparar(){
+    for (const auto& disparo : disparos) {
+        draw(DISPARO_FRAME, disparo.x, disparo.y, disparo.largura, disparo.altura);
+    }
+}
+
+// Desenha mosquitos na tela
+void desenhaMosquito(){
+    for (const auto& mosquito : mosquitos){
+        drawTexture(MOSQUITO_ENEMY, 0.0f, 0.0f, 0.5f, 0.5f, mosquito.x, mosquito.y, mosquito.largura, mosquito.altura);
+    }
+}
+
+void adicionaMosquito() {
+    if (mosquitos.size() < MAX_MOSQUITOS) {
+        Mosquito novoMosquito;
+        int lado = rand() % 4; // Escolhe um dos lados da tela para gerar o mosquito
+
+        switch (lado) {
+            case 0: // Topo
+                novoMosquito.x = rand() % larguraJanela;
+                novoMosquito.y = alturaJanela + 100;
+                break;
+            case 1: // Fundo
+                novoMosquito.x = rand() % larguraJanela;
+                novoMosquito.y = -100;
+                break;
+            case 2: // Esquerda
+                novoMosquito.x = -100;
+                novoMosquito.y = rand() % alturaJanela;
+                break;
+            case 3: // Direita
+                novoMosquito.x = larguraJanela + 100;
+                novoMosquito.y = rand() % alturaJanela;
+                break;
+        }
+
+        mosquitos.push_back(novoMosquito);
+    }
+}
+
+// Atualiza a posição dos mosquitos fazendo se mover na direção do personagem
+void moveMosquitos() {
+    for (auto& mosquito : mosquitos) {
+        // Calcula direção do movimento em relação ao personagem
+        float deltaX = translateX - mosquito.x;
+        float deltaY = translateY - mosquito.y;
+        float distancia = sqrt(deltaX * deltaX + deltaY * deltaY);
+
+        // Move o mosquito em direção ao personagem com uma velocidade proporcional à distância
+        if (distancia > 0) {
+            mosquito.x += mosquito.velocity * deltaX / distancia;
+            mosquito.y += mosquito.velocity * deltaY / distancia;
+        }
+    }
+}
+
+
 // Atualiza a posição de objetos na tela
 void moveObjetos(){
     if(applyGravity()){
@@ -205,79 +297,13 @@ void moveObjetos(){
     // Chama a função que atualiza a posição dos disparos
     moveDisparos();
 
+    // Chama a função que atualiza a posição dos disparos
+    moveMosquitos();
+
     // Atualiza a posição do player
     translateX += movePlayerX;
     translateY += movePlayerY;
     movePlayerX = 0;
     movePlayerY = 0;
-
-}
-
-// Função para controlar o pulo do jogador
-void jump(int value) {
-    if (isJumping) {
-        // Atualize a posição vertical do jogador
-        jumpHeight += jumpVelocity;
-        translateY += jumpVelocity;
-        
-        // Verifique se o jogador atingiu a altura máxima do pulo
-        if (jumpHeight >= jumpStrength || !verificaColisaoCima()) {
-            isJumping = false;
-            jumpHeight = 0.0f;
-        }
-        
-        // Redesenhe a cena
-        //glutPostRedisplay();
-        
-        // Registre a função de salto novamente para o próximo quadro
-        glutTimerFunc(10, jump, 0); // 16 ms para aproximadamente 60 FPS
-    }
-}
-
-// Função para iniciar o pulo do jogador
-void startJump() {
-    if (!isJumping) {
-        isJumping = true;
-        jumpHeight = 0.0f;
-        glutTimerFunc(10, jump, 0); // Inicia o temporizador de salto
-    }
-}
-
-// Desenhar os disparos na tela
-void disparar(){
-    for (const auto& disparo : disparos) {
-        draw(DISPARO_FRAME, disparo.x, disparo.y, disparo.largura, disparo.altura);
-    }
-}
-
-// Desenha mosquitos na tela
-void desenhaMosquito(GLfloat x, GLfloat y, GLfloat largura, GLfloat altura){
-    draw(MOSQUITO_ENEMY, x, y, largura, altura);
-}
-
-void adicionaMosquito() {
-    mosquito novoMosquito;
-    int lado = rand() % 3; // Escolhe um dos lados da tela para gerar o mosquito
-
-    switch (lado) {
-        case 0: // Topo
-            novoMosquito.x = rand() % larguraJanela;
-            novoMosquito.y = alturaJanela + 100;
-            break;
-        case 1: // Esquerda
-            novoMosquito.x = -100;
-            novoMosquito.y = rand() % alturaJanela;
-            break;
-        case 2: // Direita
-            novoMosquito.x = larguraJanela + 100;
-            novoMosquito.y = rand() % alturaJanela;
-            break;
-    }
-
-        mosquitos.push_back(novoMosquito);
-}
-
-// Atualiza a posição dos disparos na tela fazendo se mover na horizontal
-void moveMosquitos() {
 
 }
