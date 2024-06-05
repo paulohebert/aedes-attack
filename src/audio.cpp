@@ -24,6 +24,11 @@ void setVolume()
     // Muda o volume dos áudios
     ma_sound_set_volume(&audios[SHOT], volume * 0.05f);
     ma_sound_set_volume(&audios[RAIN], volume * 0.005f);
+    ma_sound_set_volume(&audios[GAME_START], volume * 0.05f);
+    ma_sound_set_volume(&audios[FALL], volume * 0.025f);
+    ma_sound_set_volume(&audios[LOSE], volume * 0.05f);
+    ma_sound_set_volume(&audios[DESTROY], volume * 0.04f);
+    ma_sound_set_volume(&audios[OPENING], volume * 0.025f);
 }
 
 // Aumenta o Volume de todos os áudios
@@ -70,9 +75,15 @@ void initAudios()
     // Carrega todos os áudios usados no Jogo
     loadAudio(&audios[SHOT], "../assets/shot.mp3");
     loadAudio(&audios[RAIN], "../assets/rain.mp3");
+    loadAudio(&audios[GAME_START], "../assets/start.mp3");
+    loadAudio(&audios[FALL], "../assets/fall.mp3");
+    loadAudio(&audios[LOSE], "../assets/lose.mp3");
+    loadAudio(&audios[DESTROY], "../assets/destroy-mosquito.mp3");
+    loadAudio(&audios[OPENING], "../assets/opening.mp3");
 
     // Define os áudios que ficaram em loop
     ma_sound_set_looping(&audios[RAIN], true);
+    ma_sound_set_looping(&audios[OPENING], true);
 
     // Define o volume inicial
     setVolume();

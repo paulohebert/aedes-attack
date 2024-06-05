@@ -7,6 +7,7 @@
 #include <vector>
 #include <cmath>
 #include <time.h>
+#include <audio.h>
 
 #define MAX_MOSQUITOS 5
 
@@ -356,6 +357,7 @@ void colideMosquitos()
         if (isCollision(translateX, translateY, wPlayer, hPlayer,
                         mosquitoTemp.x, mosquitoTemp.y, mosquitoTemp.largura, mosquitoTemp.altura))
         {
+            playSound(FALL);
             updatePlayerLife(); // Atualize a vida do jogador, se necessário
             removeMosquito(i);
             i--; // Ajustar índice após remoção
@@ -369,6 +371,7 @@ void colideMosquitos()
             if (isCollision(disparoTemp.x, disparoTemp.y, disparoTemp.largura, disparoTemp.altura,
                             mosquitoTemp.x, mosquitoTemp.y, mosquitoTemp.largura, mosquitoTemp.altura))
             {
+                playSound(DESTROY);
                 removeMosquito(i);
                 disparos.erase(disparos.begin() + j);
                 i--; // Ajustar índice após remoção

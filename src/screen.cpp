@@ -33,6 +33,9 @@ void changeScreen(int screenId)
 
         // Começa a animação das texturas da tela inicial
         glutTimerFunc(50, animateHomeScreenTextures, 0);
+
+        // Toca a música de abertura
+        playSound(OPENING);
         break;
     case GAME_SCREEN:
         // Define 5 Vidas quando o jogador iniciar o jogo
@@ -40,6 +43,9 @@ void changeScreen(int screenId)
 
         // Reset na posição do jogador
         translateX = translateY = 0;
+
+        // Para de tocar o loop da música de abertura
+        stopSoundLoop(OPENING);
 
         // Muda para a tela do jogo
         glutDisplayFunc(telaJogo);
@@ -74,6 +80,9 @@ void changeScreen(int screenId)
 
         // Começa a animação das texturas da tela de fim de jogo
         glutTimerFunc(50, animateEndGameScreenTextures, 0);
+
+        // Toca o som de game over
+        playSound(LOSE);
         break;
     case LOADING_SCREEN:
         // Muda para a tela de carregamento

@@ -3,6 +3,7 @@
 #include <keyboard.h>
 #include <position.h>
 #include <utils.h>
+#include <audio.h>
 
 int isHover(GLfloat xMouse, GLfloat yMouse, GLfloat xObj, GLfloat yObj, GLfloat wObj, GLfloat hObj)
 {
@@ -20,6 +21,7 @@ void mouse(int button, int estado, int x, int y)
     {
         if (isHover(x, yInvertido, xButtonStart, yButtonStart, wButtonStart, hButtonStart)) // Verifica se "iniciar" foi selecionado
         {
+            playSound(GAME_START);
             glutSetCursor(GLUT_CURSOR_INHERIT); // Muda para cursor padrão após o click
             changeScreen(GAME_SCREEN);          // Muda para a tela do jogo
         }
