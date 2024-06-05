@@ -40,7 +40,7 @@ void teclado(unsigned char tecla, int x, int y)
         break;
     case 'x':
     case 'X':
-        changeScreen(END_GAME_SCREEN);
+        //changeScreen(END_GAME_SCREEN);
 
         break;
     case 'c':
@@ -70,6 +70,10 @@ void teclado(unsigned char tecla, int x, int y)
 
 void teclasEspeciais(int tecla, int x, int y)
 {
+    // Desabilita as teclas quando tiver fora da tela do jogo
+    if (telaAtual != GAME_SCREEN)
+        return;
+
     switch (tecla)
     {
     case GLUT_KEY_UP:

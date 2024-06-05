@@ -21,6 +21,25 @@ int telaOver;      // Variável que será responsável pela tela de "game over"
 float x, y;
 float largura, altura, retXinic, retYinic, retXcont, retYcont, retXexit, retYexit;
 
+// Reseta as variáveis para o início do jogo
+void resetGame()
+{
+    // Define 5 Vidas quando o jogador iniciar o jogo
+    lives = 5;
+
+    // Reset na posição do jogador
+    translateX = translateY = 0;
+
+    // Reset a variável que inverte o lado do jogador está virado
+    flip = false;
+
+    // Remove todos os mosquitos
+    mosquitos.clear();
+
+    // Remove todos os tiros
+    disparos.clear();
+}
+
 // Muda a tela atual e faz que só as animações presente na tela executem
 void changeScreen(int screenId)
 {
@@ -36,14 +55,11 @@ void changeScreen(int screenId)
 
         // Toca a música de abertura
         playSound(OPENING);
+
+        // Configura as variáveis para o começo do jogo
+        resetGame();
         break;
     case GAME_SCREEN:
-        // Define 5 Vidas quando o jogador iniciar o jogo
-        lives = 5;
-
-        // Reset na posição do jogador
-        translateX = translateY = 0;
-
         // Para de tocar o loop da música de abertura
         stopSoundLoop(OPENING);
 
@@ -203,6 +219,8 @@ void telaJogo()
     // Desenha o player
     if (dead) // Verifica se mostra o jogador perdendo uma vida
         drawFrame(PLAYER_DEAD, currentPlayerFrame, 4, 4, xPlayer, yPlayer, wPlayer * 2.0, hPlayer);
+    else if (isJumping) // Verifica se o jogador está pulando
+        drawFrame(PLAYER_JUMP, currentPlayerFrame, 4, 4, xPlayer, yPlayer, wPlayer * 1.2, hPlayer);
     else if (leftPressed || rightPressed) // Verifica se o jogador está correndo
         drawFrame(PLAYER_RUN, currentPlayerFrame, 4, 4, xPlayer, yPlayer, wPlayer * 1.2, hPlayer);
     else
