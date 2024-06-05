@@ -33,6 +33,8 @@ struct Mosquito {
 };
 extern std::vector<Mosquito> mosquitos;
 
+// Quantidade de Vidas do Jogador
+extern int lives;
 
 bool verificaColisaoEsquerda();
 bool verificaColisaoDireita();

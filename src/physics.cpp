@@ -22,6 +22,8 @@ GLfloat jumpStrength = 230.0f; // Força do pulo
 GLfloat jumpVelocity = 10.0f;   // Velocidade vertical do pulo
 GLfloat jumpHeight = 0.0f;     // Altura atual do pulo
 
+// Quantidade de Vidas do Jogador
+int lives;
 
 // Define variável que verifica se há um botão de movimento horizontal pressionado
 bool leftPressed = false;
@@ -44,6 +46,14 @@ struct Mosquito {
     GLfloat velocity = 1;
 };
 std::vector<Mosquito> mosquitos;
+
+void updatePlayerLife() {
+    if(lives > 1) {
+        lives--;
+    } else {
+        changeScreen(END_GAME_SCREEN);
+    }
+}
 
 
 bool verificaColisaoEsquerda(){
@@ -301,7 +311,7 @@ void colideMosquitos() {
         // Verificar colisão entre o personagem e o mosquito
         if (isCollision(translateX, translateY, wPlayer, hPlayer, 
                         mosquitoTemp.x, mosquitoTemp.y, mosquitoTemp.largura, mosquitoTemp.altura)) {
-            // updatePlayerLife(); // Atualize a vida do jogador, se necessário
+            updatePlayerLife(); // Atualize a vida do jogador, se necessário
             removeMosquito(i);
             i--; // Ajustar índice após remoção
             continue;

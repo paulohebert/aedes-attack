@@ -35,6 +35,9 @@ void changeScreen(int screenId)
         glutTimerFunc(50, animateHomeScreenTextures, 0);
         break;
     case GAME_SCREEN:
+        // Define 5 Vidas quando o jogador iniciar o jogo
+        lives = 5;
+
         // Muda para a tela do jogo
         glutDisplayFunc(telaJogo);
 
@@ -150,7 +153,7 @@ void telaJogo()
     draw(BUTTON_PAUSE, xButtonPause, yButtonPause, wButtonPause, hButtonPause);
 
     // Desenha a quantidade de Vida que o jogador tem
-    for (int totalHeart = 5; totalHeart; totalHeart--)
+    for (int totalHeart = lives; totalHeart; totalHeart--)
     {
         draw(HEART, xHeart + (wHeart * totalHeart) + (totalHeart * offsetHeart), yHeart, wHeart, hHeart);
     }
