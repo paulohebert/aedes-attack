@@ -12,5 +12,6 @@ void atualizaMovimento(int);
 void animateHomeScreenTextures(int);
 void animateGameScreenTextures(int);
 void animateGamePauseScreenTextures(int);
+void animateEndGameScreenTextures(int);
 
 #endif

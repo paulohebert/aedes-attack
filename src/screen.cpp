@@ -57,6 +57,9 @@ void changeScreen(int screenId)
     case END_GAME_SCREEN:
         // Muda para a tela de fim de jogo
         glutDisplayFunc(telaFim);
+
+        // Começa a animação das texturas da tela de fim de jogo
+        glutTimerFunc(50, animateEndGameScreenTextures, 0);
         break;
     case LOADING_SCREEN:
         // Muda para a tela de carregamento
@@ -240,6 +243,17 @@ void telaFim()
     // Inicia a aplicação de texturas
     glEnable(GL_TEXTURE_2D);
 
+    // Desenha o plano de fundo
+    draw(BACKGROUND_PAUSE, 0, 0, larguraJanela, alturaJanela);
+
+    // Desenha o botão de "recomeçar"
+    draw(BUTTON_RESTART, xButtonRestart, yButtonRestart, wButtonRestart, hButtonRestart);
+
+    // Desenha o botão de "exit"
+    draw(BUTTON_EXIT, xButtonEndGameExit, yButtonEndGameExit, wButtonEndGameExit, hButtonEndGameExit);
+
+    // Desenha o mosquito
+    drawFrame(MOSQUITO_GAME_OVER, currentMosquitoGameOverFrame, 3, 10, xMosquitoGameOver, yMosquitoGameOver, wMosquitoGameOver, hMosquitoGameOver);
 
     glDisable(GL_TEXTURE_2D);
 

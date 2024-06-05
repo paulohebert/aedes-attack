@@ -70,6 +70,18 @@ extern GLfloat xButtonExit, yButtonExit, wButtonExit, hButtonExit;
 extern GLfloat xBannerDengueCenter, yBannerDengueCenter, wBannerDengueCenter, hBannerDengueCenter;
 
 // --------------------------------------------------------------- //
+// Tela de Fim de Jogo
+
+// Posição do Botão de Reiniciar o Jogo
+extern GLfloat xButtonRestart, yButtonRestart, wButtonRestart, hButtonRestart;
+
+// Posição do Botão de Sair do Jogo
+extern GLfloat xButtonEndGameExit, yButtonEndGameExit, wButtonEndGameExit, hButtonEndGameExit;
+
+// Posição do Mosquito de Game Over
+extern GLfloat xMosquitoGameOver, yMosquitoGameOver, wMosquitoGameOver, hMosquitoGameOver;
+
+// --------------------------------------------------------------- //
 
 void updatePosition();
 

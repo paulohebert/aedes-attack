@@ -4,6 +4,7 @@
 #include <texture.h>
 #include <screen.h>
 #include <utils.h>
+#include <iostream>
 
 /* Armazena as todas texturas */
 GLuint *textures;
@@ -12,6 +13,7 @@ GLuint *textures;
 int currentBackgroundMenuFrame = 0;   // Background da Tela Inicial
 int currentBackgroundMainFrame = 0;   // Background da Tela do Jogo
 int currentBannerCombatInfoFrame = 0; // Banner de Combate à dengue
+int currentMosquitoGameOverFrame = 0; // Mosquito de Game Over
 int currentPlayerFrame = 0;           // Personagem do Jogador
 
 void loadTexture(GLuint texture, const char *filename)
@@ -67,10 +69,12 @@ void initTextures()
     loadTexture(textures[BUTTON_PLAY], "../assets/play-green.png");
     loadTexture(textures[BUTTON_START], "../assets/btn-start.png");
     loadTexture(textures[BUTTON_PAUSE], "../assets/pause-verde.png");
+    loadTexture(textures[BUTTON_RESTART], "../assets/refresh-green.png");
     loadTexture(textures[BUTTON_EXIT], "../assets/exit-gray.png");
     loadTexture(textures[BUTTON_ABOUT], "../assets/btn-about.png");
     loadTexture(textures[HEART], "../assets/vida.png");
     loadTexture(textures[BANNER_COMBAT_INFO], "../assets/combat-information.png");
+    loadTexture(textures[MOSQUITO_GAME_OVER], "../assets/mosquito-gameover.png");
 }
 
 /* Função que espera carregar todas as texturas para só depois ir para tela inicial */
@@ -78,9 +82,8 @@ void loadTextures(int)
 {
     initTextures(); // Carrega as texturas
 
-    // Depois muda a tela de carregando para a tela de início
-    glutDisplayFunc(telaInicial);
-    glutTimerFunc(70, animateHomeScreenTextures, 0); // Começa a animação da tela inicial
+    // Muda para tela inicial após carregar as texturas
+    changeScreen(HOME_SCREEN);
 }
 
 /* Libera as texturas da memória */
@@ -92,13 +95,13 @@ void freeTextures()
 
 void drawFrame(int textureID, int currentFrame, int totalRow, int totalCol, GLfloat x, GLfloat y, GLfloat width, GLfloat height)
 {
-    int row = currentFrame / totalRow;
-    int col = currentFrame % totalRow;
+    int row = currentFrame / totalCol;
+    int col = currentFrame % totalCol;
 
-    float textureX = (float)col / totalRow;
-    float textureY = (float)row / totalCol;
-    float frameRatioX = 1.0f / totalRow;
-    float frameRatioY = 1.0f / totalCol;
+    float textureX = (float)col / totalCol;
+    float textureY = (float)row / totalRow;
+    float frameRatioX = 1.0f / totalCol;
+    float frameRatioY = 1.0f / totalRow;
 
     drawTexture(textureID, textureX, textureY, frameRatioX, frameRatioY, x, y, width, height);
 }

@@ -128,6 +128,24 @@ GLfloat hBannerDengueCenter; // Altura
 // --------------------------------------------------------------- //
 // Tela de Fim de Jogo
 
+// Posição do Botão de Reiniciar o Jogo
+GLfloat xButtonRestart; // Posição X do Canto Inferior Esquerdo
+GLfloat yButtonRestart; // Posição Y do Canto Inferior Esquerdo
+GLfloat wButtonRestart; // Largura
+GLfloat hButtonRestart; // Altura
+
+// Posição do Botão de Sair do Jogo
+GLfloat xButtonEndGameExit; // Posição X do Canto Inferior Esquerdo
+GLfloat yButtonEndGameExit; // Posição Y do Canto Inferior Esquerdo
+GLfloat wButtonEndGameExit; // Largura
+GLfloat hButtonEndGameExit; // Altura
+
+// Posição do Mosquito de Game Over
+GLfloat xMosquitoGameOver; // Posição X do Canto Inferior Esquerdo
+GLfloat yMosquitoGameOver; // Posição Y do Canto Inferior Esquerdo
+GLfloat wMosquitoGameOver; // Largura
+GLfloat hMosquitoGameOver; // Altura
+
 // --------------------------------------------------------------- //
 
 // Centralizar o objeto em X ou Y
@@ -202,26 +220,26 @@ void updatePosition()
 
     // Posição da Plataforma Suspensa 2
     xPlatform2 = larguraJanela * 0.4; // Posição X do Canto Inferior Esquerdo
-    yPlatform2 = alturaJanela * 0.4;   // Posição Y do Canto Inferior Esquerdo
-    wPlatform2 = larguraJanela * 0.2;  // Largura
-    hPlatform2 = alturaJanela * 0.05;  // Altura
+    yPlatform2 = alturaJanela * 0.4;  // Posição Y do Canto Inferior Esquerdo
+    wPlatform2 = larguraJanela * 0.2; // Largura
+    hPlatform2 = alturaJanela * 0.05; // Altura
 
     // Posição da Plataforma Suspensa 3
-    xPlatform3 = larguraJanela * 0.7;  // Posição X do Canto Inferior Esquerdo
-    yPlatform3 = alturaJanela * 0.55;   // Posição Y do Canto Inferior Esquerdo
+    xPlatform3 = larguraJanela * 0.7; // Posição X do Canto Inferior Esquerdo
+    yPlatform3 = alturaJanela * 0.55; // Posição Y do Canto Inferior Esquerdo
     wPlatform3 = larguraJanela * 0.2; // Largura
-    hPlatform3 = alturaJanela * 0.05;  // Altura
+    hPlatform3 = alturaJanela * 0.05; // Altura
 
     // Posição da Plataforma Suspensa 4
     xPlatform4 = larguraJanela * 0.07; // Posição X do Canto Inferior Esquerdo
-    yPlatform4 = alturaJanela * 0.55;   // Posição Y do Canto Inferior Esquerdo
-    wPlatform4 = larguraJanela * 0.2; // Largura
+    yPlatform4 = alturaJanela * 0.55;  // Posição Y do Canto Inferior Esquerdo
+    wPlatform4 = larguraJanela * 0.2;  // Largura
     hPlatform4 = alturaJanela * 0.05;  // Altura
 
     // Posição da Plataforma Suspensa 5
-    xPlatform5 = larguraJanela * 0.73;  // Posição X do Canto Inferior Esquerdo
-    yPlatform5 = alturaJanela * 0.25;   // Posição Y do Canto Inferior Esquerdo
-    wPlatform5 = larguraJanela * 0.2; // Largura
+    xPlatform5 = larguraJanela * 0.73; // Posição X do Canto Inferior Esquerdo
+    yPlatform5 = alturaJanela * 0.25;  // Posição Y do Canto Inferior Esquerdo
+    wPlatform5 = larguraJanela * 0.2;  // Largura
     hPlatform5 = alturaJanela * 0.05;  // Altura
 
     // Posição do Jogador
@@ -266,6 +284,24 @@ void updatePosition()
 
     // --------------------------------------------------------------- //
     // Tela de Fim de Jogo
+
+    // Posição do Botão de Reiniciar o Jogo
+    xButtonRestart = xButtonContinue; // Posição X do Canto Inferior Esquerdo
+    yButtonRestart = yButtonContinue; // Posição Y do Canto Inferior Esquerdo
+    wButtonRestart = wButtonContinue; // Largura
+    hButtonRestart = hButtonContinue; // Altura
+
+    // Posição do Botão de Sair do Jogo
+    xButtonEndGameExit = xButtonExit; // Posição X do Canto Inferior Esquerdo
+    yButtonEndGameExit = yButtonExit; // Posição Y do Canto Inferior Esquerdo
+    wButtonEndGameExit = wButtonExit; // Largura
+    hButtonEndGameExit = hButtonExit; // Altura
+
+    // Posição do Mosquito de Game Over
+    wMosquitoGameOver = larguraJanela * 0.2;                              // Largura
+    hMosquitoGameOver = wMosquitoGameOver;                                // Altura
+    xMosquitoGameOver = centerPosition(wMosquitoGameOver, larguraJanela); // Posição X do Canto Inferior Esquerdo
+    yMosquitoGameOver = alturaJanela * 0.25;                              // Posição Y do Canto Inferior Esquerdo
 
     // --------------------------------------------------------------- //
 }

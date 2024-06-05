@@ -92,3 +92,17 @@ void animateGamePauseScreenTextures(int)
         glutTimerFunc(400, animateGamePauseScreenTextures, 0); // Loop
     }
 }
+
+/* Atualiza os frames das texturas da tela de fim de jogo */
+void animateEndGameScreenTextures(int)
+{
+    /* Evita que a animação continue quando trocar de tela */
+    if (telaAtual == END_GAME_SCREEN)
+    {
+        // Altera para o próximo frame do mosquito na tela de fim de jogo
+        currentMosquitoGameOverFrame = (currentMosquitoGameOverFrame + 1) % MOSQUITO_GAME_OVER_TOTAL_FRAMES;
+
+        glutPostRedisplay();                                   // Redesenha a tela
+        glutTimerFunc(50, animateEndGameScreenTextures, 0); // Loop
+    }
+}
