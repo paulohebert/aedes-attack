@@ -25,8 +25,12 @@ void atualizaTempo(int value)
         glutTimerFunc(1000, atualizaTempo, 0); // Reagenda o timer mesmo quando pausado
         return;
     }
+
     if (tempoRestante > 0)
     {
+        if(tempoRestante % 5 == 0){
+            adicionaMosquito();
+        }
         tempoRestante--;
         glutPostRedisplay();
         glutTimerFunc(1000, atualizaTempo, 0);
@@ -36,12 +40,8 @@ void atualizaTempo(int value)
 void atualizaMovimento(int)
 {
     moveObjetos();
+    glutPostRedisplay();  
     glutTimerFunc(10, atualizaMovimento, 0);
-}
-
-void atualizaMosquitos(int){
-    adicionaMosquito();
-    glutTimerFunc(5000, atualizaMosquitos, 0);
 }
 
 /* Atualiza os frames das texturas da tela inicial */

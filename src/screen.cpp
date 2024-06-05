@@ -176,13 +176,12 @@ void telaJogo()
 
     glPopMatrix();
 
+    // Desenha o Disparo
     disparar();
 
     // Desenha o Mosquito
-    for (const auto& mosquito : mosquitos) {
-        desenhaMosquito(mosquito.x, mosquito.y, mosquito.largura, mosquito.altura);
-    }
-    drawTexture(MOSQUITO_ENEMY, 0.0f, 0.0f, 0.5f, 0.5f, xMosquito, yMosquito, wMosquito, hMosquito);
+    desenhaMosquito();
+    //drawTexture(MOSQUITO_ENEMY, 0.0f, 0.0f, 0.5f, 0.5f, xMosquito, yMosquito, wMosquito, hMosquito);
 
     glDisable(GL_TEXTURE_2D);
 

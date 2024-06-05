@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <GL/glut.h>
 #include <vector> 
+#define MAX_MOSQUITOS 10
 
 extern bool playerNoChao;
 extern GLfloat gravity;
@@ -24,13 +25,14 @@ struct disparo {
 };
 extern std::vector<disparo> disparos;
 extern bool direcaoDisparo;
-struct mosquito {
+struct Mosquito {
     GLfloat x, y;
     GLfloat largura, altura;
     GLfloat velocity;
     bool ativo;
 };
-extern std::vector<mosquito> mosquitos;
+extern std::vector<Mosquito> mosquitos;
+
 
 bool verificaColisaoEsquerda();
 bool verificaColisaoDireita();
@@ -44,6 +46,7 @@ void disparar();
 void moveDisparos();
 void adicionaMosquito();
 void moveMosquitos();
-void desenhaMosquito(GLfloat , GLfloat , GLfloat , GLfloat );
+void desenhaMosquito();
+
 
 #endif // PHYSICS_H
