@@ -47,6 +47,9 @@ void moveDisparos();
 void adicionaMosquito();
 void moveMosquitos();
 void desenhaMosquito();
+bool isCollision(GLfloat x1, GLfloat y1, GLfloat width1, GLfloat height1, GLfloat x2, GLfloat y2, GLfloat width2, GLfloat height2);
+void removeMosquito(int index);
+void colideMosquitos();
 
 
 #endif // PHYSICS_H
