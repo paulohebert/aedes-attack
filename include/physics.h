@@ -36,6 +36,9 @@ extern std::vector<Mosquito> mosquitos;
 // Quantidade de Vidas do Jogador
 extern int lives;
 
+// Variável que vai contabilizar pontos após sobreviver 10s ou eliminar um mosquito
+extern int score;
+
 // Verifica se o jogador acabou de perder uma vida
 extern bool dead;
 

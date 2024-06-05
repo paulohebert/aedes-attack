@@ -26,6 +26,9 @@ GLfloat jumpHeight = 0.0f;     // Altura atual do pulo
 // Quantidade de Vidas do Jogador
 int lives;
 
+// Variável que vai contabilizar pontos após sobreviver 10s ou eliminar um mosquito
+int score = 0;
+
 // Verifica se o jogador acabou de perder uma vida
 bool dead = false;
 
@@ -369,6 +372,7 @@ void colideMosquitos()
             {
                 playSound(DESTROY);
                 removeMosquito(i);
+                score += 10;
                 disparos.erase(disparos.begin() + j);
                 i--; // Ajustar índice após remoção
                 break;

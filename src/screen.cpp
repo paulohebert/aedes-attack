@@ -18,6 +18,9 @@ int comprimentoTexto;
 int telaAtual = 0; // 0 para tela inicial, 1 para segunda tela
 int telaOver;      // Variável que será responsável pela tela de "game over"
 
+// Variável que vai ficar verificando o tempo para contabilizar nos pontos
+int ultimoTempoAtualizado = 0;
+
 float x, y;
 float largura, altura, retXinic, retYinic, retXcont, retYcont, retXexit, retYexit;
 
@@ -38,6 +41,9 @@ void resetGame()
 
     // Remove todos os tiros
     disparos.clear();
+
+    // Inicializa o tempo
+    ultimoTempoAtualizado = glutGet(GLUT_ELAPSED_TIME) / 1000;
 }
 
 // Muda a tela atual e faz que só as animações presente na tela executem
@@ -207,6 +213,13 @@ void telaJogo()
     // Desenha a plataforma 5
     draw(PLATFORM, xPlatform5, yPlatform5, wPlatform5, hPlatform5);
 
+    // Atualiza o tempo e a pontuação
+    int tempoAtual = glutGet(GLUT_ELAPSED_TIME) / 1000; // Obtém o tempo atual em segundos
+    if (tempoRestante && (tempoAtual - ultimoTempoAtualizado >= 10)) {
+        score += 10; // Incrementa 10 pontos a cada 10 segundos de sobrevivência
+        ultimoTempoAtualizado = tempoAtual;
+    }
+
     // Move o Jogador
     glPushMatrix();
     glTranslatef(translateX, translateY, 0.0);
@@ -247,7 +260,9 @@ void telaJogo()
 
     // Escreve a pontuação
     glColor3f(0.0f, 0.0f, 0.0f);
-    escreveTextoBitmap(xScore + wScore / 2, yScore + hScore / 2, GLUT_BITMAP_HELVETICA_18, "1000");
+    char scoreText[20];
+    snprintf(scoreText, sizeof(scoreText), "%d", score);
+    escreveTextoBitmap(xScore + wScore / 2, yScore + hScore / 2, GLUT_BITMAP_HELVETICA_18, scoreText);
 
     // Desenha a contagem regressiva
     char buffer[50];
