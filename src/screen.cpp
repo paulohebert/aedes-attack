@@ -44,7 +44,7 @@ void changeScreen(int screenId)
         glutTimerFunc(1000, atualizaTempo, 0);
 
         // Registra a função callback que será chamada a cada intervalo de tempo para mover objetos na tela
-        glutTimerFunc(10, atualizaMovimento, 0);
+        glutTimerFunc(0, atualizaMovimento, 0);
         break;
     case GAME_PAUSE_SCREEN:
         // Muda para a tela de pause
