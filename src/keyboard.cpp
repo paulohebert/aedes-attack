@@ -8,6 +8,8 @@
 int pause = 0;
 GLfloat translateX = 0, translateY = 0; // Define as variáveis responsáveis pela movimentação do personagem
 
+bool flip = false;
+
 void teclado(unsigned char tecla, int x, int y)
 {
     switch (tecla)
@@ -73,6 +75,7 @@ void teclasEspeciais(int tecla, int x, int y)
             leftPressed = true;
             // translateX -= playerVelocity;
             direcaoDisparo = false;
+            flip = true;
         }
         break;
     case GLUT_KEY_RIGHT:
@@ -82,6 +85,7 @@ void teclasEspeciais(int tecla, int x, int y)
             rightPressed = true;
             // translateX += playerVelocity;
             direcaoDisparo = true;
+            flip = false;
         }
         break;
     case GLUT_KEY_DOWN:

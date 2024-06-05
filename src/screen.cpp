@@ -170,9 +170,21 @@ void telaJogo()
     // Move o Jogador
     glPushMatrix();
     glTranslatef(translateX, translateY, 0.0);
+    if (flip)
+    {
+        glTranslatef(larguraJanela / 4.0, 0.0f, 0.0f); // Ajustar a posição para evitar que a imagem saia da tela
+        glScalef(-1.0f, 1.0f, 1.0f);                   // Aplicar transformação negativa no eixo X para inverter horizontalmente
+    }
 
     // Desenha o player
-    drawFrame(PLAYER, currentPlayerFrame, 4, 4, xPlayer, yPlayer, wPlayer, hPlayer);
+    if (leftPressed || rightPressed)
+    {
+        drawFrame(PLAYER_RUN, currentPlayerFrame, 4, 4, xPlayer, yPlayer, wPlayer * 1.2, hPlayer);
+    }
+    else
+    {
+        drawFrame(PLAYER, currentPlayerFrame, 4, 4, xPlayer, yPlayer, wPlayer, hPlayer);
+    }
 
     glPopMatrix();
 

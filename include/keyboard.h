@@ -6,6 +6,7 @@
 extern GLfloat translateX, translateY;
 
 extern int pause;
+extern bool flip;
 
 void teclado(unsigned char, int, int);
 
