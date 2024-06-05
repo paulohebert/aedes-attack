@@ -36,6 +36,7 @@ void atualizaMovimento(int)
     if (telaAtual == GAME_SCREEN)
     {
         moveObjetos();
+        glutPostRedisplay();
         glutTimerFunc(10, atualizaMovimento, 0);
     }
 }
