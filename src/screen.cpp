@@ -7,6 +7,7 @@
 #include <keyboard.h>
 #include <physics.h>
 #include <position.h>
+#include <audio.h>
 
 // Variáveis globais para armazenar as dimensões da janela
 int larguraJanela, alturaJanela;
@@ -45,6 +46,8 @@ void changeScreen(int screenId)
 
         // Registra a função callback que será chamada a cada intervalo de tempo para mover objetos na tela
         glutTimerFunc(0, atualizaMovimento, 0);
+
+        playSound(RAIN); // Toca o som de fundo
         break;
     case GAME_PAUSE_SCREEN:
         // Muda para a tela de pause
@@ -54,6 +57,9 @@ void changeScreen(int screenId)
         glutTimerFunc(400, animateGamePauseScreenTextures, 0);
         break;
     case END_GAME_SCREEN:
+        // Tira o loop do som do jogo ao terminar a partida
+        stopSoundLoop(RAIN);
+
         // Muda para a tela de fim de jogo
         glutDisplayFunc(telaFim);
 

@@ -48,6 +48,15 @@ void teclado(unsigned char tecla, int x, int y)
 
         break;
 
+    case '+':
+        upVolume();
+        break;
+
+    case '-':
+    case '_':
+        downVolume();
+        break;
+
     case 32: // Tecla espaço
 
         break;

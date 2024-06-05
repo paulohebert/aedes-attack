@@ -7,12 +7,46 @@ ma_engine engine;
 /* Armazena todos os áudios */
 ma_sound *audios;
 
+int volume = 5; // Volume inicial (50%)
+
 void loadAudio(ma_sound *sound, const char *filename)
 {
     if (ma_sound_init_from_file(&engine, filename, 0, NULL, NULL, sound) != MA_SUCCESS)
     {
         fprintf(stderr, "Falha ao carregar o som %s.\n", filename);
         exit(EXIT_FAILURE);
+    }
+}
+
+// Atualiza o volume do som
+void setVolume()
+{
+    // Muda o volume dos áudios
+    ma_sound_set_volume(&audios[SHOT], volume * 0.05f);
+    ma_sound_set_volume(&audios[RAIN], volume * 0.005f);
+}
+
+// Aumenta o Volume de todos os áudios
+void upVolume()
+{
+    if (volume < 10)
+    {
+        volume++; // +10%
+
+        // Atualiza o volume com o novo valor
+        setVolume();
+    }
+}
+
+// Diminui o Volume de todos os áudios
+void downVolume()
+{
+    if (volume > 0)
+    {
+        volume--; // -10%
+
+        // Atualiza o volume com o novo valor
+        setVolume();
     }
 }
 
@@ -35,11 +69,20 @@ void initAudios()
 
     // Carrega todos os áudios usados no Jogo
     loadAudio(&audios[SHOT], "../assets/shot.mp3");
+    loadAudio(&audios[RAIN], "../assets/rain.mp3");
+
+    // Define os áudios que ficaram em loop
+    ma_sound_set_looping(&audios[RAIN], true);
+
+    // Define o volume inicial
+    setVolume();
 }
 
+// Libera os áudios
 void freeAudios()
 {
-    for(int i = 0; i < NUM_AUDIOS; i++) {
+    for (int i = 0; i < NUM_AUDIOS; i++)
+    {
         ma_sound_uninit(&audios[i]); // Libera cada áudio da memória
     }
     ma_engine_uninit(&engine); // Libera a engine de áudio
@@ -49,4 +92,15 @@ void freeAudios()
 void playSound(int audioID)
 {
     ma_sound_start(&audios[audioID]);
+}
+
+// Desliga o som em loop
+void stopSoundLoop(int audioID)
+{
+    // Verifica se é um áudio em loop
+    if (ma_sound_is_looping(&audios[audioID]))
+    {
+        // Desliga o áudio
+        ma_sound_stop(&audios[audioID]);
+    }
 }
