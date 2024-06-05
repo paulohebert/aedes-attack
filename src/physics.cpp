@@ -262,18 +262,61 @@ void adicionaMosquito() {
     }
 }
 
-// Atualiza a posição dos mosquitos fazendo se mover na direção do personagem
 void moveMosquitos() {
     for (auto& mosquito : mosquitos) {
-        // Calcula direção do movimento em relação ao personagem
-        float deltaX = translateX - mosquito.x;
-        float deltaY = translateY - mosquito.y;
-        float distancia = sqrt(deltaX * deltaX + deltaY * deltaY);
+        // Calcula a diferença de posição entre o mosquito e o personagem
+        GLfloat deltaX = translateX - mosquito.x;
+        GLfloat deltaY = translateY - mosquito.y;
 
-        // Move o mosquito em direção ao personagem com uma velocidade proporcional à distância
-        if (distancia > 0) {
-            mosquito.x += mosquito.velocity * deltaX / distancia;
-            mosquito.y += mosquito.velocity * deltaY / distancia;
+        // Calcula a distância
+        GLfloat distance = sqrt(deltaX * deltaX + deltaY * deltaY);
+
+        // Normaliza os vetores de movimento, evita divisão por zero
+        if (distance != 0) {
+            GLfloat normX = deltaX / distance;
+            GLfloat normY = deltaY / distance;
+
+            // Move o mosquito em direção ao personagem
+            mosquito.x += normX * mosquito.velocity;
+            mosquito.y += normY * mosquito.velocity;
+        }
+    }
+}
+
+// Função para detecção de colisão entre duas caixas (retângulos)
+bool isCollision(GLfloat x1, GLfloat y1, GLfloat width1, GLfloat height1, GLfloat x2, GLfloat y2, GLfloat width2, GLfloat height2) {
+    return (x1 < x2 + width2 && x1 + width1 > x2 && y1 < y2 + height2 && y1 + height1 > y2);
+}
+
+// Função para remover um mosquito quando atingido por um disparo
+void removeMosquito(int index) {
+    mosquitos.erase(mosquitos.begin() + index);
+}
+
+// Função para detectar colisões e atualizar o jogo
+void colideMosquitos() {
+    for (int i = 0; i < mosquitos.size(); i++) {
+        Mosquito& mosquitoTemp = mosquitos[i];
+
+        // Verificar colisão entre o personagem e o mosquito
+        if (isCollision(translateX, translateY, wPlayer, hPlayer, 
+                        mosquitoTemp.x, mosquitoTemp.y, mosquitoTemp.largura, mosquitoTemp.altura)) {
+            // updatePlayerLife(); // Atualize a vida do jogador, se necessário
+            removeMosquito(i);
+            i--; // Ajustar índice após remoção
+            continue;
+        }
+
+        // Verificar colisão entre disparos e o mosquito
+        for (int j = 0; j < disparos.size(); j++) {
+            disparo& disparoTemp = disparos[j];
+            if (isCollision(disparoTemp.x, disparoTemp.y, disparoTemp.largura, disparoTemp.altura, 
+                            mosquitoTemp.x, mosquitoTemp.y, mosquitoTemp.largura, mosquitoTemp.altura)) {
+                removeMosquito(i);
+                disparos.erase(disparos.begin() + j);
+                i--; // Ajustar índice após remoção
+                break;
+            }
         }
     }
 }
@@ -299,6 +342,7 @@ void moveObjetos(){
 
     // Chama a função que atualiza a posição dos disparos
     moveMosquitos();
+    colideMosquitos();
 
     // Atualiza a posição do player
     translateX += movePlayerX;
