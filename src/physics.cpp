@@ -284,7 +284,7 @@ void adicionaMosquito()
     if (mosquitos.size() < MAX_MOSQUITOS)
     {
         Mosquito novoMosquito;
-        int lado = rand() % 4; // Escolhe um dos lados da tela para gerar o mosquito
+        int lado = rand() % 3; // Escolhe um dos lados da tela para gerar o mosquito
 
         switch (lado)
         {
@@ -292,15 +292,11 @@ void adicionaMosquito()
             novoMosquito.x = rand() % larguraJanela;
             novoMosquito.y = alturaJanela + 100;
             break;
-        case 1: // Fundo
-            novoMosquito.x = rand() % larguraJanela;
-            novoMosquito.y = -100;
-            break;
-        case 2: // Esquerda
+        case 1: // Esquerda
             novoMosquito.x = -100;
             novoMosquito.y = rand() % alturaJanela;
             break;
-        case 3: // Direita
+        case 2: // Direita
             novoMosquito.x = larguraJanela + 100;
             novoMosquito.y = rand() % alturaJanela;
             break;
@@ -315,8 +311,8 @@ void moveMosquitos()
     for (auto &mosquito : mosquitos)
     {
         // Calcula a diferença de posição entre o mosquito e o personagem
-        GLfloat deltaX = translateX - mosquito.x;
-        GLfloat deltaY = translateY - mosquito.y;
+        GLfloat deltaX = translateX + xPlayer - mosquito.x - wPlayer/2 + mosquito.largura/2;
+        GLfloat deltaY = translateY + yPlayer - mosquito.y + mosquito.altura/2;
 
         // Calcula a distância
         GLfloat distance = sqrt(deltaX * deltaX + deltaY * deltaY);
@@ -354,7 +350,7 @@ void colideMosquitos()
         Mosquito &mosquitoTemp = mosquitos[i];
 
         // Verificar colisão entre o personagem e o mosquito
-        if (isCollision(translateX, translateY, wPlayer, hPlayer,
+        if (isCollision(translateX + xPlayer, translateY + yPlayer, wPlayer/2, hPlayer/2,
                         mosquitoTemp.x, mosquitoTemp.y, mosquitoTemp.largura, mosquitoTemp.altura))
         {
             playSound(FALL);
