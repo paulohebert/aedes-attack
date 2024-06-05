@@ -70,6 +70,7 @@ void initTextures()
     loadTexture(textures[MOSQUITO_ENEMY], "../assets/mosquito.png");
     loadTexture(textures[PLAYER], "../assets/boy-player.png");
     loadTexture(textures[PLAYER_RUN], "../assets/boy-player-run.png");
+    loadTexture(textures[PLAYER_DEAD], "../assets/boy-player-dead.png");
     loadTexture(textures[PLATFORM], "../assets/platform.png");
     loadTexture(textures[BUTTON_PLAY], "../assets/play-green.png");
     loadTexture(textures[BUTTON_START], "../assets/btn-start.png");

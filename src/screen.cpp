@@ -38,6 +38,9 @@ void changeScreen(int screenId)
         // Define 5 Vidas quando o jogador iniciar o jogo
         lives = 5;
 
+        // Reset na posição do jogador
+        translateX = translateY = 0;
+
         // Muda para a tela do jogo
         glutDisplayFunc(telaJogo);
 
@@ -53,6 +56,9 @@ void changeScreen(int screenId)
         playSound(RAIN); // Toca o som de fundo
         break;
     case GAME_PAUSE_SCREEN:
+        // Tira o loop do som do jogo ao pausar a partida
+        stopSoundLoop(RAIN);
+
         // Muda para a tela de pause
         glutDisplayFunc(telaPause);
 
@@ -186,12 +192,13 @@ void telaJogo()
     }
 
     // Desenha o player
-    if (leftPressed || rightPressed)
-    {
+    if (dead) // Verifica se mostra o jogador perdendo uma vida
+        drawFrame(PLAYER_DEAD, currentPlayerFrame, 4, 4, xPlayer, yPlayer, wPlayer * 2.0, hPlayer);
+    else if (leftPressed || rightPressed) // Verifica se o jogador está correndo
         drawFrame(PLAYER_RUN, currentPlayerFrame, 4, 4, xPlayer, yPlayer, wPlayer * 1.2, hPlayer);
-    }
     else
     {
+        // Desenha o jogador parado
         drawFrame(PLAYER, currentPlayerFrame, 4, 4, xPlayer, yPlayer, wPlayer, hPlayer);
     }
 

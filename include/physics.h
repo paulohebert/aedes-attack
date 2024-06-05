@@ -36,6 +36,9 @@ extern std::vector<Mosquito> mosquitos;
 // Quantidade de Vidas do Jogador
 extern int lives;
 
+// Verifica se o jogador acabou de perder uma vida
+extern bool dead;
+
 bool verificaColisaoEsquerda();
 bool verificaColisaoDireita();
 bool verificaColisaoEmbaixo();

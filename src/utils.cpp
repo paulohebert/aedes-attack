@@ -65,7 +65,7 @@ void animateGameScreenTextures(int)
         currentBackgroundMainFrame = (currentBackgroundMainFrame + 1) % BACKGROUND_MAIN_TOTAL_FRAMES;
 
         // Altera para o próximo frame do personagem do jogador
-        currentPlayerFrame = (currentPlayerFrame + 1) % PLAYER_TOTAL_FRAMES;
+        if(!dead) currentPlayerFrame = (currentPlayerFrame + 1) % PLAYER_TOTAL_FRAMES;
 
         // Adiciona um delay na animação do banner para não ficar passando muito rápido
         static int delay = 4;
@@ -106,5 +106,22 @@ void animateEndGameScreenTextures(int)
 
         glutPostRedisplay();                                // Redesenha a tela
         glutTimerFunc(50, animateEndGameScreenTextures, 0); // Loop
+    }
+}
+
+// Anima os frames do jogador perdendo uma vida
+void animatePlayerDead(int frame)
+{
+    if (telaAtual == GAME_SCREEN && frame < PLAYER_TOTAL_FRAMES)
+    {
+        // Altera para o próximo frame do personagem do jogador
+        currentPlayerFrame = frame;
+
+        glutPostRedisplay();                             // Redesenha a tela
+        glutTimerFunc(50, animatePlayerDead, frame + 1); // Loop
+    }
+    else
+    {
+        dead = false;
     }
 }

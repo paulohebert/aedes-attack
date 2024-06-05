@@ -13,5 +13,6 @@ void animateHomeScreenTextures(int);
 void animateGameScreenTextures(int);
 void animateGamePauseScreenTextures(int);
 void animateEndGameScreenTextures(int);
+void animatePlayerDead(int);
 
 #endif
