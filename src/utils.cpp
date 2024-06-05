@@ -51,7 +51,7 @@ void animateHomeScreenTextures(int)
         currentBackgroundMenuFrame = (currentBackgroundMenuFrame + 1) % BACKGROUND_MENU_TOTAL_FRAMES;
 
         glutPostRedisplay();                             // Redesenha a tela
-        glutTimerFunc(70, animateHomeScreenTextures, 0); // Loop
+        glutTimerFunc(50, animateHomeScreenTextures, 0); // Loop
     }
 }
 

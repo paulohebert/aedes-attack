@@ -43,7 +43,7 @@ extern int currentPlayerFrame;
 #define MOSQUITO_GAME_OVER_TOTAL_FRAMES 29
 #define PLAYER_TOTAL_FRAMES 15
 
-void loadTextures(int);
+void initTextures();
 
 void freeTextures();
 

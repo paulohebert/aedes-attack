@@ -31,7 +31,7 @@ void changeScreen(int screenId)
         glutDisplayFunc(telaInicial);
 
         // Começa a animação das texturas da tela inicial
-        glutTimerFunc(70, animateHomeScreenTextures, 0);
+        glutTimerFunc(50, animateHomeScreenTextures, 0);
         break;
     case GAME_SCREEN:
         // Muda para a tela do jogo

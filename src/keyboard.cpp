@@ -4,6 +4,7 @@
 #include <utils.h>
 #include <stdbool.h>
 #include <position.h>
+#include <audio.h>
 
 int pause = 0;
 GLfloat translateX = 0, translateY = 0; // Define as variáveis responsáveis pela movimentação do personagem
@@ -33,8 +34,9 @@ void teclado(unsigned char tecla, int x, int y)
         }
         else
         {
-            disparos.push_back({translateX + xPlayer + wPlayer, translateY + yPlayer + hPlayer / 3, 30, 10, 15.0f, false});
+            disparos.push_back({translateX + xPlayer - wPlayer / 2, translateY + yPlayer + hPlayer / 3, 30, 10, 15.0f, false});
         }
+        playSound(SHOT);
         break;
     case 'x':
     case 'X':

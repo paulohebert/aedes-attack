@@ -4,9 +4,8 @@
 #include <texture.h>
 #include <screen.h>
 #include <utils.h>
-#include <iostream>
 
-/* Armazena as todas texturas */
+/* Armazena todas as texturas */
 GLuint *textures;
 
 /* Guarda o estado atual do frame da animação  */
@@ -54,6 +53,11 @@ void initTextures()
 {
     // Armazenar o espaço para todas as texturas
     textures = (GLuint *)malloc(sizeof(GLuint) * NUM_TEXTURES);
+    if (!textures)
+    {
+        fprintf(stderr, "Erro ao inicializar as texturas %s\n");
+        exit(1);
+    }
     glGenTextures(NUM_TEXTURES, textures);
 
     // Carrega todas as texturas usadas no Jogo
@@ -79,15 +83,6 @@ void initTextures()
     loadTexture(textures[DISPARO_FRAME], "../assets/particula_disparo_reduce.png");
     loadTexture(textures[SCORE], "../assets/score.png");
     loadTexture(textures[SHOTGUN], "../assets/shotgun.png");
-}
-
-/* Função que espera carregar todas as texturas para só depois ir para tela inicial */
-void loadTextures(int)
-{
-    initTextures(); // Carrega as texturas
-
-    // Muda para tela inicial após carregar as texturas
-    changeScreen(HOME_SCREEN);
 }
 
 /* Libera as texturas da memória */

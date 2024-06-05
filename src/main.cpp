@@ -3,8 +3,25 @@
 #include <mouse.h>
 #include <screen.h>
 #include <texture.h>
-#include <utils.h>
+#include <audio.h>
 #include <position.h>
+
+/* Função que espera carregar todas as texturas e áudios para só depois ir para tela inicial */
+void loadAssets(int)
+{
+    initTextures(); // Inicializa as texturas
+    initAudios();   // Inicializa os áudios
+
+    // Muda para tela inicial após carregar as texturas
+    changeScreen(HOME_SCREEN);
+}
+
+// Função de limpeza
+void Cleanup()
+{
+    freeTextures(); // Libera as texturas
+    freeAudios();   // Libera os áudios
+}
 
 // Inicializa o que precisa ser usado no jogo
 void init()
@@ -15,12 +32,12 @@ void init()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-}
 
-// Função de limpeza
-void Cleanup()
-{
-    freeTextures();
+    // Inicia na tela de Carregamento
+    changeScreen(LOADING_SCREEN);
+
+    // Registra a função callback que será chamada para trocar a tela de carregando após carregar as texturas
+    glutTimerFunc(200, loadAssets, 0);
 }
 
 void alteraTamanhoJanela(GLsizei w, GLsizei h)
@@ -57,9 +74,6 @@ int main(int argc, char **argv)
     // Faz a janela entrar em modo de tela cheia
     glutFullScreen();
 
-    // Inicia na tela de Carregamento
-    changeScreen(LOADING_SCREEN);
-
     // Registra a função callback de redimensionamento da janela de visualização
     glutReshapeFunc(alteraTamanhoJanela);
 
@@ -77,9 +91,6 @@ int main(int argc, char **argv)
 
     // Registra a função callback para alterar o cursor do mouse quando estiver sobre um objeto
     glutPassiveMotionFunc(passiveMouse);
-
-    // Registra a função callback que será chamada para trocar a tela de carregando após carregar as texturas
-    glutTimerFunc(100, loadTextures, 0);
 
     // Inicia o que precisa no jogo
     init();
