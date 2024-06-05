@@ -179,12 +179,20 @@ void telaJogo()
     disparar();
 
     // Desenha o Mosquito
-    for (const auto& mosquito : mosquitos) {
+    for (const auto &mosquito : mosquitos)
+    {
         desenhaMosquito(mosquito.x, mosquito.y, mosquito.largura, mosquito.altura);
     }
     drawTexture(MOSQUITO_ENEMY, 0.0f, 0.0f, 0.5f, 0.5f, xMosquito, yMosquito, wMosquito, hMosquito);
 
+    // Desenha o plano de fundo da pontuação
+    draw(SCORE, xScore, yScore, wScore, hScore);
+
     glDisable(GL_TEXTURE_2D);
+
+    // Escreve a pontuação
+    glColor3f(0.0f, 0.0f, 0.0f);
+    escreveTextoBitmap(xScore + wScore / 2, yScore + hScore / 2, GLUT_BITMAP_HELVETICA_18, "1000");
 
     // Desenha a contagem regressiva
     char buffer[50];

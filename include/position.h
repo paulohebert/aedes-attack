@@ -57,6 +57,9 @@ extern GLfloat xPlatform5, yPlatform5, wPlatform5, hPlatform5;
 // Posição das Vidas
 extern GLfloat xHeart, yHeart, wHeart, hHeart, offsetHeart;
 
+// Posição da Pontuação
+extern GLfloat xScore, yScore, wScore, hScore;
+
 // --------------------------------------------------------------- //
 // Tela de Pause
 

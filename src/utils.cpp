@@ -20,12 +20,7 @@ void escreveTextoBitmap(float x, float y, void *fonte, const char *string)
 // Callback para a contagem regressiva
 void atualizaTempo(int value)
 {
-    if (pause)
-    {
-        glutTimerFunc(1000, atualizaTempo, 0); // Reagenda o timer mesmo quando pausado
-        return;
-    }
-    if (tempoRestante > 0)
+    if (telaAtual == GAME_SCREEN && tempoRestante > 0)
     {
         tempoRestante--;
         glutPostRedisplay();
@@ -35,13 +30,20 @@ void atualizaTempo(int value)
 
 void atualizaMovimento(int)
 {
-    moveObjetos();
-    glutTimerFunc(10, atualizaMovimento, 0);
+    if (telaAtual == GAME_SCREEN)
+    {
+        moveObjetos();
+        glutTimerFunc(10, atualizaMovimento, 0);
+    }
 }
 
-void atualizaMosquitos(int){
-    adicionaMosquito();
-    glutTimerFunc(5000, atualizaMosquitos, 0);
+void atualizaMosquitos(int)
+{
+    if (telaAtual == GAME_SCREEN)
+    {
+        adicionaMosquito();
+        glutTimerFunc(5000, atualizaMosquitos, 0);
+    }
 }
 
 /* Atualiza os frames das texturas da tela inicial */
@@ -107,7 +109,7 @@ void animateEndGameScreenTextures(int)
         // Altera para o próximo frame do mosquito na tela de fim de jogo
         currentMosquitoGameOverFrame = (currentMosquitoGameOverFrame + 1) % MOSQUITO_GAME_OVER_TOTAL_FRAMES;
 
-        glutPostRedisplay();                                   // Redesenha a tela
+        glutPostRedisplay();                                // Redesenha a tela
         glutTimerFunc(50, animateEndGameScreenTextures, 0); // Loop
     }
 }

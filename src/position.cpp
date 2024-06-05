@@ -104,6 +104,12 @@ GLfloat wHeart;      // Largura
 GLfloat hHeart;      // Altura
 GLfloat offsetHeart; // Distância entre cada Vida
 
+// Posição da Pontuação
+GLfloat xScore; // Posição X do Canto Inferior Esquerdo
+GLfloat yScore; // Posição Y do Canto Inferior Esquerdo
+GLfloat wScore; // Largura
+GLfloat hScore; // Altura
+
 // --------------------------------------------------------------- //
 // Tela de Pause
 
@@ -260,6 +266,12 @@ void updatePosition()
     xHeart = larguraJanela * 0.05;                          // Posição X do Canto Inferior Esquerdo
     yHeart = alturaJanela - hHeart - (alturaJanela * 0.01); // Posição Y do Canto Inferior Esquerdo
     offsetHeart = larguraJanela / 50;                       // Distância entre cada Vida
+
+    // Posição da Pontuação
+    wScore = larguraJanela * 0.14; // Largura
+    hScore = wScore / 3; // Altura
+    xScore = larguraJanela * 0.8 - wScore; // Posição X do Canto Inferior Esquerdo
+    yScore = alturaJanela * 0.95 - hScore / 2; // Posição Y do Canto Inferior Esquerdo
 
     // --------------------------------------------------------------- //
     // Tela de Pause
