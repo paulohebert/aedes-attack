@@ -84,6 +84,9 @@ extern GLfloat xButtonEndGameExit, yButtonEndGameExit, wButtonEndGameExit, hButt
 // Posição do Mosquito de Game Over
 extern GLfloat xMosquitoGameOver, yMosquitoGameOver, wMosquitoGameOver, hMosquitoGameOver;
 
+// Posição da Pontuação Final
+extern GLfloat xEndScore, yEndScore, wEndScore, hEndScore;
+
 // --------------------------------------------------------------- //
 
 // Tela de Fim

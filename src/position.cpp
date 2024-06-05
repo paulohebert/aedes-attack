@@ -152,6 +152,12 @@ GLfloat yMosquitoGameOver; // Posição Y do Canto Inferior Esquerdo
 GLfloat wMosquitoGameOver; // Largura
 GLfloat hMosquitoGameOver; // Altura
 
+// Posição da Pontuação Final
+GLfloat xEndScore; // Posição X do Canto Inferior Esquerdo
+GLfloat yEndScore; // Posição Y do Canto Inferior Esquerdo
+GLfloat wEndScore; // Largura
+GLfloat hEndScore; // Altura
+
 // --------------------------------------------------------------- //
 
 // Centralizar o objeto em X ou Y
@@ -268,9 +274,9 @@ void updatePosition()
     offsetHeart = larguraJanela / 50;                       // Distância entre cada Vida
 
     // Posição da Pontuação
-    wScore = larguraJanela * 0.14; // Largura
-    hScore = wScore / 3; // Altura
-    xScore = larguraJanela * 0.8 - wScore; // Posição X do Canto Inferior Esquerdo
+    wScore = larguraJanela * 0.14;             // Largura
+    hScore = wScore / 3;                       // Altura
+    xScore = larguraJanela * 0.8 - wScore;     // Posição X do Canto Inferior Esquerdo
     yScore = alturaJanela * 0.95 - hScore / 2; // Posição Y do Canto Inferior Esquerdo
 
     // --------------------------------------------------------------- //
@@ -313,7 +319,13 @@ void updatePosition()
     wMosquitoGameOver = larguraJanela * 0.2;                              // Largura
     hMosquitoGameOver = wMosquitoGameOver;                                // Altura
     xMosquitoGameOver = centerPosition(wMosquitoGameOver, larguraJanela); // Posição X do Canto Inferior Esquerdo
-    yMosquitoGameOver = alturaJanela * 0.25;                              // Posição Y do Canto Inferior Esquerdo
+    yMosquitoGameOver = alturaJanela * 0.05;                              // Posição Y do Canto Inferior Esquerdo
+
+    // Posição da Pontuação Final
+    wEndScore = alturaJanela * 0.3;                       // Largura
+    hEndScore = wEndScore / 3;                            // Altura
+    xEndScore = centerPosition(wEndScore, larguraJanela); // Posição X do Canto Inferior Esquerdo
+    yEndScore = yMosquitoGameOver + hMosquitoGameOver * 1.2;                  // Posição Y do Canto Inferior Esquerdo
 
     // --------------------------------------------------------------- //
 }

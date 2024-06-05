@@ -322,10 +322,16 @@ void telaFim()
     // Desenha o mosquito
     drawFrame(MOSQUITO_GAME_OVER, currentMosquitoGameOverFrame, 3, 10, xMosquitoGameOver, yMosquitoGameOver, wMosquitoGameOver, hMosquitoGameOver);
 
+    // Desenha o plano de fundo da pontuação final
+    draw(SCORE, xEndScore, yEndScore, wEndScore, hEndScore);
+
     glDisable(GL_TEXTURE_2D);
 
+    // Escreve a pontuação
+    glColor3f(0.0f, 0.0f, 0.0f);
+    escreveTextoBitmap(xEndScore + wEndScore / 2, yEndScore + hEndScore / 2, GLUT_BITMAP_TIMES_ROMAN_24, "1000");
+
     // Desenha o texto centralizado
-    glColor3f(1.0f, 1.0f, 1.0f);
     escreveTextoBitmap(larguraJanela / 2, alturaJanela * 0.9f, GLUT_BITMAP_HELVETICA_18, "FIM DE JOGO");
 
     // Desenha o texto centralizado
