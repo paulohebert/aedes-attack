@@ -58,8 +58,7 @@ void mouse(int button, int estado, int x, int y)
     if (button == GLUT_LEFT_BUTTON && estado == GLUT_DOWN && (telaAtual == GAME_SCREEN))
     {
         if (isHover(x, yInvertido, xButtonPause, yButtonPause, wButtonPause, hButtonPause)) // Verifica se "pause" foi selecionado
-        {
-            pause = 1;                          // Pausa o jogo
+        {            
             glutSetCursor(GLUT_CURSOR_INHERIT); // Muda para cursor padrão após o click
             changeScreen(GAME_PAUSE_SCREEN);    // Muda para a tela de pause
         }
@@ -123,7 +122,7 @@ void passiveMouse(int x, int y)
         glutSetCursor(GLUT_CURSOR_DESTROY);
     }
     // Verifica se o mouse está sobre o botão "pause"
-    else if (isHover(x, y, xButtonPause, yButtonPause, wButtonPause, hButtonPause) && !pause && (telaAtual == GAME_SCREEN))
+    else if (isHover(x, y, xButtonPause, yButtonPause, wButtonPause, hButtonPause) && (telaAtual == GAME_SCREEN))
     {
         // Muda o cursor para quando estiver sobre o botão "pause"
         glutSetCursor(GLUT_CURSOR_INFO);

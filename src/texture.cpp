@@ -55,7 +55,7 @@ void initTextures()
     textures = (GLuint *)malloc(sizeof(GLuint) * NUM_TEXTURES);
     if (!textures)
     {
-        fprintf(stderr, "Erro ao inicializar as texturas %s\n");
+        fprintf(stderr, "Erro ao inicializar as texturas\n");
         exit(1);
     }
     glGenTextures(NUM_TEXTURES, textures);
