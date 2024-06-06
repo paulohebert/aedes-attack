@@ -13,10 +13,10 @@
 int larguraJanela, alturaJanela;
 
 int comprimentoTexto;
+int nivelAtual;
 
 // Variáveis globais para controlar a tela
 int telaAtual = 0; // 0 para tela inicial, 1 para segunda tela
-int telaOver;      // Variável que será responsável pela tela de "game over"
 
 // Variável que vai ficar verificando o tempo para contabilizar nos pontos
 int ultimoTempoAtualizado;
@@ -130,6 +130,9 @@ void telaInicial()
 {
     telaAtual = HOME_SCREEN;
 
+    // Define o nível 1 como primeiro nível
+    nivelAtual = 1;
+
     // Resetar o tempo quando a tela inicial for renderizada
     tempoRestante = 60.0;
 
@@ -171,7 +174,6 @@ void telaInicial()
 void telaJogo()
 {
     telaAtual = GAME_SCREEN;
-    pause = 0;
 
     // Limpa o buffer de cor e profundidade
     glClear(GL_COLOR_BUFFER_BIT);
@@ -279,7 +281,6 @@ void telaJogo()
 void telaPause()
 {
     telaAtual = GAME_PAUSE_SCREEN;
-    pause = 1;
     glClear(GL_COLOR_BUFFER_BIT);
 
     // Matriz de modelagem
@@ -316,8 +317,7 @@ void telaPause()
 void telaFim()
 {
     telaAtual = END_GAME_SCREEN;
-    telaOver = 1;
-    pause = 0;
+    
     glClearColor(0.8f, 0.2f, 0.2f, 0.2f);
     glClear(GL_COLOR_BUFFER_BIT);
 

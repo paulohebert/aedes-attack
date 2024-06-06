@@ -6,7 +6,6 @@
 #include <position.h>
 #include <audio.h>
 
-int pause = 0;
 GLfloat translateX = 0, translateY = 0; // Define as variáveis responsáveis pela movimentação do personagem
 
 bool flip = false;
@@ -55,10 +54,6 @@ void teclado(unsigned char tecla, int x, int y)
     case '-':
     case '_':
         downVolume();
-        break;
-
-    case 32: // Tecla espaço
-
         break;
 
     case 27: // Tecla ESC
