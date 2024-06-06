@@ -1,7 +1,7 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 
-extern int larguraJanela, alturaJanela, telaAtual, ultimoTempoAtualizado;
+extern int larguraJanela, alturaJanela, telaAtual, ultimoTempoAtualizado, nivelAtual;
 extern const GLuint *textureID;
 extern float largura, altura, retXinic, retYinic, retXcont, retYcont, retXexit, retYexit;
 

@@ -5,7 +5,7 @@
 #include <keyboard.h>
 #include <physics.h>
 
-int tempoRestante;
+int tempoRestante, t = 5;
 
 // Função para desenhar texto na tela
 void escreveTextoBitmap(float x, float y, void *fonte, const char *string)
@@ -22,7 +22,7 @@ void atualizaTempo(int value)
 {
     if (telaAtual == GAME_SCREEN && tempoRestante > 0)
     {
-        if(tempoRestante % 5 == 0){
+        if(tempoRestante % t == 0){
             adicionaMosquito();
         }
         tempoRestante--;

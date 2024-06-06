@@ -39,6 +39,9 @@ extern int lives;
 // Variável que vai contabilizar pontos após sobreviver 10s ou eliminar um mosquito
 extern int score;
 
+// Variável que vai controlar a velocidade dos mosquitos por nível
+extern int v;
+
 // Verifica se o jogador acabou de perder uma vida
 extern bool dead;
 

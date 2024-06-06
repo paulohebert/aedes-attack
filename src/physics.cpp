@@ -29,6 +29,9 @@ int lives;
 // Variável que vai contabilizar pontos após sobreviver 10s ou eliminar um mosquito
 int score = 0;
 
+// Variável que vai controlar a velocidade do mosquito por nível
+int v = 1;
+
 // Verifica se o jogador acabou de perder uma vida
 bool dead = false;
 
@@ -52,7 +55,7 @@ struct Mosquito
 {
     GLfloat x, y;
     GLfloat largura = wMosquito, altura = hMosquito;
-    GLfloat velocity = 1;
+    GLfloat velocity = v;
 };
 std::vector<Mosquito> mosquitos;
 
@@ -319,7 +322,7 @@ void moveMosquitos()
 
         // Calcula a distância
         GLfloat distance = sqrt(deltaX * deltaX + deltaY * deltaY);
-
+        
         // Normaliza os vetores de movimento, evita divisão por zero
         if (distance != 0)
         {

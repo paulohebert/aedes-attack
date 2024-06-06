@@ -16,7 +16,7 @@ int comprimentoTexto;
 int nivelAtual;
 
 // Variáveis globais para controlar a tela
-int telaAtual = 0; // 0 para tela inicial, 1 para segunda tela
+int telaAtual; // Define a variável que controla a tela atual
 
 // Variável que vai ficar verificando o tempo para contabilizar nos pontos
 int ultimoTempoAtualizado;
@@ -126,6 +126,11 @@ void loadingScreen()
     glutSwapBuffers();
 }
 
+void nextLevel ()
+{
+    tempoRestante = 60;
+}
+
 void telaInicial()
 {
     telaAtual = HOME_SCREEN;
@@ -174,7 +179,16 @@ void telaInicial()
 void telaJogo()
 {
     telaAtual = GAME_SCREEN;
-
+    
+    if (!tempoRestante)
+    {
+        nivelAtual++;
+        v+=2;
+        if (t)
+            t--;
+        nextLevel();
+    }
+    
     // Limpa o buffer de cor e profundidade
     glClear(GL_COLOR_BUFFER_BIT);
 
