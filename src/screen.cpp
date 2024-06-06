@@ -47,6 +47,9 @@ void resetGame()
 
     // Reseta os pontos ao reiniciar o jogo
     score = 0;
+
+    // Reseta a cura
+    cura = 1;
 }
 
 // Muda a tela atual e faz que só as animações presente na tela executem
@@ -103,6 +106,10 @@ void changeScreen(int screenId)
         // Muda para a tela de fim de jogo
         glutDisplayFunc(telaFim);
 
+        // Reseta a velocidade e o tempo de respawn dos mosquitos para o inicial
+        t=5;
+        v=1;
+
         // Começa a animação das texturas da tela de fim de jogo
         glutTimerFunc(50, animateEndGameScreenTextures, 0);
 
@@ -129,6 +136,7 @@ void loadingScreen()
 void nextLevel ()
 {
     tempoRestante = 60;
+    cura = 1;
 }
 
 void telaInicial()

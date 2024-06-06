@@ -5,7 +5,7 @@
 #include <keyboard.h>
 #include <physics.h>
 
-int tempoRestante, t = 5;
+int tempoRestante, t = 5, cura = 1;
 
 // Função para desenhar texto na tela
 void escreveTextoBitmap(float x, float y, void *fonte, const char *string)
@@ -38,6 +38,16 @@ void atualizaMovimento(int)
         moveObjetos();
         glutPostRedisplay();
         glutTimerFunc(10, atualizaMovimento, 0);
+    }
+}
+
+// Função para curar o player
+void curaPlayer ()
+{
+    if (cura && lives < 5)
+    {
+        cura--;
+        lives++;
     }
 }
 

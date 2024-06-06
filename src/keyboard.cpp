@@ -39,11 +39,12 @@ void teclado(unsigned char tecla, int x, int y)
         break;
     case 'x':
     case 'X':
-        //changeScreen(END_GAME_SCREEN);
+
 
         break;
     case 'c':
     case 'C':
+        curaPlayer();
 
         break;
 
