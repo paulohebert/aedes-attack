@@ -278,7 +278,6 @@ void telaJogo()
 
     // Desenha o Mosquito
     desenhaMosquito();
-    // drawTexture(MOSQUITO_ENEMY, 0.0f, 0.0f, 0.5f, 0.5f, xMosquito, yMosquito, wMosquito, hMosquito);
 
     // Desenha o plano de fundo da pontuação
     draw(SCORE, xScore, yScore, wScore, hScore);
