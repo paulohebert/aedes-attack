@@ -280,7 +280,7 @@ void disparar()
 void desenhaMosquito()
 {
     for (const auto &mosquito : mosquitos)
-    {
+    {        
         drawTexture(MOSQUITO_ENEMY, 0.0f, 0.0f, 0.5f, 0.5f, mosquito.x, mosquito.y, mosquito.largura, mosquito.altura);
     }
 }
@@ -300,14 +300,13 @@ void adicionaMosquito()
             break;
         case 1: // Esquerda
             novoMosquito.x = -100;
-            novoMosquito.y = rand() % alturaJanela;
+            novoMosquito.y = rand() % alturaJanela;            
             break;
         case 2: // Direita
             novoMosquito.x = larguraJanela + 100;
-            novoMosquito.y = rand() % alturaJanela;
+            novoMosquito.y = rand() % alturaJanela;            
             break;
         }
-
         mosquitos.push_back(novoMosquito);
     }
 }

@@ -111,7 +111,7 @@ void drawFrame(int textureID, int currentFrame, int totalRow, int totalCol, GLfl
 
 // Função que Desenha uma imagem que tem o controle do recorte sobre a textura
 void drawTexture(int textureID, GLfloat xTexture, GLfloat yTexture, GLfloat wTexture, GLfloat hTexture, GLfloat x, GLfloat y, GLfloat width, GLfloat height)
-{
+{    
     glBindTexture(GL_TEXTURE_2D, textures[textureID]); // Aplica a textura
     glBegin(GL_QUADS);
     glTexCoord2f(xTexture, yTexture + hTexture);
