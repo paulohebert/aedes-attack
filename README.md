@@ -6,7 +6,7 @@
 
 <!-- Jogo desenvolvido na disciplina de Computação Gráfica -->
 
-:construction:  Projeto em construção  :construction:
+:construction: Projeto em construção :construction:
 
 ![C++](https://img.shields.io/badge/C++-%23000?style=for-the-badge&logo=cplusplusbuilder)
 ![OpenGL](https://img.shields.io/badge/OpenGL-%23000?style=for-the-badge&logo=opengl)
@@ -15,17 +15,25 @@
 
 ## :sparkles: Objetivo
 
-O objetivo do jogo é sobreviver aos mosquitos
+O objetivo do jogo é sobreviver aos mosquitos durante o tempo estipulado por nível
 
 ## :video_game: Controles
 
-[ `W` ] = Salta na plataforma
+[ `UP` ] = Salta na plataforma
 
-[ `A` ] = Move para esquerda
+[ `LEFT` ] = Move para esquerda
 
-[ `D` ] = Move para direita
+[ `RIGHT` ] = Move para direita
 
-[ `S` ] = Desce da plataforma
+[ `Z` ] = Dispara com a arma
+
+[ `ENTER` ] = Pausa o jogo
+
+[ `ESC` ] = Finaliza a renderização do OpenGL
+
+[ `-` ] = Diminui o volume do som
+
+[ `+` ] = Aumenta o volume do som
 
 ## :hammer_and_wrench: Pré Requisitos
 
@@ -57,5 +65,5 @@ xmake run
 
 ## :technologist: Autores
 
-| [<img loading="lazy" src="https://avatars.githubusercontent.com/u/142631931?v=4" width=115><br><sub>Éricles Barros</sub>](https://github.com/PsyDark00) |  [<img loading="lazy" src="https://avatars.githubusercontent.com/u/140926493?v=4" width=115><br><sub>Nivaldo Guedes</sub>](https://github.com/nivaldoguedes) |  [<img loading="lazy" src="https://avatars.githubusercontent.com/u/133797775?v=4" width=115><br><sub>Paulo Hebert</sub>](https://github.com/paulohebert) |
-| :---: | :---: | :---: |
+| [<img loading="lazy" src="https://avatars.githubusercontent.com/u/142631931?v=4" width=115><br><sub>Éricles Barros</sub>](https://github.com/PsyDark00) | [<img loading="lazy" src="https://avatars.githubusercontent.com/u/140926493?v=4" width=115><br><sub>Nivaldo Guedes</sub>](https://github.com/nivaldoguedes) | [<img loading="lazy" src="https://avatars.githubusercontent.com/u/133797775?v=4" width=115><br><sub>Paulo Hebert</sub>](https://github.com/paulohebert) |
+| :-----------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------: |
