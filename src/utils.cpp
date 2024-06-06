@@ -5,7 +5,7 @@
 #include <keyboard.h>
 #include <physics.h>
 
-int tempoRestante = 90;
+int tempoRestante;
 
 // Função para desenhar texto na tela
 void escreveTextoBitmap(float x, float y, void *fonte, const char *string)
