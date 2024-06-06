@@ -79,12 +79,14 @@ void initTextures()
     loadTexture(textures[BUTTON_RESTART], "../assets/refresh-green.png");
     loadTexture(textures[BUTTON_EXIT], "../assets/exit-gray.png");
     loadTexture(textures[BUTTON_ABOUT], "../assets/btn-about.png");
+    loadTexture(textures[BUTTON_X], "../assets/btn-x.png");
     loadTexture(textures[HEART], "../assets/vida.png");
     loadTexture(textures[BANNER_COMBAT_INFO], "../assets/combat-information.png");
     loadTexture(textures[MOSQUITO_GAME_OVER], "../assets/mosquito-gameover.png");
     loadTexture(textures[DISPARO_FRAME], "../assets/particula_disparo_reduce.png");
     loadTexture(textures[SCORE], "../assets/score.png");
     loadTexture(textures[SHOTGUN], "../assets/shotgun.png");
+    loadTexture(textures[ABOUT], "../assets/about.png");
 }
 
 /* Libera as texturas da memória */

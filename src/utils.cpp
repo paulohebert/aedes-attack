@@ -22,7 +22,8 @@ void atualizaTempo(int value)
 {
     if (telaAtual == GAME_SCREEN && tempoRestante > 0)
     {
-        if(tempoRestante % 5 == 0){
+        if (tempoRestante % 5 == 0)
+        {
             adicionaMosquito();
         }
         tempoRestante--;
@@ -45,7 +46,7 @@ void atualizaMovimento(int)
 void animateHomeScreenTextures(int)
 {
     /* Evita que a animação continue quando trocar de tela */
-    if (telaAtual == HOME_SCREEN)
+    if (telaAtual == HOME_SCREEN || telaAtual == ABOUT_SCREEN)
     {
         // Altera para o próximo frame do plano de fundo da tela inicial
         currentBackgroundMenuFrame = (currentBackgroundMenuFrame + 1) % BACKGROUND_MENU_TOTAL_FRAMES;
@@ -65,7 +66,8 @@ void animateGameScreenTextures(int)
         currentBackgroundMainFrame = (currentBackgroundMainFrame + 1) % BACKGROUND_MAIN_TOTAL_FRAMES;
 
         // Altera para o próximo frame do personagem do jogador
-        if(!dead) currentPlayerFrame = (currentPlayerFrame + 1) % PLAYER_TOTAL_FRAMES;
+        if (!dead)
+            currentPlayerFrame = (currentPlayerFrame + 1) % PLAYER_TOTAL_FRAMES;
 
         // Adiciona um delay na animação do banner para não ficar passando muito rápido
         static int delay = 4;

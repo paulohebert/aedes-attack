@@ -33,6 +33,9 @@ void resetGame()
     // Reset a variável que inverte o lado do jogador está virado
     flip = false;
 
+    // Resetar o tempo do jogo
+    tempoRestante = 60.0;
+
     // Remove todos os mosquitos
     mosquitos.clear();
 
@@ -111,6 +114,7 @@ void loadingScreen()
 {
     glClear(GL_COLOR_BUFFER_BIT);
 
+    // Escreve o texto na tela
     glColor3f(0.0f, 0.0f, 0.0f);
     escreveTextoBitmap(larguraJanela / 2, alturaJanela / 2, GLUT_BITMAP_HELVETICA_18, "Carregando...");
 
@@ -119,11 +123,6 @@ void loadingScreen()
 
 void telaInicial()
 {
-    telaAtual = HOME_SCREEN;
-
-    // Resetar o tempo quando a tela inicial for renderizada
-    tempoRestante = 60.0;
-
     // Limpa o buffer de cor e profundidade
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -152,6 +151,13 @@ void telaInicial()
     // Desenha o botão de Sobre
     draw(BUTTON_ABOUT, xButtonAbout, yButtonAbout, wButtonAbout, hButtonAbout);
 
+    // Desenha o modal de sobre
+    if (telaAtual == ABOUT_SCREEN)
+    {
+        draw(ABOUT, xAbout, yAbout, wAbout, hAbout);
+        draw(BUTTON_X, xButtonCloseAbout, yButtonCloseAbout, wButtonCloseAbout, hButtonCloseAbout);
+    }
+
     // Desativa a aplicação de texturas
     glDisable(GL_TEXTURE_2D);
 
@@ -161,7 +167,6 @@ void telaInicial()
 
 void telaJogo()
 {
-    telaAtual = GAME_SCREEN;
     pause = 0;
 
     // Limpa o buffer de cor e profundidade
@@ -260,7 +265,6 @@ void telaJogo()
 
 void telaPause()
 {
-    telaAtual = GAME_PAUSE_SCREEN;
     pause = 1;
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -297,7 +301,6 @@ void telaPause()
 
 void telaFim()
 {
-    telaAtual = END_GAME_SCREEN;
     telaOver = 1;
     pause = 0;
     glClearColor(0.8f, 0.2f, 0.2f, 0.2f);

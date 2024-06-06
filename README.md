@@ -19,13 +19,20 @@ O objetivo do jogo é sobreviver aos mosquitos
 
 ## :video_game: Controles
 
-[ `W` ] = Salta na plataforma
+[ :arrow_up: ] = Pular
 
-[ `A` ] = Move para esquerda
+[ :arrow_left:  :arrow_right: ] = Move para esquerda e para direita
 
-[ `D` ] = Move para direita
+[ `Z` ] = Atirar
 
-[ `S` ] = Desce da plataforma
+[ `ENTER` ] = Pausar o Jogo
+
+[ `ESC` ] = Sair do Jogo
+
+[ `+` ] = Aumentar o volume do Jogo
+
+[ `-` ] = Diminuir o volume do Jogo
+
 
 ## :hammer_and_wrench: Pré Requisitos
 

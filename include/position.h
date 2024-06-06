@@ -22,6 +22,15 @@ extern GLfloat xButtonStart, yButtonStart, wButtonStart, hButtonStart;
 extern GLfloat xButtonAbout, yButtonAbout, wButtonAbout, hButtonAbout;
 
 // --------------------------------------------------------------- //
+// Tela de Sobre
+
+// Posição do Banner de Sobre
+extern GLfloat xAbout, yAbout, wAbout, hAbout;
+
+// Posição do Botão de Fechar o banner de Sobre
+extern GLfloat xButtonCloseAbout, yButtonCloseAbout, wButtonCloseAbout, hButtonCloseAbout;
+
+// --------------------------------------------------------------- //
 // Tela do Jogo
 
 // Posição do Botão de Pause do Jogo

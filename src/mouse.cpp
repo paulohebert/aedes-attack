@@ -4,6 +4,7 @@
 #include <position.h>
 #include <utils.h>
 #include <audio.h>
+#include <texture.h>
 
 int isHover(GLfloat xMouse, GLfloat yMouse, GLfloat xObj, GLfloat yObj, GLfloat wObj, GLfloat hObj)
 {
@@ -64,6 +65,30 @@ void mouse(int button, int estado, int x, int y)
         }
     }
 
+    // Verifica se o botão "sobre" foi clicado
+    if (button == GLUT_LEFT_BUTTON && estado == GLUT_DOWN && (telaAtual == HOME_SCREEN))
+    {
+        if (isHover(x, yInvertido, xButtonAbout, yButtonAbout, wButtonAbout, hButtonAbout))
+        {
+            glutSetCursor(GLUT_CURSOR_INHERIT); // Muda para cursor padrão após o click
+
+            // Mostra o modal de sobre
+            telaAtual = ABOUT_SCREEN;
+        }
+    }
+
+    // Verifica se o botão para fechar o banner de "sobre" foi clicado
+    if (button == GLUT_LEFT_BUTTON && estado == GLUT_DOWN && (telaAtual == ABOUT_SCREEN))
+    {
+        if (isHover(x, yInvertido, xButtonCloseAbout, yButtonCloseAbout, wButtonCloseAbout, hButtonCloseAbout))
+        {
+            glutSetCursor(GLUT_CURSOR_INHERIT); // Muda para cursor padrão após o click
+
+            // Fecha o modal de sobre
+            telaAtual = HOME_SCREEN;
+        }
+    }
+
     glutPostRedisplay();
 }
 
@@ -105,6 +130,12 @@ void passiveMouse(int x, int y)
     }
     // Verifica se o mouse está sobre o botão "sobre"
     else if (isHover(x, y, xButtonAbout, yButtonAbout, wButtonAbout, hButtonAbout) && (telaAtual == HOME_SCREEN))
+    {
+        // Muda o cursor para quando estiver sobre o botão "sobre"
+        glutSetCursor(GLUT_CURSOR_INFO);
+    }
+    // Verifica se o mouse está sobre o botão de fechar o "sobre"
+    else if (isHover(x, y, xButtonCloseAbout, yButtonCloseAbout, wButtonCloseAbout, hButtonCloseAbout) && (telaAtual == ABOUT_SCREEN))
     {
         // Muda o cursor para quando estiver sobre o botão "sobre"
         glutSetCursor(GLUT_CURSOR_INFO);

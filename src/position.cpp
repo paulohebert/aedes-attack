@@ -35,6 +35,21 @@ GLfloat wButtonAbout; // Largura
 GLfloat hButtonAbout; // Altura
 
 // --------------------------------------------------------------- //
+// Tela de Sobre
+
+// Posição do Banner de Sobre
+GLfloat xAbout; // Posição X do Canto Inferior Esquerdo
+GLfloat yAbout; // Posição Y do Canto Inferior Esquerdo
+GLfloat wAbout; // Largura
+GLfloat hAbout; // Altura
+
+// Posição do Botão de Fechar o banner de Sobre
+GLfloat xButtonCloseAbout; // Posição X do Canto Inferior Esquerdo
+GLfloat yButtonCloseAbout; // Posição Y do Canto Inferior Esquerdo
+GLfloat wButtonCloseAbout; // Largura
+GLfloat hButtonCloseAbout; // Altura
+
+// --------------------------------------------------------------- //
 // Tela do Jogo
 
 // Posição do Botão de Pause do Jogo
@@ -204,6 +219,22 @@ void updatePosition()
     yButtonAbout = yButtonStart - hButtonAbout - alturaJanela * 0.02; // Posição Y do Canto Inferior Esquerdo
 
     // --------------------------------------------------------------- //
+    // Tela de Sobre
+
+    // Posição do Banner de Sobre
+    wAbout = larguraJanela / 2; // Largura
+    hAbout = alturaJanela / 2;  // Altura
+    xAbout = larguraJanela / 4; // Posição X do Canto Inferior Esquerdo
+    yAbout = alturaJanela / 4;  // Posição Y do Canto Inferior Esquerdo
+
+    // Posição do Botão de Fechar o banner de Sobre
+
+    wButtonCloseAbout = larguraJanela * 0.02;                      // Largura
+    hButtonCloseAbout = wButtonCloseAbout;                         // Altura
+    xButtonCloseAbout = xAbout + wAbout - wButtonCloseAbout * 1.4; // Posição X do Canto Inferior Esquerdo
+    yButtonCloseAbout = yAbout + hAbout - hButtonCloseAbout * 1.4; // Posição Y do Canto Inferior Esquerdo
+
+    // --------------------------------------------------------------- //
     // Tela do Jogo
 
     // Posição do Botão de Pause do Jogo
@@ -322,10 +353,10 @@ void updatePosition()
     yMosquitoGameOver = alturaJanela * 0.05;                              // Posição Y do Canto Inferior Esquerdo
 
     // Posição da Pontuação Final
-    wEndScore = alturaJanela * 0.3;                       // Largura
-    hEndScore = wEndScore / 3;                            // Altura
-    xEndScore = centerPosition(wEndScore, larguraJanela); // Posição X do Canto Inferior Esquerdo
-    yEndScore = yMosquitoGameOver + hMosquitoGameOver * 1.2;                  // Posição Y do Canto Inferior Esquerdo
+    wEndScore = alturaJanela * 0.3;                          // Largura
+    hEndScore = wEndScore / 3;                               // Altura
+    xEndScore = centerPosition(wEndScore, larguraJanela);    // Posição X do Canto Inferior Esquerdo
+    yEndScore = yMosquitoGameOver + hMosquitoGameOver * 1.2; // Posição Y do Canto Inferior Esquerdo
 
     // --------------------------------------------------------------- //
 }
