@@ -341,18 +341,13 @@ bool isCollision(GLfloat x1, GLfloat y1, GLfloat width1, GLfloat height1, GLfloa
     return (x1 < x2 + width2 && x1 + width1 > x2 && y1 < y2 + height2 && y1 + height1 > y2);
 }
 
-// Função para remover um mosquito quando atingido por um disparo
-void removeMosquito(int index)
-{
-    mosquitos.erase(mosquitos.begin() + index);
-}
-
 // Função para detectar colisões e atualizar o jogo
 void colideMosquitos()
 {
-    for (int i = 0; i < mosquitos.size(); i++)
+    auto mosquitoIt = mosquitos.begin();
+    while(mosquitoIt < mosquitos.end())
     {
-        Mosquito &mosquitoTemp = mosquitos[i];
+        Mosquito &mosquitoTemp = *mosquitoIt;
 
         // Verificar colisão entre o personagem e o mosquito
         if (isCollision(translateX + xPlayer, translateY + yPlayer, wPlayer/2, hPlayer/2,
@@ -360,26 +355,35 @@ void colideMosquitos()
         {
             playSound(FALL);
             updatePlayerLife(); // Atualize a vida do jogador, se necessário
-            removeMosquito(i);
-            i--; // Ajustar índice após remoção
+            mosquitoIt = mosquitos.erase(mosquitoIt);
             continue;
         }
 
         // Verificar colisão entre disparos e o mosquito
-        for (int j = 0; j < disparos.size(); j++)
+        auto disparoIt = disparos.begin();
+        bool morreu = false;
+        while(disparoIt < disparos.end())
         {
-            disparo &disparoTemp = disparos[j];
+            disparo &disparoTemp = *disparoIt;
             if (isCollision(disparoTemp.x, disparoTemp.y, disparoTemp.largura, disparoTemp.altura,
                             mosquitoTemp.x, mosquitoTemp.y, mosquitoTemp.largura, mosquitoTemp.altura))
             {
                 playSound(DESTROY);
-                removeMosquito(i);
+                mosquitoIt = mosquitos.erase(mosquitoIt);
                 score += 10;
-                disparos.erase(disparos.begin() + j);
-                i--; // Ajustar índice após remoção
+                disparos.erase(disparoIt);
+                morreu = true;
                 break;
             }
+            if(disparoTemp.x < 0 || disparoTemp.x > larguraJanela){
+                disparoIt = disparos.erase(disparoIt);
+            }else{
+                disparoIt++;
+            }
+
         }
+        if(!morreu)
+            mosquitoIt++;
     }
 }
 
