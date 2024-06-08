@@ -4,7 +4,7 @@
 #include <GL/glut.h>
 
 /* Quantidade de Texturas */
-#define NUM_TEXTURES 26
+#define NUM_TEXTURES 27
 /* Texturas */
 #define BACKGROUND_MENU 0      /* Índice da Textura da Tela de Início */
 #define BACKGROUND_MAIN 1      /* Índice da Textura da Tela do Jogo */
@@ -32,6 +32,7 @@
 #define SHOTGUN 23             /* Índice da Textura da espingarda */
 #define ABOUT 24               /* Índice da Textura de Sobre */
 #define BUTTON_X 25            /* Índice da Textura do Botão de X */
+#define TIMER 26               /* Índice da Textura do timer*/
 
 /* Frame Atual da Animação a ser exibido na Tela */
 extern int currentBackgroundMenuFrame;

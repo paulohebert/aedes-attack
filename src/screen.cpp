@@ -293,6 +293,9 @@ void telaJogo()
     // Desenha o plano de fundo da pontuação
     draw(SCORE, xScore, yScore, wScore, hScore);
 
+    // Desenha o plano de fundo do timer
+    draw(TIMER, xTimer, yTimer, wTimer, hTimer);
+
     glDisable(GL_TEXTURE_2D);
 
     // Escreve a pontuação
@@ -303,8 +306,8 @@ void telaJogo()
     // Desenha a contagem regressiva
     char buffer[50];
     snprintf(buffer, sizeof(buffer), "Tempo restante: %02d:%02d", tempoRestante / 60, tempoRestante % 60);
-    glColor3f(1.0f, 1.0f, 1.0f);
-    escreveTextoBitmap(larguraJanela / 2, alturaJanela * 0.95, GLUT_BITMAP_HELVETICA_18, buffer);
+    glColor3f(0.0f, 0.0f, 0.0f);
+    escreveTextoBitmap(xTimer + wTimer / 1.7, yTimer + hTimer / 2.1, GLUT_BITMAP_HELVETICA_18, buffer);
 
     glutSwapBuffers();
 }

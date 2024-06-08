@@ -69,6 +69,9 @@ extern GLfloat xHeart, yHeart, wHeart, hHeart, offsetHeart;
 // Posição da Pontuação
 extern GLfloat xScore, yScore, wScore, hScore;
 
+// Posição do Timer
+extern GLfloat xTimer, yTimer, wTimer, hTimer;
+
 // --------------------------------------------------------------- //
 // Tela de Pause
 
