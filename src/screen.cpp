@@ -12,6 +12,9 @@
 // Variáveis globais para armazenar as dimensões da janela
 int larguraJanela, alturaJanela;
 
+// Variável global para armazenar a pontuação do jogador
+char scoreText[20];
+
 int comprimentoTexto;
 int nivelAtual;
 
@@ -290,7 +293,6 @@ void telaJogo()
 
     // Escreve a pontuação
     glColor3f(0.0f, 0.0f, 0.0f);
-    char scoreText[20];
     snprintf(scoreText, sizeof(scoreText), "%d", score);
     escreveTextoBitmap(xScore + wScore / 2, yScore + hScore / 2, GLUT_BITMAP_HELVETICA_18, scoreText);
 
@@ -367,9 +369,10 @@ void telaFim()
 
     glDisable(GL_TEXTURE_2D);
 
-    // Escreve a pontuação
+    // Escreve a pontuação alcançada pelo jogador
     glColor3f(0.0f, 0.0f, 0.0f);
-    escreveTextoBitmap(xEndScore + wEndScore / 2, yEndScore + hEndScore / 2, GLUT_BITMAP_TIMES_ROMAN_24, "1000");
+    snprintf(scoreText, sizeof(scoreText), "%d", score);
+    escreveTextoBitmap(xEndScore + wEndScore / 2, yEndScore + hEndScore / 2, GLUT_BITMAP_TIMES_ROMAN_24, scoreText);
 
     // Desenha o texto centralizado
     escreveTextoBitmap(larguraJanela / 2, alturaJanela * 0.9f, GLUT_BITMAP_HELVETICA_18, "FIM DE JOGO");
