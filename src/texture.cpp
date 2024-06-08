@@ -86,7 +86,7 @@ void initTextures()
     loadTexture(textures[DISPARO_FRAME], "../assets/particula_disparo_reduce.png");
     loadTexture(textures[SCORE], "../assets/score.png");
     loadTexture(textures[SHOTGUN], "../assets/shotgun.png");
-    loadTexture(textures[ABOUT], "../assets/about2.png");
+    loadTexture(textures[ABOUT], "../assets/about.png");
 }
 
 /* Libera as texturas da memória */
