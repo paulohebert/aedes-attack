@@ -48,6 +48,10 @@ void resetGame()
     // Remove todos os tiros
     disparos.clear();
 
+    // Reseta a velocidade e o tempo de respawn dos mosquitos para o inicial
+    t = 5;
+    v = 1;
+
     // Inicializa o tempo
     ultimoTempoAtualizado = glutGet(GLUT_ELAPSED_TIME) / 1000;
 
@@ -99,6 +103,9 @@ void changeScreen(int screenId)
         // Tira o loop do som do jogo ao pausar a partida
         stopSoundLoop(RAIN);
 
+        // Redefine o banner de combate à dengue para o início da animação
+        currentBannerCombatInfoFrame = 0;
+
         // Muda para a tela de pause
         glutDisplayFunc(telaPause);
 
@@ -111,10 +118,6 @@ void changeScreen(int screenId)
 
         // Muda para a tela de fim de jogo
         glutDisplayFunc(telaFim);
-
-        // Reseta a velocidade e o tempo de respawn dos mosquitos para o inicial
-        t=5;
-        v=1;
 
         // Começa a animação das texturas da tela de fim de jogo
         glutTimerFunc(50, animateEndGameScreenTextures, 0);
@@ -140,7 +143,7 @@ void loadingScreen()
     glutSwapBuffers();
 }
 
-void nextLevel ()
+void nextLevel()
 {
     tempoRestante = 60;
     cura = 1;
@@ -191,16 +194,16 @@ void telaInicial()
 }
 
 void telaJogo()
-{    
+{
     if (!tempoRestante)
     {
         nivelAtual++;
-        v+=2;
+        v += 2;
         if (t)
             t--;
         nextLevel();
     }
-    
+
     // Limpa o buffer de cor e profundidade
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -246,7 +249,8 @@ void telaJogo()
 
     // Atualiza o tempo e a pontuação
     int tempoAtual = glutGet(GLUT_ELAPSED_TIME) / 1000; // Obtém o tempo atual em segundos
-    if (tempoRestante && (tempoAtual - ultimoTempoAtualizado >= 10)) {        
+    if (tempoRestante && (tempoAtual - ultimoTempoAtualizado >= 10))
+    {
         ultimoTempoAtualizado = tempoAtual;
         score += 10; // Incrementa 10 pontos a cada 10 segundos de sobrevivência
     }
@@ -339,7 +343,7 @@ void telaPause()
 }
 
 void telaFim()
-{    
+{
     glClearColor(0.8f, 0.2f, 0.2f, 0.2f);
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -369,7 +373,9 @@ void telaFim()
 
     // Escreve a pontuação
     glColor3f(0.0f, 0.0f, 0.0f);
-    escreveTextoBitmap(xEndScore + wEndScore / 2, yEndScore + hEndScore / 2, GLUT_BITMAP_TIMES_ROMAN_24, "1000");
+    char scoreText[20];
+    snprintf(scoreText, sizeof(scoreText), "%d", score);
+    escreveTextoBitmap(xEndScore + wEndScore / 2, yEndScore + hEndScore / 2, GLUT_BITMAP_TIMES_ROMAN_24, scoreText);
 
     // Desenha o texto centralizado
     escreveTextoBitmap(larguraJanela / 2, alturaJanela * 0.9f, GLUT_BITMAP_HELVETICA_18, "FIM DE JOGO");
