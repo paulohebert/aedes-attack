@@ -72,6 +72,9 @@ extern GLfloat xScore, yScore, wScore, hScore;
 // Posição do Timer
 extern GLfloat xTimer, yTimer, wTimer, hTimer;
 
+// Posição do Nível Atual
+extern GLfloat xLevel, yLevel, wLevel, hLevel;
+
 // --------------------------------------------------------------- //
 // Tela de Pause
 

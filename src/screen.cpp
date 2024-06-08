@@ -15,8 +15,9 @@ int larguraJanela, alturaJanela;
 // Variável global para armazenar a pontuação do jogador
 char scoreText[20];
 
-int comprimentoTexto;
 int nivelAtual;
+
+char level[20];
 
 // Variáveis globais para controlar a tela
 int telaAtual; // Define a variável que controla a tela atual
@@ -57,7 +58,7 @@ void resetGame()
 
     // Inicializa o tempo
     ultimoTempoAtualizado = glutGet(GLUT_ELAPSED_TIME) / 1000;
-
+    
     // Reseta os pontos ao reiniciar o jogo
     score = 0;
 
@@ -148,7 +149,7 @@ void loadingScreen()
 
 void nextLevel()
 {
-    tempoRestante = 60;
+    tempoRestante = 60.0;
     cura = 1;
 }
 
@@ -198,11 +199,13 @@ void telaInicial()
 
 void telaJogo()
 {
+    int tempoAtual = glutGet(GLUT_ELAPSED_TIME) / 1000; // Obtém o tempo atual em segundos
+    
     if (!tempoRestante)
     {
         nivelAtual++;
         v += 2;
-        if (t)
+        if (t>=2)
             t--;
         nextLevel();
     }
@@ -251,7 +254,7 @@ void telaJogo()
     draw(PLATFORM, xPlatform5, yPlatform5, wPlatform5, hPlatform5);
 
     // Atualiza o tempo e a pontuação
-    int tempoAtual = glutGet(GLUT_ELAPSED_TIME) / 1000; // Obtém o tempo atual em segundos
+    tempoAtual = glutGet(GLUT_ELAPSED_TIME) / 1000; // Obtém o tempo atual em segundos
     if (tempoRestante && (tempoAtual - ultimoTempoAtualizado >= 10))
     {
         ultimoTempoAtualizado = tempoAtual;
@@ -296,6 +299,9 @@ void telaJogo()
     // Desenha o plano de fundo do timer
     draw(TIMER, xTimer, yTimer, wTimer, hTimer);
 
+    // Desenha o plano de fundo do nível atual
+    draw(LEVEL, xLevel, yLevel, wLevel, hLevel);
+
     glDisable(GL_TEXTURE_2D);
 
     // Escreve a pontuação
@@ -308,6 +314,11 @@ void telaJogo()
     snprintf(buffer, sizeof(buffer), "Tempo restante: %02d:%02d", tempoRestante / 60, tempoRestante % 60);
     glColor3f(0.0f, 0.0f, 0.0f);
     escreveTextoBitmap(xTimer + wTimer / 1.8, yTimer + hTimer / 2.1, GLUT_BITMAP_HELVETICA_18, buffer);
+
+    // Desenha a contagem regressiva
+    glColor3f(0.0f, 0.0f, 0.0f);
+    snprintf(level, sizeof(level), "Nivel atual: %d", nivelAtual);
+    escreveTextoBitmap(xLevel + wLevel / 2, yLevel + hLevel / 2.1, GLUT_BITMAP_HELVETICA_18, level);
 
     glutSwapBuffers();
 }

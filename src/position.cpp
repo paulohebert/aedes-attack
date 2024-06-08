@@ -131,6 +131,12 @@ GLfloat yTimer; // Posição Y do Canto Inferior Esquerdo
 GLfloat wTimer; // Largura
 GLfloat hTimer; // Altura
 
+// Posição do Nível Atual
+GLfloat xLevel; // Posição X do Canto Inferior Esquerdo
+GLfloat yLevel; // Posição Y do Canto Inferior Esquerdo
+GLfloat wLevel; // Largura
+GLfloat hLevel; // Altura
+
 // --------------------------------------------------------------- //
 // Tela de Pause
 
@@ -313,14 +319,20 @@ void updatePosition()
     // Posição da Pontuação
     wScore = larguraJanela * 0.14;             // Largura
     hScore = wScore / 3;                       // Altura
-    xScore = larguraJanela * 0.8 - wScore;     // Posição X do Canto Inferior Esquerdo
+    xScore = larguraJanela * 0.85 - wScore;     // Posição X do Canto Inferior Esquerdo
     yScore = alturaJanela * 0.95 - hScore / 2; // Posição Y do Canto Inferior Esquerdo
 
     // Posição do Timer
     wTimer = larguraJanela * 0.14;             // Largura
     hTimer = wTimer / 3;                       // Altura
-    xTimer = larguraJanela * 0.6 - wTimer;     // Posição X do Canto Inferior Esquerdo
+    xTimer = larguraJanela * 0.7 - wTimer;     // Posição X do Canto Inferior Esquerdo
     yTimer = alturaJanela * 0.95 - hTimer / 2; // Posição Y do Canto Inferior Esquerdo
+
+    // Posição do Nível Atual
+    wLevel = larguraJanela * 0.14;             // Largura
+    hLevel = wLevel / 3;                       // Altura
+    xLevel = larguraJanela * 0.55 - wLevel;     // Posição X do Canto Inferior Esquerdo
+    yLevel = alturaJanela * 0.95 - hLevel / 2; // Posição Y do Canto Inferior Esquerdo
 
     // --------------------------------------------------------------- //
     // Tela de Pause
