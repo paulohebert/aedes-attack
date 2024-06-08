@@ -307,7 +307,7 @@ void telaJogo()
     char buffer[50];
     snprintf(buffer, sizeof(buffer), "Tempo restante: %02d:%02d", tempoRestante / 60, tempoRestante % 60);
     glColor3f(0.0f, 0.0f, 0.0f);
-    escreveTextoBitmap(xTimer + wTimer / 1.7, yTimer + hTimer / 2.1, GLUT_BITMAP_HELVETICA_18, buffer);
+    escreveTextoBitmap(xTimer + wTimer / 1.8, yTimer + hTimer / 2.1, GLUT_BITMAP_HELVETICA_18, buffer);
 
     glutSwapBuffers();
 }
