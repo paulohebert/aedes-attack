@@ -1,4 +1,8 @@
-![Logo](https://github.com/paulohebert/aedes-attack/assets/133797775/6ef459b5-7653-44a6-b387-5a52a3bb8178)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/paulohebert/aedes-attack/assets/133797775/6ef459b5-7653-44a6-b387-5a52a3bb8178">
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/paulohebert/aedes-attack/assets/133797775/80783244-38cc-4614-ac04-e68f6ce35a1c">
+  <img loading="lazy" alt="logo" src="https://github.com/paulohebert/aedes-attack/assets/133797775/80783244-38cc-4614-ac04-e68f6ce35a1c">
+</picture>
 
 <div align="center">
 
@@ -67,30 +71,13 @@ xmake
 xmake run
 ```
 
-## :framed_picture: Screenshot
+## :framed_picture: Screenshots
 
-### Tela de Início
-
-![Tela de Iníco](https://github.com/paulohebert/aedes-attack/assets/133797775/870922a4-a781-42d5-86f3-3b98840b2a7c)
-
-### Tela com Informações Sobre o Jogo
-
-![Tela de Sobre](https://github.com/paulohebert/aedes-attack/assets/133797775/7fa93dff-62ab-4a02-9d74-301acf5ff5ab)
-
-### Tela do Jogo
-
-![Jogo](https://github.com/paulohebert/aedes-attack/assets/133797775/32383002-e9b6-42b6-bee6-ce30b18334d5)
-
-### Tela de Pause do Jogo
-
-![Tela de Pause](https://github.com/paulohebert/aedes-attack/assets/133797775/1a71c41a-4c6d-4be9-a93c-2e382456d69a)
-
-### Tela de Game Over
-
-![Tela Fim de Jogo](https://github.com/paulohebert/aedes-attack/assets/133797775/05ab1b3f-13b0-415c-b563-cf8cb57fc111)
-
+| <img loading="lazy" src="https://github.com/paulohebert/aedes-attack/assets/133797775/870922a4-a781-42d5-86f3-3b98840b2a7c" width="100%"><br><sub>Tela de Início</sub> | <img loading="lazy" src="https://github.com/paulohebert/aedes-attack/assets/133797775/6cbb2fe5-3159-40e5-9f3b-f7bbe1579a0d" width="100%"><br><sub>Tela de Sobre</sub> | <img loading="lazy" src="https://github.com/paulohebert/aedes-attack/assets/133797775/231cfad3-8263-4aa3-b22f-cd96c49aa108" width="100%"><br><sub>Tela do Jogo</sub> |
+|:---:|:---:|:---:|
+| <img loading="lazy" src="https://github.com/paulohebert/aedes-attack/assets/133797775/1a71c41a-4c6d-4be9-a93c-2e382456d69a" width="100%"><br><sub>Tela de Pause</sub> | <img loading="lazy" src="https://github.com/paulohebert/aedes-attack/assets/133797775/05ab1b3f-13b0-415c-b563-cf8cb57fc111" width="100%"><br><sub>Tela de Game Over</sub> | |
 
 ## :technologist: Autores
 
 | [<img loading="lazy" src="https://avatars.githubusercontent.com/u/142631931?v=4" width=115><br><sub>Éricles Barros</sub>](https://github.com/EriclesBSa) | [<img loading="lazy" src="https://avatars.githubusercontent.com/u/140926493?v=4" width=115><br><sub>Nivaldo Guedes</sub>](https://github.com/nivaldoguedes) | [<img loading="lazy" src="https://avatars.githubusercontent.com/u/133797775?v=4" width=115><br><sub>Paulo Hebert</sub>](https://github.com/paulohebert) |
-| :-----------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------: |
+| :---: | :---: | :---: |
